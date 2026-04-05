@@ -30,6 +30,22 @@ Bundled: **`security-review.mdc`** (see `security-review/security-review.md`). A
 - **Scripts:** `.cursor/hooks/` is for small shell/PowerShell helpers you reference from `hooks.json` (paths depend on Cursor version—check docs).
 - Feature is **beta**; validate after Cursor updates.
 
+## Global Cursor profile vs this kit (parity)
+
+Cursor merges **user-global** config under `%USERPROFILE%\.cursor\` with **project** `.cursor\` in the opened repo. They are not required to be identical.
+
+| Item | Typical global (`%USERPROFILE%\.cursor\`) | In **cursor-kit** (this repo) |
+|------|-------------------------------------------|-------------------------------|
+| **`hooks.json`** | Often **many** lifecycle entries + `hooks\*.ps1` (e.g. deploy guards, subagent allow, noop)—your profile had **~23 hook commands** across events. | **Empty** `hooks: {}` starter + `hooks/README.txt` only. **Not a copy** of your global hooks. |
+| **Commands** | May be absent or in UI-only | **1** file: `cmd-review-project-security` |
+| **Skills** | Often **many** (e.g. architect, testing, hook-manager, orchestrator, …) | **3**: frontend-developer, backend-developer, security-reviewer |
+| **Agents / “sub-agents”** | Often **many** stubs matching those skills | **3** + **Security reviewer** in `AGENTS.md` |
+| **Rules** | User Rules in Settings + optional global files | **1** bundled: `security-review.mdc` |
+
+**If you want cursor-kit to mirror your global hooks:** copy your `%USERPROFILE%\.cursor\hooks.json` and the **`hooks\` scripts it references** into this repo’s `.cursor\` (same relative paths like `./hooks/...`), then commit. Until then, **global hooks still run** when you use Cursor; this repo’s empty `hooks.json` only adds project-level hooks if you fill it in.
+
+**If you want parity for skills/agents:** copy chosen trees from `%USERPROFILE%\.cursor\skills\<name>\` and `agents\<name>.md` into cursor-kit (and extend `AGENTS.md`), or keep them global-only to avoid duplicating 15+ roles in git.
+
 ## Push to GitHub
 
 ```powershell

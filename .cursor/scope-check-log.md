@@ -43,3 +43,4 @@
 - 2026-04-05 | considered: Security, documentation | used: Main | reason: command must write `security-review/improvements-pending.md` checkbox backlog each run
 - 2026-04-05 | considered: Security | used: Main | reason: credentials/git/AI exposure section in skill + rule; `cursorignore.example`; limits doc in security-review.md
 - 2026-04-05 | considered: hook-manager | used: Main | reason: add `.cursor/hooks.json` (empty) + `hooks/README.txt`; README section on Cursor hooks
+- 2026-04-05 | considered: hook-manager, subagents-manager | used: Main only | reason: parity table — user global hooks (~23 cmds) vs cursor-kit; skills/agents gap documented in README
