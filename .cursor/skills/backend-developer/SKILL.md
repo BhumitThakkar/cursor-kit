@@ -1,77 +1,37 @@
 ---
 name: backend-developer
-description: >-
-  Handles Java and Spring Boot tasks for the IDScanner app.
-  Use when editing controllers, services, models, repositories,
-  properties files, or external integrations (Google Sheets, Word, Excel).
+description: Spring Boot REST, JPA, DTOs, MapStruct, validation, Security, Liquibase, async, caching, messaging, logging. Use for backend implementation.
 ---
 
 # Backend Developer Skill
 
-## Project layout
+## When to Use
 
-| Concern | Path |
-|---------|------|
-| Controllers | `src/main/java/org/sjm/idscanner/controller/` |
-| Services | `src/main/java/org/sjm/idscanner/service/` |
-| Models | `src/main/java/org/sjm/idscanner/model/` |
-| Repositories | `src/main/java/org/sjm/idscanner/dao/` |
-| Helpers | `src/main/java/org/sjm/idscanner/helper/` |
-| App config | `src/main/resources/application.properties` |
-| Custom config | `src/main/resources/custom.properties` |
-| Logging config | `src/main/resources/log4j2.yaml` |
+- User asks for "backend", "REST", "Spring", "JPA", "API implementation", or "service layer".
+- Adding or changing endpoints, services, or persistence.
 
-## When to use
+## Instructions
 
-- Adding or modifying REST endpoints (`@PostMapping`, `@GetMapping`, etc.)
-- Business logic in service classes
-- JPA entity or repository changes
-- Property/configuration changes (`application.properties`, `custom.properties`)
-- External writer integrations (Google Sheets, Word, Excel)
-- Docker/deployment adjustments (`Dockerfile`, `docker-compose.yml`)
+1. **Layers**
+   - Controller → DTO in/out; service → @Transactional; repository → JPA.
+   - MapStruct for entity ↔ DTO; no entity in controller response.
 
-## Conventions
+2. **Security & validation**
+   - @Valid on request DTOs; Bean Validation; @ControllerAdvice for exceptions.
+   - Spring Security: JWT or OAuth2; rate limit per endpoint; CORS allowlist.
 
-### Controllers
-- Annotate with `@RestController` + `@RequestMapping("/api")`.
-- Inject dependencies via constructor (`@Autowired` on constructor).
-- Log entry with `logger.info("----NEW CALL methodName()")` at the start of each endpoint.
-- Return JSON strings via `HelperFunctions.convertObjectToJson(...)`.
+3. **Data access**
+   - JPA/PreparedStatement only; avoid N+1 (fetch join/batch); set connection pool size.
+   - Liquibase for schema changes; Paths.get for file paths (spaces-safe).
 
-### Services
-- Plain classes (no `@Service` annotation in current codebase); instantiated directly in controllers.
-- Keep parsing/scanning logic in `IDScannerService` (static methods).
-- Keep writer logic in dedicated classes (`GoogleSheetWriter`, `WordWriter`, `ExcelWriter`).
-- Use `Map<String, String>` as the standard data-transfer structure between controller and services.
+4. **Cross-cutting**
+   - SLF4J + MDC (correlation ID); actuator health/readiness; API under /api/v1/.
 
-### Models & Repositories
-- JPA entities in `model/` with standard annotations (`@Entity`, `@Id`, `@GeneratedValue`).
-- Spring Data repositories in `dao/` extending `JpaRepository`.
+5. **Async/messaging/cache**
+   - Bounded thread pools; Redis/Caffeine with TTL; RabbitMQ/Kafka with idempotency.
 
-### Properties
-- Runtime-toggleable features use `custom.properties` (loaded separately).
-- Inject property values with `@Value("${property.name:default}")`.
+## Safety Checklist
 
-### Logging
-- Use Log4j2: `private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());`
-- Use `logger.info(...)` for operational messages; `logger.debug(...)` for verbose tracing.
-- Never use `System.out.println`.
-
-### Error handling
-- Wrap risky operations in `try/catch`; log the exception message and stack trace.
-- Return a user-readable error string from REST endpoints on failure.
-
-### External integrations (Google Sheets)
-- Column order in `GoogleSheetWriter.writeToSheet()` must match the Google Sheet layout exactly.
-- Handle computed columns (e.g. `Timestamp`, `State-Zip Code`) as special cases in the row-building loop.
-- Feature-flag writes via `google.sheets.enabled` property.
-
-## Checklist (run mentally before finishing)
-
-1. New endpoints follow `@RestController` + `@RequestMapping("/api")` pattern.
-2. Logger is declared using `MethodHandles.lookup().lookupClass()`.
-3. No `System.out.println` — use `logger` exclusively.
-4. `try/catch` around I/O, network, and parsing calls with meaningful error messages.
-5. Property values injected via `@Value` with a sensible default.
-6. Data maps passed between layers use `Map<String, String>` consistently.
-7. Google Sheet column order matches the actual sheet layout.
+- [ ] No raw SQL concatenation; rate limiting and CORS set
+- [ ] N+1 avoided; pool and thread limits set
+- [ ] API versioned; Optional/null-safe at boundaries

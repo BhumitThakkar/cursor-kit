@@ -1,54 +1,34 @@
 ---
 name: frontend-developer
-description: >-
-  Handles HTML, CSS, and JavaScript tasks for the IDScanner Spring Boot app.
-  Use when editing Thymeleaf templates, vanilla JS logic, Bootstrap UI,
-  or browser APIs (camera, canvas, fetch).
+description: Thymeleaf, Bootstrap 5, forms, CSRF, i18n, ARIA, semantic HTML. Use for server-rendered UI.
 ---
 
 # Frontend Developer Skill
 
-## Project layout
+## When to Use
 
-| Concern | Path |
-|---------|------|
-| Templates | `src/main/resources/templates/*.html` |
-| JavaScript | `src/main/resources/static/js/*.js` |
-| CSS | `src/main/resources/static/css/*.css` |
-| Images | `src/main/resources/static/img/` |
+- User asks for "Thymeleaf", "frontend", "template", "form", "Bootstrap", or "accessibility".
+- Adding or changing pages, forms, or UI components.
+- **Static HTML/CSS/JS** (e.g. single-page app, game, demo, localhost tool): same standards — semantic HTML, ARIA/accessibility, no unsafe inline content; performance and responsive where applicable.
 
-## When to use
+## Instructions
 
-- Editing or creating `.html`, `.js`, or `.css` files under `src/main/resources/`
-- UI layout, styling, or responsive design changes
-- Client-side logic: DOM manipulation, event handling, form validation
-- Browser API work: `navigator.mediaDevices`, Canvas, Fetch API
-- Bootstrap component usage or customisation
+1. **Thymeleaf**
+   - Layout dialect; th:fragment for reuse; th:each/th:if for dynamic content.
+   - th:object for forms; validation messages from server; i18n via messages.properties.
 
-## Conventions
+2. **Security**
+   - CSRF token on every form; th:text for user content (never th:utext with unsanitized input).
+   - Prefer Bootstrap and WebJars; no inline JS for logic; CSP headers.
 
-### HTML / Thymeleaf
-- Use Thymeleaf `th:` attributes for server-driven content; keep client logic in external `.js` files.
-- Reference JS/CSS via absolute paths from static root (`/js/home.js`, `/css/home.css`).
-- Bootstrap 5.3 is loaded from CDN — prefer Bootstrap utility classes over custom CSS when possible.
+3. **Accessibility & SEO**
+   - ARIA labels where needed; semantic HTML; meta title/description.
 
-### JavaScript
-- Vanilla ES6+ only (no frameworks, no bundler).
-- Keep all JS in `src/main/resources/static/js/` — never inline `<script>` blocks in templates.
-- Use `async/await` for asynchronous code; avoid raw `.then()` chains in new code.
-- Prefer `const`; use `let` only when reassignment is necessary; never use `var`.
-- Communicate with the backend via `fetch('/api/…')` with JSON payloads.
+4. **Performance**
+   - Page load <3s; lazy load below fold; minimize render-blocking.
 
-### CSS
-- Custom styles go in `src/main/resources/static/css/`.
-- Never inline `style` attributes in HTML unless dynamically set by JS.
-- Use Bootstrap grid (`row`/`col-*`) for layout.
+## Safety Checklist
 
-## Checklist (run mentally before finishing)
-
-1. No inline `<script>` or `<style>` blocks added to templates.
-2. New browser APIs are wrapped in `try/catch` with a user-visible error message.
-3. DOM queries use `getElementById` / `querySelector` — no jQuery.
-4. `fetch` calls include error handling (`.catch` or `try/catch`).
-5. UI changes are responsive (test at mobile and desktop widths conceptually).
-6. Existing variable/function naming style is followed (camelCase, descriptive).
+- [ ] CSRF on all forms; th:text for dynamic content
+- [ ] No inline JS for logic; CSP considered
+- [ ] WCAG 2.1 AA and responsive
