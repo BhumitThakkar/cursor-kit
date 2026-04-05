@@ -6,7 +6,7 @@ Run a **full-workspace security pass** using the same bar as `.cursor/skills/sec
 
 1. **Scope** — If the user attached folders/files, limit the review to those; otherwise review the **entire open workspace** (code, config, Docker, CI, dependency manifests).
 2. **Method** — Apply OWASP-style thinking (injection, broken access control, crypto, misconfig, vulnerable components, auth failures, logging, SSRF, etc.) and stack-specific checks (e.g. Spring Security, Thymeleaf/XSS, secrets in `application.properties`, CORS, actuator).
-3. **Secrets** — Flag anything that looks like credentials, API keys, or private keys in repo; recommend env/secret manager rotation.
+3. **Secrets** — Flag anything that looks like credentials, API keys, or private keys in **tracked** files; recommend env / secret manager / gitignored local config; verify `.gitignore` and suggest **`.cursorignore`** for local-only secret paths. In chat and in `improvements-pending.md`, **never** copy the secret value—only location and rotation steps.
 4. **Dependencies** — Note if lockfiles or SBOM are missing; recommend SCA in CI; call out obviously outdated high-risk deps if visible from manifests.
 5. **Chat output** (use this structure):
    - **Summary** — 2–4 sentences on overall posture.

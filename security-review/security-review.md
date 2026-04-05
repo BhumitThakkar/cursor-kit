@@ -10,6 +10,7 @@ Git-tracked entry point for **security-conscious development**. Cursor picks up 
 | Skill (checklists, OWASP-aligned guidance) | `.cursor/skills/security-reviewer/SKILL.md` |
 | Agent stub | `.cursor/agents/security-reviewer.md` |
 | Pending backlog (from `/cmd-review-project-security`) | `security-review/improvements-pending.md` |
+| Example `.cursorignore` (copy to project root) | `security-review/cursorignore.example` |
 
 ## How you trigger it
 
@@ -30,3 +31,9 @@ Copy **`.cursor/commands/`** into your app if you want the same `/` command ther
 ## Not secret storage
 
 Do **not** put API keys, tokens, or production credentials in this repo—only patterns and process.
+
+## Limits (credentials & AI)
+
+- The **rule + skill** tell the AI to **flag** unsafe credential handling and to **avoid repeating** secrets in chat or `improvements-pending.md`.
+- They **do not** stop Git from tracking a file you committed, and they **do not** guarantee the AI will never see a file: anything in the workspace can still enter context unless you use **`.cursorignore`**, gitignored local overrides, and **no secrets in tracked files**.
+- For apps like **IDScanner**, move real passwords out of committed `application.properties` into env or gitignored `application-local.properties`, add secret scanning, and rotate anything that was ever committed.

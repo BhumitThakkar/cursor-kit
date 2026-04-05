@@ -1,0 +1,11 @@
+# Copy to your app repo root as `.cursorignore` (filename starts with a dot).
+# Reduces chance local-only secret files are pulled into AI context.
+# Still required: do not commit real secrets; use gitignore + env.
+
+**/application-local.properties
+**/application-secrets.properties
+.env
+.env.*
+**/secrets/**
+**/*.pem
+**/*service-account*.json

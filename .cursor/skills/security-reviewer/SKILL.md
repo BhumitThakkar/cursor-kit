@@ -58,6 +58,35 @@ description: >-
 - No secrets in source; use env, secret manager, or CI secrets.
 - Rotate on exposure; short-lived credentials where possible.
 
+## Credentials, Git, and AI / editor context (critical)
+
+The security reviewer **does not** magically hide files from Git or from the AI. If a secret is in the workspace and indexed, **models can see it** when those paths are in context. Your job is to **detect**, **recommend migration**, and **never reproduce** secret values in outputs.
+
+### Safe storage (target state)
+
+- **Spring Boot:** `spring.datasource.password=${DB_PASSWORD}` (and similar) with values supplied only via environment, `SPRING_APPLICATION_JSON`, Docker/K8s secrets, or a **gitignored** `application-local.properties` / `application-{profile}.properties` that is never committed.
+- **Never commit:** database passwords, Basic Auth passwords, API keys, JWT signing keys, private keys (`.pem`, `.key`), OAuth client secrets, Google service account JSON.
+- **Templates:** Commit `application.properties.example` or `*.env.example` with **empty or placeholder** values and comments; real files stay local or in a vault.
+
+### Git hygiene
+
+- Extend **`.gitignore`**: `.env`, `.env.*`, `application-local.properties`, `*.pem`, `secrets/`, downloaded credential JSON.
+- **Pre-commit / CI:** `gitleaks`, `trufflehog`, or GitHub **secret scanning** + push protection; fail builds on detected secrets.
+- **History:** If secrets were ever committed, **rotate** credentials and use `git filter-repo` or platform tools to purge history—ignoring the file going forward is not enough.
+
+### Reducing exposure to AI (Cursor and similar)
+
+- **`.cursorignore`** (project root): list paths that must stay out of default indexing/context (e.g. `**/application-local.properties`, `.env`, `**/secrets/**`). This reduces accidental inclusion in chat/composer; it is **not** a substitute for removing secrets from disk or Git.
+- **Do not** paste secrets into chat; if the user pastes one, tell them to **rotate** it.
+- In **`improvements-pending.md`** and code review tables: write *“DB password in `application.properties` (rotate; move to env)”* — **never** the actual password.
+
+### Review checklist (run on every security pass)
+
+- [ ] No plaintext credentials in tracked `*.properties`, `*.yml`, `docker-compose*.yml`, shell scripts, or frontend env.
+- [ ] `.gitignore` (and optionally `.cursorignore`) cover local secret files.
+- [ ] CI or pre-commit secret scanning is present or explicitly recommended.
+- [ ] If defaults exist (e.g. `admin` / dev-only Basic Auth), they are **not** acceptable for production without documented exception.
+
 ## Docker / deploy
 
 - Non-root user in image; read-only root FS where possible; no default passwords.
