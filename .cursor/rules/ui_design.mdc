@@ -1,4 +1,9 @@
-# ui_design.mdc
+---
+description: "Strict Bootstrap 5.3 and controlled custom.css rules for UI work."
+globs:
+  - "**/*.html"
+  - "**/*.css"
+---
 
 ## STRICT BOOTSTRAP-ONLY DEVELOPMENT RULES (with controlled custom.css allowance)
 
