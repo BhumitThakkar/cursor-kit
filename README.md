@@ -11,6 +11,7 @@ Shared Cursor configuration: **agents**, **skills**, optional **rules**, and pla
 | `.cursor/skills/*/` | `SKILL.md` per skill (IDScanner Spring Boot stack) |
 | `.cursor/rules/` | Cursor rules (`*.mdc`); includes **`security-review.mdc`** (always-on security discipline) |
 | `security-review/security-review.md` | Human-readable index for the security review bundle |
+| `security-review/improvements-pending.md` | Checkbox backlog updated by **`/cmd-review-project-security`** |
 | `.cursor/commands/` | Slash commands — e.g. **`cmd-review-project-security`** → type `/` in Chat |
 | `.cursor/mcp/` | MCP notes / examples — **no secrets** (`.gitkeep`) |
 | `.cursor/hooks/` | Hook scripts (`.gitkeep`) |
