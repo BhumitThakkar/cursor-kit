@@ -41,3 +41,4 @@
 - 2026-04-05 | considered: Security, rules-manager | used: Main | reason: git-tracked `security-review/` doc, `security-review.mdc`, `security-reviewer` skill + agent, `AGENTS.md` priority 3
 - 2026-04-05 | considered: Security, commands-manager | used: Main | reason: add `.cursor/commands/cmd-review-project-security.md`; document rule vs `/` command triggers
 - 2026-04-05 | considered: Security, documentation | used: Main | reason: command must write `security-review/improvements-pending.md` checkbox backlog each run
+- 2026-04-05 | considered: Security | used: Main | reason: credentials/git/AI exposure section in skill + rule; `cursorignore.example`; limits doc in security-review.md
