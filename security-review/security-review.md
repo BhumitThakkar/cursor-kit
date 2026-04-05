@@ -10,10 +10,20 @@ Git-tracked entry point for **security-conscious development**. Cursor picks up 
 | Skill (checklists, OWASP-aligned guidance) | `.cursor/skills/security-reviewer/SKILL.md` |
 | Agent stub | `.cursor/agents/security-reviewer.md` |
 
+## How you trigger it
+
+| Trigger | When it runs |
+|---------|----------------|
+| **Rule** (`.cursor/rules/security-review.mdc`, `alwaysApply: true`) | Whenever this folder is the **opened workspace**, Cursor includes the rule in context—no slash command needed for “always think security.” |
+| **Slash command** | In **Chat**, type **`/`** and choose **`cmd-review-project-security`** (from `.cursor/commands/cmd-review-project-security.md`). Use this for an **explicit, full-project** (or selection-scoped) security review with the structured report in that file. |
+| **Natural language** | Ask e.g. “security review this PR” or “check auth on the API”—the **security-reviewer** skill description still helps routing. |
+
+Copy **`.cursor/commands/`** into your app if you want the same `/` command there.
+
 ## Using this in a project
 
-1. Copy or submodule **cursor-kit** into your app, **or** copy only `.cursor/rules/security-review.mdc` and `.cursor/skills/security-reviewer/` (and optionally the agent + `AGENTS.md` rows).
-2. Open the **project** workspace in Cursor so `.cursor/rules` applies to that repo.
+1. Copy or submodule **cursor-kit** into your app, **or** copy `.cursor/rules/`, `.cursor/skills/security-reviewer/`, and **`.cursor/commands/`** (plus optional agent + `AGENTS.md` rows).
+2. Open the **project** workspace in Cursor so `.cursor/rules` and `.cursor/commands` apply to that repo.
 3. Refresh the skill when major standards shift (OWASP Top 10 updates, framework advisories).
 
 ## Not secret storage

@@ -38,3 +38,5 @@
 - 2026-04-05 | considered: rules-manager, devops | used: Main + shell subagent | reason: cursor-kit — move rules to `.cursor/rules`, placeholders to `.cursor/{commands,skills,mcp,hooks}`, remove `Cursor/`; README updated
 - 2026-04-05 | considered: rules-manager, documentation | used: Main only | reason: inventory table — cursor-kit files vs sources vs IDScanner `.cursor` gaps
 - 2026-04-05 | considered: rules-manager, devops | used: Main | reason: cursor-kit — removed four bundled `.mdc` rules; added `AGENTS.md`, `agents/`, `skills/`, `scope-check-log`, `learning-log`; `.cursor/rules` left empty (`.gitkeep`)
+- 2026-04-05 | considered: Security, rules-manager | used: Main | reason: git-tracked `security-review/` doc, `security-review.mdc`, `security-reviewer` skill + agent, `AGENTS.md` priority 3
+- 2026-04-05 | considered: Security, commands-manager | used: Main | reason: add `.cursor/commands/cmd-review-project-security.md`; document rule vs `/` command triggers
