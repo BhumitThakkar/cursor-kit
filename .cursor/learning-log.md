@@ -5,7 +5,7 @@
 - **2026-04-05** | If user has no GitHub repo yet: scaffold `D:\Website\cursor-rules` with `.cursor/rules`, seed from `Cursor Rules\old` if present, `git init` + `main`, add `safe.directory` if Git reports dubious ownership on that drive; document push via empty GitHub repo + `git remote add` / optional `gh repo create`.
 - **2026-04-05** | Prefer one monorepo for Cursor assets under repo-root `.cursor/` (`rules`, `skills`, `commands`, `mcp`, `hooks`) over N repos; local Windows folder name can differ from GitHub repo name.
 - **2026-04-05** | Renaming `D:\Website\cursor-rules` on Windows can fail with "in use" if Cursor/terminals hold the path; document close-then-`Rename-Item` and add new `safe.directory` after rename.
-- **2026-04-05** | `cursor-kit` uses canonical `.cursor/rules` at repo root so clone-and-open picks up rules; avoid parallel `Cursor/cursor-rules` unless mirroring for non-Cursor consumers.
+- **2026-04-05** | `cursor-kit` keeps `.cursor/rules/` for user-added `*.mdc` only (no bundled rules); agents/skills/logs are versioned instead.
 - **2026-04-05** | Cursor loads project rules from the **opened workspace** path `.cursor/rules/*.mdc` (plus legacy `.cursorrules`, `AGENTS.md` per product); a GitHub "rules library" repo must copy/symlink/submodule into each app's `.cursor/rules` unless the library repo root itself uses `.cursor/rules` and is the folder you open.
 - **2026-04-05** | Windows: New-Item directory creation failed with -LiteralPath (not a valid parameter in this host); use -Path instead when scripting moves for cursor-kit.
 - **2026-04-05** | Consider documenting standard .cursor subdirs (commands, skills, mcp, hooks) vs legacy Cursor/cursor-* in project kit docs.
