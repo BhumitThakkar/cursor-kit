@@ -16,9 +16,20 @@ One Git repository for everything you sync or copy from GitHub related to [Curso
 
 Copy (or symlink) the contents of `Cursor/cursor-rules/` into your app’s `.cursor/rules/`, or submodule this repo and point tooling at the subpath.
 
-## Why the folder is still `cursor-rules` on disk
+## Why the Windows folder might still be `cursor-rules`
 
-The **local path** `D:\Website\cursor-rules` was created first as a rules-only scaffold. The **repository content** is now the wider monorepo above. On GitHub you can name the remote anything you prefer, for example `cursor-kit`, `cursor-workspace`, or `cursor-tooling`.
+The directory was created under that name when the repo only held rules. After the monorepo layout change, the **recommended** local name is `cursor-kit` (or `cursor-workspace`) so it matches the broader scope. Renaming was not forced earlier to avoid breaking your open editors, shortcuts, or `git` `safe.directory` entries without you noticing.
+
+### Rename to `cursor-kit` (when nothing has the folder open)
+
+If Windows says the folder is **in use**, close Cursor/VS Code (and any terminals `cd`’d into it), then:
+
+```powershell
+Rename-Item -Path "D:\Website\cursor-rules" -NewName "cursor-kit"
+git config --global --add safe.directory "D:/Website/cursor-kit"
+```
+
+Then use `D:\Website\cursor-kit` in the commands below.
 
 ## Push to GitHub
 
@@ -31,4 +42,4 @@ git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
 git push -u origin main
 ```
 
-Optional: rename the local folder to match (`Rename-Item` to e.g. `cursor-kit`) after adding `remote`; Git does not care about the parent folder name.
+After you rename the folder, replace the `cd` path with `D:\Website\cursor-kit`.
