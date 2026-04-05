@@ -11,6 +11,7 @@ Git-tracked entry point for **security-conscious development**. Cursor picks up 
 | Agent stub | `.cursor/agents/security-reviewer.md` |
 | Pending backlog (from `/cmd-review-project-security`) | `security-review/improvements-pending.md` |
 | Example `.cursorignore` (copy to project root) | `security-review/cursorignore.example` |
+| Cursor lifecycle hooks (beta) | `.cursor/hooks.json` (empty starter); scripts in `.cursor/hooks/` |
 
 ## How you trigger it
 

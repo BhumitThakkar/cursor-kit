@@ -15,13 +15,20 @@ Shared Cursor configuration: **agents**, **skills**, optional **rules**, and pla
 | `security-review/cursorignore.example` | Template to copy as **`.cursorignore`** (keep secrets out of AI context) |
 | `.cursor/commands/` | Slash commands — e.g. **`cmd-review-project-security`** → type `/` in Chat |
 | `.cursor/mcp/` | MCP notes / examples — **no secrets** (`.gitkeep`) |
-| `.cursor/hooks/` | Hook scripts (`.gitkeep`) |
+| **`.cursor/hooks.json`** | **Cursor lifecycle hooks** (beta): starts empty `{}`; see [Hooks docs](https://cursor.com/docs/hooks) |
+| `.cursor/hooks/` | Optional scripts your `hooks.json` commands call; see `hooks/README.txt` |
 | `.cursor/scope-check-log.md` | Traceability log (template / copy from IDScanner) |
 | `.cursor/learning-log.md` | Improvement backlog notes |
 
 ## Rules
 
 Bundled: **`security-review.mdc`** (see `security-review/security-review.md`). Add more `*.mdc` files under `.cursor/rules/` per [Cursor rules docs](https://cursor.com/docs/context/rules). Older personal rule sets (e.g. `cursor_rules`, `ui_design`) can be copied from your own backup if needed.
+
+## Cursor hooks
+
+- **File:** `.cursor/hooks.json` (project-level). The kit ships **`hooks: {}`** so the file exists and you can add entries without hunting the schema.
+- **Scripts:** `.cursor/hooks/` is for small shell/PowerShell helpers you reference from `hooks.json` (paths depend on Cursor version—check docs).
+- Feature is **beta**; validate after Cursor updates.
 
 ## Push to GitHub
 
