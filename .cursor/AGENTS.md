@@ -3,6 +3,7 @@
 ## Priority order
 1. Frontend Developer — UI/JS/CSS tasks
 2. Backend Developer — Java/Spring Boot tasks
+3. Security reviewer — security review, OWASP-oriented hardening, secrets & dependencies
 
 ## Workflow on each prompt
 1. Identify request type (code, UI, API, database, tests, security, deploy, docs, framework management).
@@ -17,3 +18,4 @@ An agent is needed when the request type falls under its Primary use (see Quick 
 |--------------------|------------------------------------|
 | Frontend Developer | HTML, CSS, JS, Thymeleaf, Bootstrap |
 | Backend Developer  | Java, Spring Boot, REST APIs       |
+| Security reviewer  | Security review, OWASP, auth, secrets, supply chain |

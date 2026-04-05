@@ -1,0 +1,15 @@
+---
+description: "Apply security-reviewer discipline—OWASP-oriented review, secrets, dependencies, auth, and safe defaults—for robust projects."
+alwaysApply: true
+---
+
+# Security review rule
+
+For **every** task that touches code, configuration, infrastructure, or data handling:
+
+1. **Read and follow** the skill at `.cursor/skills/security-reviewer/SKILL.md` when assessing security impact (auth, input, data at rest/in transit, dependencies, deployment).
+2. **Surface risks** before shipping: call out missing controls (e.g. CSRF, authz, injection, misconfig, leaked secrets) with severity and fixes.
+3. **Do not** introduce or retain hardcoded secrets, default passwords, or disabled security checks without explicit user acceptance and documentation.
+4. Prefer **small, verifiable** security improvements over vague advice; cite standards (OWASP categories, CWE where helpful) when recommending changes.
+
+Human-readable overview: see `security-review/security-review.md` in this repository.

@@ -9,7 +9,8 @@ Shared Cursor configuration: **agents**, **skills**, optional **rules**, and pla
 | `.cursor/AGENTS.md` | Agent priority and workflow |
 | `.cursor/agents/*.md` | Agent stubs (link to skills) |
 | `.cursor/skills/*/` | `SKILL.md` per skill (IDScanner Spring Boot stack) |
-| `.cursor/rules/` | Add your own `*.mdc` rules here (folder kept via `.gitkeep`; none bundled) |
+| `.cursor/rules/` | Cursor rules (`*.mdc`); includes **`security-review.mdc`** (always-on security discipline) |
+| `security-review/security-review.md` | Human-readable index for the security review bundle |
 | `.cursor/commands/` | Custom commands (`.gitkeep` placeholder) |
 | `.cursor/mcp/` | MCP notes / examples — **no secrets** (`.gitkeep`) |
 | `.cursor/hooks/` | Hook scripts (`.gitkeep`) |
@@ -18,7 +19,7 @@ Shared Cursor configuration: **agents**, **skills**, optional **rules**, and pla
 
 ## Rules
 
-This repo **does not** ship the former `cursor_rules`, `important`, `ui_design`, or `development_standards` `.mdc` files. Add rule files under `.cursor/rules/` per [Cursor rules docs](https://cursor.com/docs/context/rules), or copy them from your own backup (e.g. `D:\Website\Cursor Rules\old\`).
+Bundled: **`security-review.mdc`** (see `security-review/security-review.md`). Add more `*.mdc` files under `.cursor/rules/` per [Cursor rules docs](https://cursor.com/docs/context/rules). Older personal rule sets (e.g. `cursor_rules`, `ui_design`) can be copied from your own backup if needed.
 
 ## Push to GitHub
 
