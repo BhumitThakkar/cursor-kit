@@ -1,29 +1,26 @@
 # cursor-kit
 
-Single Git repository for Cursor-related assets, using the **same layout Cursor expects in a project** so cloning this repo and opening it in Cursor loads rules immediately—no copy-from-`Cursor/` workaround.
+Shared Cursor configuration: **agents**, **skills**, optional **rules**, and placeholders for commands, MCP, and hooks. Sourced from the IDScanner project layout (`AGENTS.md`, `agents/`, `skills/`, logs) unless noted.
 
-## Layout (canonical)
+## Layout
 
-| Path | Use |
-|------|-----|
-| `.cursor/rules/*.mdc` | Project rules ([Cursor docs](https://cursor.com/docs/context/rules)) — YAML frontmatter (`description`, `globs` / `alwaysApply`) |
-| `.cursor/skills/` | Agent skills, e.g. `<name>/SKILL.md` |
-| `.cursor/commands/` | Custom command definitions you version |
-| `.cursor/mcp/` | MCP notes, example configs, env templates (**no secrets**) |
-| `.cursor/hooks/` | Hook scripts, CI safety scripts |
+| Path | Contents |
+|------|----------|
+| `.cursor/AGENTS.md` | Agent priority and workflow |
+| `.cursor/agents/*.md` | Agent stubs (link to skills) |
+| `.cursor/skills/*/` | `SKILL.md` per skill (IDScanner Spring Boot stack) |
+| `.cursor/rules/` | Add your own `*.mdc` rules here (folder kept via `.gitkeep`; none bundled) |
+| `.cursor/commands/` | Custom commands (`.gitkeep` placeholder) |
+| `.cursor/mcp/` | MCP notes / examples — **no secrets** (`.gitkeep`) |
+| `.cursor/hooks/` | Hook scripts (`.gitkeep`) |
+| `.cursor/scope-check-log.md` | Traceability log (template / copy from IDScanner) |
+| `.cursor/learning-log.md` | Improvement backlog notes |
 
-## Using this repo in an application project
+## Rules
 
-**Option A — submodule:** Add this repo under your app (e.g. `.cursor-kit`) and symlink or script-copy `.cursor/rules` into the app root when you update.
-
-**Option B — copy:** Copy `.cursor/rules` (and optionally other `.cursor/*` folders) into your app’s workspace root.
-
-Opening **this** repository folder in Cursor applies rules here directly because `.cursor/rules` is at the repo root.
+This repo **does not** ship the former `cursor_rules`, `important`, `ui_design`, or `development_standards` `.mdc` files. Add rule files under `.cursor/rules/` per [Cursor rules docs](https://cursor.com/docs/context/rules), or copy them from your own backup (e.g. `D:\Website\Cursor Rules\old\`).
 
 ## Push to GitHub
-
-1. Create an empty repository (any name, e.g. `cursor-kit`).
-2. From this directory:
 
 ```powershell
 cd D:\Website\cursor-kit
@@ -31,5 +28,3 @@ git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
 git branch -M main
 git push -u origin main
 ```
-
-If the local folder was ever named `cursor-rules`, rename it to match (`Rename-Item`) and add `git config --global --add safe.directory "D:/Website/cursor-kit"` if Git reports dubious ownership.
