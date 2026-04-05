@@ -1,0 +1,233 @@
+# ui_design.mdc
+
+## STRICT BOOTSTRAP-ONLY DEVELOPMENT RULES (with controlled custom.css allowance)
+
+### 🚫 ABSOLUTE PROHIBITIONS
+1. ❌ No <style> tags in HTML
+2. ❌ No inline style="" attributes
+3. ❌ No external stylesheets except Bootstrap CDN and custom.css
+4. ❌ No CSS variables or custom properties except for allowed theme color override
+
+### ✅ ONLY ALLOWED
+1. Use Bootstrap 5.3 classes exclusively for:
+   - Layout, spacing, typography, borders, shadows, components, utilities
+2. custom.css is allowed ONLY for:
+   - Theme color override → Orange (CSS variable allowed only here)
+   - Hover underline animation that grows outward from center (links, nav links, <a> tags)
+   - Other hover animations (scale, fade, rotate, etc.)
+3. Everything else must remain pure Bootstrap 5.3
+
+### 🎨 Custom CSS Usage Enforcement Rules
+
+#### 1. Pre-validation Required: Before Adding ANY CSS to custom.css
+
+**Check EACH property individually:**
+
+**Theme Color Override Check:**
+- ✅ Is this property ONE of these ONLY: `background-color`, `color`, `border-color`?
+- ✅ Is the value using theme variables: `var(--theme-orange-*)`?
+- ✅ Is this selector targeting Bootstrap classes (e.g., `.btn-danger`, `.bg-danger`)?
+- ❌ If ANY other property is present (opacity, width, height, border-radius, padding, margin, display, position, etc.) → NOT ALLOWED
+- ❌ If mixing theme color with other properties in same selector → NOT ALLOWED
+
+**Example ALLOWED:**
+```css
+.btn-danger { background-color: var(--theme-orange-500) !important; }
+.text-danger { color: var(--theme-orange-600) !important; }
+.border-danger { border-color: var(--theme-orange-500) !important; }
+```
+
+**Example NOT ALLOWED:**
+```css
+.carousel-indicators button {
+    background-color: var(--theme-orange-500) !important; /* ✅ Theme color */
+    opacity: 0.5; /* ❌ NOT a color property */
+    border-radius: 50% !important; /* ❌ NOT a color property */
+    width: 12px !important; /* ❌ NOT a color property */
+}
+```
+
+**Hover Animation Check:**
+- ✅ Is this selector a `:hover` pseudo-class (e.g., `.btn:hover`, `a:hover`)?
+- ✅ Are the properties ONLY: `transform`, `box-shadow`, `opacity`, `color`, `background-color`?
+- ✅ Is this a visual effect (scale, fade, glow, lift) not layout/sizing?
+- ✅ `transition` on base selector is ALLOWED when used for hover animations (required for smooth transitions)
+- ❌ If properties include width, height, padding, margin, border-radius, display, position → NOT ALLOWED
+
+**Example ALLOWED:**
+```css
+.btn { transition: transform 0.2s ease; } /* ✅ Allowed for hover animations */
+.btn:hover { transform: scale(1.05); }
+.card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.logo:hover { opacity: 0.8; }
+```
+
+**Example NOT ALLOWED:**
+```css
+.carousel-item { transition: transform 0.6s ease-in-out; } /* ❌ Not for hover */
+.btn { transition: transform 0.3s; transform: scale(1.1); } /* ❌ Permanent effect */
+.card:hover { width: 100%; } /* ❌ Layout property */
+```
+
+**Final Check:**
+- Is it anything else (layout, sizing, component styling, non-hover transitions)? ❌ NOT ALLOWED
+
+#### 2. Self-Check Mandate
+- Cursor must review custom.css for any disallowed properties or patterns
+- Automatically list violations and flag them for removal
+- Before ANY custom.css addition, run through the pre-validation checklist above
+
+#### 3. Theme Variables
+- Only allowed for primary theme color
+- All other colors must use Bootstrap 5.3 palette
+- CSS variables ONLY for `var(--theme-orange-*)` values
+
+#### 4. Hover Animations
+- Only apply on hover; no permanent transitions or effects on components unless explicitly allowed
+- `transition` on base selector is ALLOWED when used solely for hover animations (CSS requirement for smooth transitions)
+- Example: ✅ `.btn { transition: transform 0.2s ease; }` + `.btn:hover { transform: scale(1.1); }`
+- Example: ❌ `.btn { transition: transform 0.3s; transform: scale(1.1); }` (permanent effect, not hover)
+
+#### 5. Property Whitelist for custom.css
+
+**Theme Color Override - ALLOWED Properties ONLY:**
+- `background-color` (with `var(--theme-orange-*)`)
+- `color` (with `var(--theme-orange-*)`)
+- `border-color` (with `var(--theme-orange-*)`)
+- `!important` modifier (allowed for overrides)
+
+**Hover Animations - ALLOWED Properties ONLY:**
+- `transform` (scale, translate, rotate)
+- `box-shadow` (for glow/lift effects)
+- `opacity` (for fade effects)
+- `color` (for color transitions)
+- `background-color` (for color transitions)
+- `transition` (ALLOWED on base selectors when used for hover animations - required for smooth transitions)
+
+**Icon Color Changes - ALLOWED Properties ONLY:**
+- `filter` (for changing SVG icon colors when Bootstrap utilities cannot achieve the effect)
+- Use case: Bootstrap carousel control icons, Bootstrap icon fonts, or other SVG-based icons that need theme color changes
+- Example: `.carousel-control-prev-icon { filter: ...; }` to change icon color to theme orange
+- Note: Bootstrap does not provide utilities to change SVG icon colors, so `filter` is the standard CSS approach
+
+**Carousel Transitions - ALLOWED Properties ONLY:**
+- `transition` (for carousel fade/slide transitions to enhance user experience)
+- `opacity` (for carousel fade transitions)
+- Use case: Bootstrap carousel fade transitions that need smoother, more elegant timing
+- Example: `.carousel-item { transition: opacity 1.2s cubic-bezier(...); }` for smooth fade effect
+- Note: Bootstrap's default carousel transitions may be too abrupt; custom transitions improve UX
+
+**STRICTLY PROHIBITED Properties (NEVER in custom.css):**
+- Layout: `width`, `height`, `min-width`, `max-width`, `min-height`, `max-height`
+- Spacing: `padding`, `margin`, `gap`
+- Positioning: `position`, `top`, `left`, `right`, `bottom`, `z-index`
+- Display: `display`, `flex`, `grid`, `visibility`
+- Sizing: `border-radius`, `border-width`, `border-style` (except `border-color` for theme)
+- Typography: `font-size`, `font-weight`, `line-height`, `letter-spacing`
+- Effects: `filter`, `backdrop-filter` (unless part of hover animation OR for icon color changes)
+- Permanent effects: `transition` on base selectors that create permanent effects (not for hover animations)
+
+#### 6. Selector Rules
+
+**ALLOWED Selectors:**
+- Bootstrap class overrides: `.btn-danger`, `.bg-danger`, `.text-danger`, etc.
+- Theme utility classes: `.btn-theme`, `.bg-theme`, `.text-theme` (for theme color only)
+- Hover states: `.btn:hover`, `.card:hover`, `a:hover`, etc.
+- Pseudo-elements for animations: `::after`, `::before` (ONLY for hover underline animation)
+
+**NOT ALLOWED Selectors:**
+- Component-specific styling: `.carousel-indicators button`, `.navbar-brand`, etc.
+- Layout selectors: `.container`, `.row`, `.col-*`
+- Custom component classes (unless overriding Bootstrap with theme colors only)
+
+**Critical Rule:** If a selector contains theme color override AND any other property → SPLIT IT
+- ✅ CORRECT: `.btn-danger { background-color: var(--theme-orange-500); }`
+- ✅ CORRECT: `.btn-danger:hover { transform: scale(1.05); }`
+- ❌ WRONG: `.btn-danger { background-color: var(--theme-orange-500); border-radius: 10px; }`
+
+#### 7. Violation Prevention
+- Any addition outside allowed rules must be blocked or removed
+- Ensure consistency: no cascading errors or accidental overwrites of Bootstrap classes
+- If unsure whether something is allowed, default to Bootstrap classes only
+
+### ✅ SUMMARY - Zero Ambiguity Rules
+
+**ALLOWED in custom.css:**
+
+1. **Theme Color Override** (ONLY these 3 properties):
+   - `background-color: var(--theme-orange-*)`
+   - `color: var(--theme-orange-*)`
+   - `border-color: var(--theme-orange-*)`
+   - Must target Bootstrap classes (`.btn-danger`, `.bg-danger`, etc.)
+   - NO other properties in same selector
+
+2. **Hover Animations** (ONLY inside `:hover` selectors):
+   - `transform` (scale, translate, rotate)
+   - `box-shadow` (glow, lift effects)
+   - `opacity` (fade effects)
+   - `color` / `background-color` (color transitions)
+   - `transition` (ALLOWED on base selectors when used for hover animations - required for smooth transitions)
+
+3. **Hover Underline Animation** (special case):
+   - Uses `::after` pseudo-element
+   - Properties: `width`, `height`, `left`, `transform` (ONLY for underline animation)
+   - Must grow from center on hover
+
+4. **Icon Color Changes** (when Bootstrap utilities cannot achieve the effect):
+   - `filter` property (for changing SVG icon colors to theme colors)
+   - Use case: Bootstrap carousel control icons, icon fonts, or SVG-based icons
+   - Example: `.carousel-control-prev-icon { filter: ...; }` to change icon color to theme orange
+   - Note: Bootstrap does not provide utilities to change SVG icon colors
+
+5. **Carousel Transitions** (for enhanced fade/slide transitions):
+   - `transition` and `opacity` properties (for smoother carousel transitions)
+   - Use case: Bootstrap carousel fade transitions that need better timing and easing
+   - Example: `.carousel-item { transition: opacity 1.2s cubic-bezier(...); }` for smooth fade
+   - Note: Bootstrap's default transitions may be too abrupt; custom transitions improve UX
+
+**PROHIBITED in custom.css:**
+- Any property NOT listed above
+- Any selector that mixes allowed + prohibited properties
+- Layout, sizing, spacing, positioning properties
+- Permanent transitions/effects (transitions on base selectors that create permanent effects, not for hover)
+- Component-specific styling (use Bootstrap classes instead)
+
+**Everything else:** Use ONLY Bootstrap 5.3 classes
+
+**Self-Audit Checklist Before ANY custom.css Addition:**
+- [ ] Is this ONLY a theme color property (background-color, color, border-color)?
+- [ ] Is the value ONLY a theme variable (var(--theme-orange-*))?
+- [ ] If hover animation: Is selector `:hover`?
+- [ ] Are properties ONLY transform, box-shadow, opacity, color, background-color?
+- [ ] If icon color change: Is this `filter` for SVG icon color change (Bootstrap cannot achieve)?
+- [ ] NO width, height, padding, margin, border-radius, position, display?
+- [ ] If transition on base selector: Is it ONLY for hover animations, carousel transitions, or underline animations (not other permanent effects)?
+- [ ] NO mixing of allowed + prohibited properties in same selector?
+
+---
+
+## 🎯 MANDATORY BOOTSTRAP REFERENCE
+
+**Before writing ANY HTML, check Bootstrap 5.3 documentation:**
+- Layout: https://getbootstrap.com/docs/5.3/layout/grid/
+- Utilities: https://getbootstrap.com/docs/5.3/utilities/spacing/
+- Components: https://getbootstrap.com/docs/5.3/components/
+- Forms: https://getbootstrap.com/docs/5.3/forms/overview/
+- Helpers: https://getbootstrap.com/docs/5.3/helpers/clearfix/
+
+---
+
+## 📋 QUICK REFERENCE
+
+**When you need to:**
+- **Center something**: Use `d-flex justify-content-center align-items-center`
+- **Add spacing**: Use `p-*` (padding) or `m-*` (margin) - values 0-5
+- **Make responsive**: Add breakpoint `col-12 col-md-6` or `d-none d-md-block`
+- **Add colors**: Use `bg-*`, `text-*`, `border-*` with Bootstrap colors
+- **Round corners**: Use `rounded-*` (0 to 5, circle, pill)
+- **Add shadows**: Use `shadow-none`, `shadow-sm`, `shadow`, `shadow-lg`
+- **Size elements**: Use `w-*`, `h-*`, `mw-*`, `mh-*` (25, 50, 75, 100, auto)
+- **Set z-index**: Use `z-n1`, `z-0`, `z-1`, `z-2`, `z-3`
+- **Add gaps**: Use `gap-*`, `row-gap-*`, `column-gap-*` (0-5)
+
+**Remember:** If Bootstrap can't do it with classes, use Bootstrap differently or accept the limitation. Custom CSS is ONLY for theme colors and hover animations.
