@@ -1,6 +1,6 @@
 # cursor-kit
 
-Shared Cursor configuration: **agents**, **skills**, **hooks**, optional **rules**, commands, and MCP notes. The `.cursor/` tree **vendors** the maintainer’s global `%USERPROFILE%\.cursor\` roster (skills, agents, hooks, `system_flow`, `AGENTS.md`) for portability; kit-only extras include **security-review** rules/commands and **security-reviewer** agent/skill when not present globally.
+Shared Cursor configuration: **agents**, **skills**, **hooks**, optional **rules**, commands, and MCP notes. The `.cursor/` tree **vendors** the maintainer’s global `%USERPROFILE%\.cursor\` roster (skills, agents, hooks, `system_flow`, `AGENTS.md`) for portability. **Cursor “User rules” in Settings are not stored under `%USERPROFILE%\.cursor\rules`** (and were not part of that sync). Project rules in **`.cursor/rules/*.mdc`** (including the four general rules plus **security-review**) ship with this repo; kit-only extras also include **security-reviewer** agent/skill and the security slash command when not present globally.
 
 ## Layout
 
@@ -9,7 +9,7 @@ Shared Cursor configuration: **agents**, **skills**, **hooks**, optional **rules
 | `.cursor/AGENTS.md` | Agent priority and workflow |
 | `.cursor/agents/*.md` | Agent stubs (link to skills) |
 | `.cursor/skills/*/` | `SKILL.md` per skill (full library synced from global; kit may add **`security-reviewer`**) |
-| `.cursor/rules/` | Cursor rules (`*.mdc`); includes **`security-review.mdc`** (always-on security discipline) |
+| `.cursor/rules/` | Cursor rules (`*.mdc`): **`cursor_rules`**, **`development_standards`**, **`important`**, **`ui_design`**, plus **`security-review.mdc`** |
 | `security-review/security-review.md` | Human-readable index for the security review bundle |
 | `security-review/improvements-pending.md` | Checkbox backlog updated by **`/cmd-review-project-security`** |
 | `security-review/cursorignore.example` | Template to copy as **`.cursorignore`** (keep secrets out of AI context) |
@@ -22,7 +22,7 @@ Shared Cursor configuration: **agents**, **skills**, **hooks**, optional **rules
 
 ## Rules
 
-Bundled: **`security-review.mdc`** (see `security-review/security-review.md`). Add more `*.mdc` files under `.cursor/rules/` per [Cursor rules docs](https://cursor.com/docs/context/rules). Older personal rule sets (e.g. `cursor_rules`, `ui_design`) can be copied from your own backup if needed.
+Bundled under `.cursor/rules/`: **`cursor_rules.mdc`**, **`development_standards.mdc`**, **`important.mdc`**, **`ui_design.mdc`**, and **`security-review.mdc`** (see `security-review/security-review.md`). Add more `*.mdc` files per [Cursor rules docs](https://cursor.com/docs/context/rules). To get the same behavior as old **User rules**, open a workspace that contains this `.cursor/rules` folder (or merge these files into your project); re-paste into **Cursor → Settings → Rules** only if you still want them global instead of project-scoped.
 
 ## Cursor hooks
 
