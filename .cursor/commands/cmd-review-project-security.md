@@ -1,6 +1,6 @@
 # Review project security
 
-Run a **full-workspace security pass** using the same bar as `.cursor/skills/security-reviewer/SKILL.md` and `.cursor/rules/security-review.mdc`.
+Run a **full-workspace security pass** per `.cursor/skills/security-reviewer/SKILL.md` and the workspace **security-review** rule: resolve **`security-review.mdc`** under `.cursor/rules/` (canonical **`.cursor/rules/security-review.mdc`**, or under **`imported/**`** if rules were pulled from GitHub/GitLab).
 
 ## What to do
 

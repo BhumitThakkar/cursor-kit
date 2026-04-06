@@ -13,4 +13,4 @@ For **every** task that touches code, configuration, infrastructure, or data han
 4. **Credentials & AI exposure** — Treat secrets in tracked files as **critical**: require env vars / secret manager / gitignored local overrides (e.g. `application-local.properties`), `.gitignore` + secret scanning in CI, and **`.cursorignore`** for paths that must not enter AI context. Never paste secret values into chat, `improvements-pending.md`, or generated docs; describe *where* to rotate, not the value.
 5. Prefer **small, verifiable** security improvements over vague advice; cite standards (OWASP categories, CWE where helpful) when recommending changes.
 
-Human-readable overview: see `security-review/security-review.md` in this repository.
+Human-readable overview: see `security-review/security-review.md` in the workspace.

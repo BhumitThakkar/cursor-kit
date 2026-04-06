@@ -12,5 +12,5 @@ Security review, hardening, OWASP-aligned checks, dependency/secrets posture, au
 - Before release or when adding integrations that handle credentials or PII.
 
 ## Related
-- Rule: `.cursor/rules/security-review.mdc`
-- Doc folder: `security-review/security-review.md`
+- Rule: **`security-review.mdc`** — canonical path **`.cursor/rules/security-review.mdc`**; GitHub/GitLab rule import may nest under `.cursor/rules/imported/<source>/` (see `security-review/security-review.md`).
+- Doc: `security-review/security-review.md`

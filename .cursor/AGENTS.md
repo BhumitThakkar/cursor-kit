@@ -102,7 +102,7 @@ Orchestrator enforces: max 3 retries per step, auto-rollback on test failure, de
 - Copy or symlink `.cursor/agents/`, `.cursor/skills/`, and optionally `.cursor/hooks/` into your project’s `.cursor/` (or use global Cursor config under user home).
 - In project root, ensure `system_flow/` exists for Activity, Use case, and ER diagrams (see your rule). This framework’s own diagrams are under `.cursor/system_flow/`.
 
-## cursor-kit extensions
+## Optional extensions (security bundle)
 
-- Optional **Security reviewer** agent/skill (`.cursor/agents/security-reviewer.md` and `.cursor/skills/security-reviewer/`) when present — dedicated security review workflow beyond the global Security agent.
-- Project rules under `.cursor/rules/security-review.mdc` and command `cmd-review-project-security.md` in this repo.
+- Optional **Security reviewer** agent/skill (`.cursor/agents/security-reviewer.md` and `.cursor/skills/security-reviewer/`) when present — dedicated security review workflow beyond the global **Security** agent.
+- Rule **`.cursor/rules/security-review.mdc`** and slash command **`cmd-review-project-security`** (see `security-review/security-review.md` for canonical vs imported rule paths).
