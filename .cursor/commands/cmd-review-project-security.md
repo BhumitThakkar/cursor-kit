@@ -1,6 +1,17 @@
-# Review project security
+---
+description: Full-workspace security pass. Type /cmd-review-project-security to run OWASP-style review per security-reviewer skill and security-review rule; append findings to security-review/improvements-pending.md.
+---
 
-Run a **full-workspace security pass** per `.cursor/skills/security-reviewer/SKILL.md` and the workspace **security-review** rule: resolve **`security-review.mdc`** under `.cursor/rules/` (canonical **`.cursor/rules/security-review.mdc`**, or under **`imported/**`** if rules were pulled from GitHub/GitLab).
+# /cmd-review-project-security — Review project security
+
+Run a **full-workspace security pass** using the **L0 → L1 skill chain** (see `security-reviewer` → **Knowledge hierarchy**):
+
+1. **[`security-reviewer`](../skills/security-reviewer/SKILL.md)** — always first (secrets, CI, Docker, cross-stack OWASP).  
+2. **[`owasp-checklist`](../skills/owasp-checklist/SKILL.md)** — **automatically in the same run** when the workspace contains Java/Spring signals (`pom.xml`, `build.gradle*`, `*.java`, Spring `application*.yml|properties|yaml`); otherwise state that L1 was N/A.
+
+Also apply the **`security-review.mdc`** rule (resolve **`.cursor/rules/security-review.mdc`**, or **`imported/**`** if rules were imported from GitHub/GitLab).
+
+**Pantheon:** Gate-style tables may align with **`security-auditor`** when Zeus closes a security gate.
 
 ## What to do
 

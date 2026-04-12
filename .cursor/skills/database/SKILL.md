@@ -1,36 +1,21 @@
 ---
 name: database
-description: PostgreSQL, Liquibase, indexing, full-text search, backup, RLS, connection pooling. Use for schema and DB operations.
+description: PostgreSQL schema, Liquibase with rollback, indexing, backups, RLS, pooling, and query tuning.
 ---
 
-# Database Skill
+# Database
 
 ## When to Use
 
-- User asks for "schema", "migration", "Liquibase", "PostgreSQL", "index", or "Supabase".
-- Adding tables, indexes, or changing schema.
+- Schema or migration design; performance investigation on SQL tier.
 
 ## Instructions
 
-1. **Migrations**
-   - Liquibase changesets; include rollback; one logical change per changeset.
-   - No manual DDL in prod outside migrations.
-
-2. **Schema**
-   - FKs enforced; naming consistent; document RLS if used.
-
-3. **Performance**
-   - Indexes for hot queries; full-text where needed; run EXPLAIN on critical queries.
-   - Document query monitoring and alerting.
-
-4. **Backup and pool**
-   - Daily backups documented; restore tested. Connection pool limits set.
-
-5. **Test data**
-   - Anonymize or generate test data; no prod PII in non-prod without anonymization.
+- Every changeSet includes `<rollback>` or documented irreversible ADR.
+- Use EXPLAIN (ANALYSE, BUFFERS) on hot queries in non-prod clones.
+- Document pool sizes and PgBouncer mode if used.
 
 ## Safety Checklist
 
-- [ ] Every migration has rollback
-- [ ] Backups and pool limits documented
-- [ ] FKs enforced; test data anonymized where needed
+- [ ] No production credentials in Liquibase or samples
+- [ ] FKs and constraints match service expectations

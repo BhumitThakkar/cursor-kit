@@ -1,3 +1,3 @@
-# Cursor hook for preToolUse / subagentStart: allow.
-$null = [System.Console]::In.ReadToEnd()
+# preToolUse / subagentStart — default allow decision JSON.
+$null = [Console]::In.ReadToEnd()
 Write-Output '{"decision":"allow"}'

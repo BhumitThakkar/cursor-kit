@@ -1,16 +1,31 @@
 ---
 description: "Apply security-reviewer discipline—OWASP-oriented review, secrets, dependencies, auth, and safe defaults—for robust projects."
-alwaysApply: true
+alwaysApply: false
+globs:
+  - "**/*.java"
+  - "**/*.properties"
+  - "**/*.yml"
+  - "**/*.yaml"
+  - "**/pom.xml"
+  - "**/build.gradle*"
+  - "**/Dockerfile*"
+  - "**/docker-compose*.yml"
+  - ".github/**/*.yml"
+version: "1.0.0"
+tags:
+  - "security"
+  - "owasp"
 ---
 
 # Security review rule
 
-For **every** task that touches code, configuration, infrastructure, or data handling:
+For tasks that touch **code, configuration, infrastructure, or data handling** in matching paths:
 
-1. **Read and follow** the skill at `.cursor/skills/security-reviewer/SKILL.md` when assessing security impact (auth, input, data at rest/in transit, dependencies, deployment).
-2. **Surface risks** before shipping: call out missing controls (e.g. CSRF, authz, injection, misconfig, leaked secrets) with severity and fixes.
-3. **Do not** introduce or retain hardcoded secrets, default passwords, or disabled security checks without explicit user acceptance and documentation.
-4. **Credentials & AI exposure** — Treat secrets in tracked files as **critical**: require env vars / secret manager / gitignored local overrides (e.g. `application-local.properties`), `.gitignore` + secret scanning in CI, and **`.cursorignore`** for paths that must not enter AI context. Never paste secret values into chat, `improvements-pending.md`, or generated docs; describe *where* to rotate, not the value.
-5. Prefer **small, verifiable** security improvements over vague advice; cite standards (OWASP categories, CWE where helpful) when recommending changes.
+1. **L0 — Read first:** `.cursor/skills/security-reviewer/SKILL.md` (root layer: principles, secrets/Git/AI, deps, Docker/CI, OWASP summary). This is the **canonical ordering** — never run only the child skill for a full security pass.
+2. **L1 — Auto-continue when Spring/Java is in play:** If the changed files or workspace include `pom.xml`, `build.gradle*`, `*.java`, or Spring `application*.properties` / `*.yml` / `*.yaml`, **also** read and apply `.cursor/skills/owasp-checklist/SKILL.md` in the **same** review. Follow the child’s **Hierarchy** section so L1 extends L0 without contradicting it.
+3. **Surface risks** before shipping: call out missing controls (e.g. CSRF, authz, injection, misconfig, leaked secrets) with severity and fixes (use L0 for cross-stack; cite L1 A0x when Spring-specific).
+4. **Do not** introduce or retain hardcoded secrets, default passwords, or disabled security checks without explicit user acceptance and documentation.
+5. **Credentials & AI exposure** — Treat secrets in tracked files as **critical**: require env vars / secret manager / gitignored local overrides (e.g. `application-local.properties`), `.gitignore` + secret scanning in CI, and **`.cursorignore`** for paths that must not enter AI context. Never paste secret values into chat, `improvements-pending.md`, or generated docs; describe *where* to rotate, not the value.
+6. Prefer **small, verifiable** security improvements over vague advice; cite standards (OWASP categories, CWE where helpful) when recommending changes.
 
-Human-readable overview: see `security-review/security-review.md` in the workspace.
+Human-readable overview: see [security-review/security-review.md](../../security-review/security-review.md) in the workspace.

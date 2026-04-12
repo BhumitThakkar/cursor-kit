@@ -1,21 +1,11 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Emergency kill switch: create .kill-switch file to block automated deploys.
-.DESCRIPTION
-  Creating the file blocks deploy-rate-limit.ps1 and any hook that checks for it.
-  Run with -Remove to re-enable deploys.
-.EXAMPLE
-  .\emergency-kill.ps1        # block deploys
-  .\emergency-kill.ps1 -Remove  # allow deploys
-#>
+# Creates or removes repo-root .kill-switch. Usage: ./emergency-kill.ps1 [-Remove]
 param([switch]$Remove)
-$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$killFile = Join-Path $scriptDir '.kill-switch'
+$ErrorActionPreference = 'Stop'
+$repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+$flag = Join-Path $repoRoot '.kill-switch'
 if ($Remove) {
-  if (Test-Path $killFile) { Remove-Item $killFile -Force; Write-Output "Kill switch removed. Deploys allowed." }
-  else { Write-Output "Kill switch was not set." }
+  Remove-Item -LiteralPath $flag -ErrorAction SilentlyContinue
 } else {
-  $null = New-Item -Path $killFile -ItemType File -Force
-  Write-Output "Kill switch ON. Automated deploys are blocked. Run with -Remove to allow."
+  New-Item -ItemType File -Path $flag -Force | Out-Null
 }
+exit 0

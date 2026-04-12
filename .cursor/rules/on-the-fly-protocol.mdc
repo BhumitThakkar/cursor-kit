@@ -1,0 +1,149 @@
+---
+description: "On-the-Fly Protocol — How Zeus detects, creates, verifies, and registers missing tools and agents at runtime."
+alwaysApply: true
+globs:
+  - "/**"
+version: "1.0.0"
+tags:
+  - "orchestration"
+  - "self-repair"
+  - "tools"
+---
+
+# On-the-Fly Protocol
+
+> When the system encounters a gap — a tool that doesn't exist, an agent capability that's missing — it does not stop. It builds what it needs, verifies it, registers it, and continues. This is the self-repair engine.
+
+---
+
+## Trigger Conditions
+
+Zeus activates this protocol when any of the following are true:
+
+| Condition | Example |
+|---|---|
+| A required tool is not in `tool-registry.mdc` | Task needs a DTO validator, none registered |
+| An agent is asked to do something outside their domain | QA asked to write a deployment script |
+| A task type has no defined quality gate in `quality-gates.md` | New task type encountered for the first time |
+| An agent explicitly surfaces a capability gap | "I cannot do X — no tool exists for this" |
+
+---
+
+## Protocol Steps
+
+### Step 1 — Identify
+Zeus names the gap precisely.
+
+```
+GAP IDENTIFIED:
+  Type:    [tool / agent capability / quality gate]
+  Missing: [exact name and purpose of what's needed]
+  Needed for: [current task context]
+  Blocking: [what cannot proceed without this]
+```
+
+### Step 2 — Spec
+Zeus writes a minimal, unambiguous spec before any building begins.
+
+```
+TOOL SPEC:
+  Name:        [identifier — kebab-case]
+  Type:        [skill / hook / command / subagent]
+  Purpose:     [one sentence — what it does]
+  Input:       [what it receives]
+  Output:      [exactly what it produces]
+  Constraints: [hard rules it must follow]
+  Owner agent: [which agent uses this tool]
+  Verify by:   [how to confirm it works]
+```
+
+> Zeus does not hand a vague spec to Builder. A vague spec produces a vague tool.
+
+### Step 3 — Spawn Builder
+Zeus delegates to Builder Agent with the complete spec.
+
+```
+Agent:       Builder
+Task:        Create [tool name] per the attached spec
+Input:       Spec above + context of current task
+Constraints: Must be self-contained. Must include usage example. Must not depend on unregistered tools.
+Output:      Complete tool file + ready-to-paste tool-registry.mdc entry
+Gate:        Zeus reviews output against spec before accepting
+```
+
+### Step 4 — Verify
+Zeus does not skip this step under any circumstance.
+
+Verification checklist:
+- [ ] Tool does exactly what the spec says — no more, no less
+- [ ] Tool handles invalid or empty input without crashing
+- [ ] Tool output matches the declared output contract
+- [ ] Usage example runs correctly
+- [ ] No dependencies on tools not in the registry
+
+If verification fails → return to Builder with specific failure reason. Not "this is wrong." Exactly what criterion it failed.
+
+### Step 5 — Register
+Zeus adds the tool to `tool-registry.mdc` with status `draft`.
+
+Status becomes `active` after the tool is used successfully on one real task.
+
+### Step 6 — Invoke
+Zeus uses the newly created tool immediately for the task that triggered the gap.
+
+### Step 7 — Log
+Zeus writes to `tasks/decisions.md`:
+
+```
+DECISION: Created [tool name]
+Date:      [session date]
+Reason:    [what gap it filled]
+Spec:      [link or inline spec]
+Outcome:   [did it work on first use?]
+```
+
+---
+
+## Anti-Patterns (Never Do These)
+
+| Anti-Pattern | Why It's Dangerous |
+|---|---|
+| Build a tool without a spec | Produces something that almost does what's needed — the worst kind of bug |
+| Skip verification to save time | An unverified tool in production is a ticking failure |
+| Use a tool before registering it | Next session, Zeus won't know it exists — gets rebuilt, duplicated |
+| Build a tool that depends on another unregistered tool | Creates invisible dependency chains that break silently |
+| Let an agent build their own tool without Zeus oversight | Agents optimize for their domain — Zeus optimizes for the system |
+
+---
+
+## Example: Full On-the-Fly Cycle
+
+**Scenario:** Backend Agent needs to validate Spring Boot DTO coverage but no tool exists.
+
+```
+Step 1 — Identify:
+  GAP: No tool for DTO validation coverage check
+  Blocking: Backend output cannot be verified before QA gate
+
+Step 2 — Spec:
+  Name: validate-spring-dto
+  Type: skill
+  Purpose: Verify that all DTO fields have appropriate @Valid constraint annotations
+  Input: DTO class file(s)
+  Output: Report listing fields with constraints, fields missing constraints, pass/fail verdict
+  Constraints: Java/Spring Boot only. Must not modify files — read-only analysis.
+  Owner: Backend Agent, QA Agent
+  Verify by: Run against a known DTO with intentional missing constraint — must flag it
+
+Step 3 — Spawn Builder with above spec
+
+Step 4 — Verify: Zeus runs against test DTO → missing constraint flagged correctly → PASS
+
+Step 5 — Register in tool-registry.mdc (status: draft)
+
+Step 6 — Invoke on current task
+
+Step 7 — Log in tasks/decisions.md
+```
+
+After this cycle, `validate-spring-dto` is permanently available in the registry.

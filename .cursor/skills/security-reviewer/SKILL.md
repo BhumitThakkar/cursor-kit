@@ -1,18 +1,38 @@
 ---
 name: security-reviewer
 description: >-
-  Security review and hardening for any stack: OWASP-oriented controls, secrets,
-  dependencies, authn/authz, web/API safety, logging, and deployment. Use for
-  security review, threat modeling light-touch, or before release.
+  Parent security skill (workspace-wide): OWASP-oriented controls, secrets, deps,
+  CI/Docker, auth, logging. Child skill: owasp-checklist (Spring/Java depth). Load
+  this first whenever security-review rule or /cmd-review-project-security applies.
 ---
 
 # Security reviewer
 
+## Knowledge hierarchy (no conflicts — ordered layers)
+
+| Layer | Skill | Role |
+| --- | --- | --- |
+| **L0 — Root** | **This file** (`security-reviewer`) | Scope, principles, secrets/Git/AI, deps, Docker/CI, cross-cutting OWASP list, output shape for `/cmd-review-project-security`. **Always load first** when any security pass runs. |
+| **L1 — Spring/Java specialization** | [`owasp-checklist`](../owasp-checklist/SKILL.md) | Concrete Spring Boot / Thymeleaf patterns, A01–A10 tables, file-level checks. **Auto-load in the same session** when the task or workspace touches Java/Spring (see triggers below). |
+
+**Resolution:** L1 never overrides L0 on secrets, supply chain, or “do not paste credentials”. L0 does not duplicate L1’s Spring code patterns — delegate detail to L1. If a finding fits both, cite **L0 category** in summary and **L1 checklist id** (e.g. A03) in detail.
+
+### When to auto-load `owasp-checklist` after this skill
+
+Treat as **automatic** (same turn / same review) if **any** of:
+
+- Paths include `pom.xml`, `build.gradle`, `*.java`, or Spring `application*.properties` / `application*.yml` / `application*.yaml`
+- Zeus or the user mentions Spring Boot, Thymeleaf, JPA, or `security-auditor`
+
+If none apply (e.g. pure Node or static site), finish the pass with **L0 only** and note “Spring checklist N/A”.
+
 ## When to use
 
-- User asks for security review, hardening, OWASP, pen-test prep, or compliance-oriented checks.
+- User runs **`/cmd-review-project-security`** or asks for security review, hardening, OWASP, pen-test prep, or compliance-oriented checks.
 - After meaningful changes to auth, data handling, HTTP surface, config, or dependencies.
 - Before release or when onboarding a new service.
+
+**Pantheon:** After L0, apply **L1 `owasp-checklist`** when triggers above match. For **gate-style** verdict tables, align with **`security-auditor`** output format when Zeus delegates.
 
 ## Principles
 
@@ -31,7 +51,7 @@ description: >-
 - **Vulnerable components** — Dependency and image scanning; pin versions; patch critical CVEs quickly.
 - **Auth failures** — Strong session/token handling; MFA where appropriate; lockout / backoff on brute force.
 - **Data integrity** — Signatures or integrity checks where assets are distributed; protect CI/CD.
-- **Logging failures** — Log auth decisions and anomalies; no secrets in logs; retention aligned with policy.
+- **Logging failures** — Log auth decisions and anomalies; no secrets in logs; retention aligned with policy (see `spring-boot-patterns` for Log4j2 hygiene).
 - **SSRF** — Validate outbound URLs; block metadata endpoints; allowlists where possible.
 
 ## Spring Boot (common patterns)
@@ -78,7 +98,7 @@ The security reviewer **does not** magically hide files from Git or from the AI.
 
 - **`.cursorignore`** (project root): list paths that must stay out of default indexing/context (e.g. `**/application-local.properties`, `.env`, `**/secrets/**`). This reduces accidental inclusion in chat/composer; it is **not** a substitute for removing secrets from disk or Git.
 - **Do not** paste secrets into chat; if the user pastes one, tell them to **rotate** it.
-- In **`improvements-pending.md`** and code review tables: write *“DB password in `application.properties` (rotate; move to env)”* — **never** the actual password.
+- In **`security-review/improvements-pending.md`** and code review tables: write *“DB password in `application.properties` (rotate; move to env)”* — **never** the actual password.
 
 ### Review checklist (run on every security pass)
 

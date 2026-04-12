@@ -1,0 +1,130 @@
+---
+description: "Quality Gates — Defines what 'done' means per task type. Zeus enforces these before closing any task."
+alwaysApply: true
+globs:
+  - "/**"
+version: "1.0.0"
+tags:
+  - "orchestration"
+  - "quality"
+  - "gates"
+---
+
+# Quality Gates
+
+> "Done" is not when an agent says it's done. "Done" is when Zeus confirms the output passes every criterion in the gate for that task type. Until then, the task is open.
+
+---
+
+## Gate Structure
+
+Each gate has:
+- **Criteria** — specific, binary checks (pass/fail — no partial credit)
+- **Owner** — which agent is responsible for each criterion
+- **Zeus action on failure** — exactly what Zeus does if a criterion fails
+
+---
+
+## Gate 1 — Backend Code
+
+Applies to: any output from Backend Agent
+
+| # | Criterion | Owner | Failure Action |
+|---|---|---|---|
+| 1 | Code compiles without errors | Backend | Return to Backend with compile error |
+| 2 | All public methods have Javadoc | Backend | Return to Backend — list methods missing docs |
+| 3 | No hardcoded values (use properties/@Value) | Backend | Return to Backend — list hardcoded occurrences |
+| 4 | **SLF4J API** for logging (`LoggerFactory`); **Log4j2** as implementation per `spring-boot-patterns` — no `System.out`, no `LogManager` in app code | Backend | Return to Backend — list violations |
+| 5 | All controller inputs validated (@Valid + BindingResult) | Backend | Return to Backend — list unvalidated endpoints |
+| 6 | Paths support spaces (no raw string concatenation) | Backend | Return to Backend — list path constructions |
+| 7 | No new dependency added without flagging to Zeus | Backend | Zeus reviews dependency before accepting |
+| 8 | QA Agent test file exists for new code | QA | Trigger QA Agent if missing |
+| 9 | Reviewer Agent verdict: APPROVED | Reviewer | Trigger Reviewer Agent if not run |
+
+---
+
+## Gate 2 — Frontend Code
+
+Applies to: any output from Frontend Agent
+
+| # | Criterion | Owner | Failure Action |
+|---|---|---|---|
+| 1 | All forms use `th:action` (CSRF handled) | Frontend | Return to Frontend — list forms missing this |
+| 2 | All inputs have associated `<label>` elements | Frontend | Return to Frontend — list unlabelled inputs |
+| 3 | All images have `alt` attributes | Frontend | Return to Frontend — list images missing alt |
+| 4 | No inline styles unless justified | Frontend | Return to Frontend — list inline style occurrences |
+| 5 | Shared layout uses Thymeleaf fragments — no duplication | Frontend | Return to Frontend — identify duplication |
+| 6 | All UI states handled: empty, error, success | Frontend | Return to Frontend — list unhandled states |
+| 7 | Reviewer Agent verdict: APPROVED | Reviewer | Trigger Reviewer Agent if not run |
+| 8 | Primary interactive pages meet usable render target under **3 seconds** (per Frontend agent performance budget) | Frontend | Return to Frontend — list pages over budget and remediation |
+
+---
+
+## Gate 3 — Test Output
+
+Applies to: any output from QA Agent
+
+| # | Criterion | Owner | Failure Action |
+|---|---|---|---|
+| 1 | Happy path test exists | QA | Return to QA |
+| 2 | Empty/null input test exists | QA | Return to QA |
+| 3 | Invalid input test exists | QA | Return to QA |
+| 4 | Boundary value test exists (where applicable) | QA | Return to QA |
+| 5 | Error/exception path test exists | QA | Return to QA |
+| 6 | Test method names describe the scenario | QA | Return to QA — list non-descriptive names |
+| 7 | Only external dependencies are mocked | QA | Return to QA — list incorrect mocks |
+| 8 | Coverage ≥ **85%** on new code | QA | Return to QA |
+
+---
+
+## Gate 4 — Security Review
+
+Applies to: any task flagged as security-relevant by Zeus
+
+| # | Criterion | Owner | Failure Action |
+|---|---|---|---|
+| 1 | No credentials or secrets in source code | Security | CRITICAL — block task, escalate to user immediately |
+| 2 | All protected routes have role-based access check | Security | Return to Backend — list unprotected routes |
+| 3 | All inputs sanitized/validated before processing | Security | Return to Backend — list unsanitized inputs |
+| 4 | File uploads: type checked, size limited, path traversal blocked | Security | Return to Backend — list missing checks |
+| 5 | No SQL injection risk (use JPA/parameterized queries) | Security | Return to Backend — list raw query usage |
+| 6 | Security findings report: all items CRITICAL/HIGH resolved | Security | Block task close until resolved |
+
+---
+
+## Gate 5 — Deployment / DevOps
+
+Applies to: any output from DevOps Agent
+
+| # | Criterion | Owner | Failure Action |
+|---|---|---|---|
+| 1 | No secrets in Dockerfiles or pipeline configs | DevOps | CRITICAL — block, escalate to user |
+| 2 | All image tags are specific versions — no `latest` | DevOps | Return to DevOps — list `latest` usages |
+| 3 | Pipeline order: build → test → security scan → deploy | DevOps | Return to DevOps — reorder |
+| 4 | Environment variable names documented (no values) | DevOps | Return to DevOps — add env var list |
+| 5 | App verified running in container before done | DevOps | Return to DevOps — provide verification steps |
+
+---
+
+## Gate 6 — New Tool / Agent (On-the-Fly)
+
+Applies to: any output from Builder Agent
+
+| # | Criterion | Owner | Failure Action |
+|---|---|---|---|
+| 1 | Tool does exactly what the spec said — no more, no less | Builder | Return to Builder with spec deviation details |
+| 2 | Tool handles invalid/empty input without crashing | Builder | Return to Builder — provide failing input case |
+| 3 | Output matches declared output contract | Builder | Return to Builder — specify contract mismatch |
+| 4 | Usage example works correctly | Builder | Return to Builder — describe failure |
+| 5 | No dependency on unregistered tools | Builder | Return to Builder — list missing dependencies |
+| 6 | `tool-registry.mdc` entry is ready to paste | Builder | Return to Builder — entry missing or incomplete |
+
+---
+
+## Zeus Gate Enforcement Rules
+
+- Zeus applies the gate for the task type — not a subset of it
+- A task with 9 criteria passes only when all 9 pass — not 8 out of 9
+- Rework cycle limit: 2 cycles per gate. If still failing on cycle 3 → escalate to user with full diagnosis
+- Gates are not negotiable under time pressure — if Zeus skips a gate, quality is undefined
+- When a new task type is encountered with no defined gate → Zeus creates a gate entry here before proceeding (on-the-fly gate creation follows the same protocol as on-the-fly tools)

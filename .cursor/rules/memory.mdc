@@ -1,0 +1,170 @@
+---
+description: "Memory Protocol — How the system persists state, lessons, and decisions across sessions so every session starts informed, not blank."
+alwaysApply: true
+globs:
+  - "/**"
+version: "1.0.0"
+tags:
+  - "orchestration"
+  - "memory"
+  - "state"
+---
+
+# Memory Protocol
+
+> An AI that forgets everything between sessions is an AI that makes the same mistakes forever. This protocol defines exactly what gets written, where, and when — so the system compounds knowledge instead of resetting it.
+
+---
+
+## The Memory Layer
+
+```
+tasks/
+  todo.md          ← active task tracking (Zeus writes and updates)
+  lessons.md       ← self-improvement log (Zeus writes after every correction)
+  decisions.md     ← architectural and tool decisions (Zeus writes on every key decision)
+```
+
+These three files are the system's long-term memory. They are read at session start and written throughout the session.
+
+---
+
+## Session Start Protocol
+
+Zeus executes this silently at the start of every session before taking any action:
+
+```
+1. READ tasks/lessons.md
+   → Load all patterns and prevention rules into active context
+   → Identify any lessons directly relevant to the current task type
+
+2. READ tasks/decisions.md
+   → Load architectural decisions that constrain current work
+   → Check for decisions that may affect the current task
+
+3. READ tasks/todo.md
+   → Are there incomplete items from the previous session?
+   → If yes: surface them to the user before starting anything new
+```
+
+> Skipping session start reads is how systems repeat mistakes. Zeus never skips.
+
+---
+
+## `tasks/todo.md` — Active Task Tracking
+
+**Format:**
+
+```markdown
+# Active Tasks
+
+## [Task Title] — [date started]
+**Status:** In Progress / Blocked / Complete
+**Assigned agents:** [list]
+
+### Plan
+- [ ] Step 1
+- [x] Step 2 (complete)
+- [ ] Step 3
+
+### Blockers
+- [any current blockers]
+
+### Review
+[Zeus writes this section when task closes — summary of what was done and outcome]
+```
+
+**Zeus writes to this file:**
+- At task start: creates entry with plan steps as checkable items
+- During task: marks steps complete as agents finish them
+- On blocker: adds blocker entry
+- At task close: adds Review section and marks status Complete
+
+---
+
+## `tasks/lessons.md` — Self-Improvement Log
+
+**Purpose:** Every mistake, correction, or unexpected outcome becomes a rule that prevents recurrence.
+
+**Format:**
+
+```markdown
+## [date] — [short pattern title]
+
+**What happened:**
+[Describe the mistake or unexpected outcome in one paragraph]
+
+**Root cause:**
+[Why it happened — be specific]
+
+**Prevention rule:**
+[The rule Zeus and agents must follow to prevent this]
+
+**Applies to:**
+[Which agents / task types this rule affects]
+```
+
+**Zeus writes to this file:**
+- After any user correction
+- After any agent rework cycle
+- After any quality gate failure
+- After any on-the-fly tool creation (lesson: what gap existed and why)
+
+> Lessons are reviewed at session start. They are ruthlessly iterated — if a lesson's prevention rule doesn't stop the mistake, the rule is rewritten until it does.
+
+---
+
+## `tasks/decisions.md` — Architectural Decision Record
+
+**Purpose:** Every significant decision — architectural, tooling, agent design — is logged with its rationale. Future sessions don't re-debate settled questions.
+
+**Format:**
+
+```markdown
+## [date] — [decision title]
+
+**Decision:**
+[What was decided]
+
+**Context:**
+[What situation prompted this decision]
+
+**Alternatives considered:**
+- [Option A] — rejected because [reason]
+- [Option B] — rejected because [reason]
+
+**Rationale:**
+[Why this decision was made]
+
+**Consequences:**
+[What this decision constrains or enables going forward]
+
+**Status:** Active / Superseded by [link]
+```
+
+**Zeus writes to this file:**
+- When a new tool is created (on-the-fly protocol)
+- When an architectural pattern is chosen
+- When an agent boundary is changed
+- When a new agent is added to the roster
+- When a quality gate threshold is adjusted
+
+---
+
+## Memory Hygiene Rules
+
+| Rule | Why |
+|---|---|
+| Never delete lessons — only mark superseded | Deletion loses the history of why a rule existed |
+| Never edit decisions without adding a superseding entry | Edits hide the reasoning trail |
+| Todo items marked complete stay in the file for 1 session, then archived | Keeps todo.md actionable without losing history |
+| Lessons are written in plain language — no jargon | They must be understood at session start in seconds, not decoded |
+| Every lesson must have a prevention rule — observation alone is not a lesson | "X happened" is a log entry. "When X happens, do Y instead" is a lesson |
+
+---
+
+## What Memory Is Not
+
+- Memory is not a chat log — it is structured, actionable knowledge
+- Memory is not a status report — it is a prevention and decision system
+- Memory is not optional — a session that doesn't write to memory has not fully completed its task

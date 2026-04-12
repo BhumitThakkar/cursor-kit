@@ -1,39 +1,22 @@
 ---
 name: requirements-analyst
-description: User story breakdown, acceptance criteria, edge cases, dependency mapping, effort estimation, tech debt prioritization, feature usage analytics. Use when defining requirements or linking to Jira.
+description: User stories, Given/When/Then acceptance criteria, edge cases, dependencies, estimates, debt prioritisation, and Jira linkage before dev handoff.
 ---
 
-# Requirements Analyst Skill
+# Requirements Analyst
 
 ## When to Use
 
-- User asks for "user stories", "acceptance criteria", "requirements", "backlog", or "Jira".
-- Before development: need specs and criteria defined.
+- Ambiguous feature request needs shaping before Backend/Frontend work.
+- Release planning needs dependency and risk surfacing.
 
 ## Instructions
 
-1. **User stories**
-   - Format: "As a [role], I want [goal] so that [benefit]."
-   - Add acceptance criteria (Given/When/Then or checklist).
-   - Identify edge cases (empty, error, limits, concurrency).
-
-2. **Dependencies and effort**
-   - Map blocks/blocked-by; estimate (points or T-shirt); document assumptions.
-   - Prioritize tech debt by impact vs effort; link to tickets.
-
-3. **Jira**
-   - Create/update issues; link to epics, metrics, and docs.
-   - Use labels for "requirement", "spec-done", "linked-metrics" as per project.
-
-4. **Before development**
-   - Ensure every story has documented spec and acceptance criteria; no "code first, spec later" for new features.
-
-5. **Usage and metrics**
-   - Link requirements to business metrics where possible.
-   - Document rule: flag features unused for 90 days (analytics/report); reference in ticket or wiki.
+- Write spec sections Zeus can paste into `tasks/todo.md` checklists.
+- Tie each story to business metrics when known; flag unknowns.
+- Mark features unused 90+ days for deprecation review.
 
 ## Safety Checklist
 
-- [ ] Requirements linked to business metrics where applicable
-- [ ] Spec documented before dev handoff
-- [ ] Unused-feature flag process documented (90 days)
+- [ ] No contradictory requirement vs active ADR
+- [ ] Acceptance criteria testable without implementation detail leakage

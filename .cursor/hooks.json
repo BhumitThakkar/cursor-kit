@@ -1,32 +1,149 @@
 {
   "version": 1,
   "hooks": {
-    "sessionStart": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "sessionEnd": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "preToolUse": [{ "command": "./hooks/cursor-decision-allow.ps1", "timeout": 5 }],
-    "postToolUse": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "postToolUseFailure": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "subagentStart": [{ "command": "./hooks/cursor-decision-allow.ps1", "timeout": 5 }],
-    "subagentStop": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
+    "sessionStart": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/session-init.ps1",
+        "timeout": 5
+      }
+    ],
+    "sessionEnd": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
+        "timeout": 5
+      }
+    ],
+    "preToolUse": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/gate-check.ps1",
+        "timeout": 5
+      },
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-decision-allow.ps1",
+        "timeout": 5
+      }
+    ],
+    "postToolUse": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
+        "timeout": 5
+      }
+    ],
+    "postToolUseFailure": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
+        "timeout": 5
+      }
+    ],
+    "subagentStart": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-decision-allow.ps1",
+        "timeout": 5
+      }
+    ],
+    "subagentStop": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
+        "timeout": 5
+      }
+    ],
     "beforeShellExecution": [
-      { "command": "./hooks/run-before-hook.ps1 check-kill-switch.ps1", "timeout": 5, "matcher": "git\\s+push|git\\s+merge|mvn\\s+deploy|gradlew.*deploy|npm\\s+run\\s+deploy" },
-      { "command": "./hooks/run-before-hook.ps1 deploy-rate-limit.ps1", "timeout": 10, "matcher": "mvn\\s+deploy|gradlew.*deploy|npm\\s+run\\s+deploy|docker\\s+push|kubectl\\s+apply" },
-      { "command": "./hooks/run-before-hook.ps1 pre-merge-checks.ps1 workspace", "timeout": 300, "matcher": "git\\s+push|git\\s+merge" },
-      { "command": "./hooks/cursor-allow.ps1", "timeout": 5 }
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/run-before-hook.ps1 check-kill-switch.ps1",
+        "timeout": 5,
+        "matcher": "git\\s+push|git\\s+merge|mvn\\s+deploy|gradlew.*deploy|npm\\s+run\\s+deploy"
+      },
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/run-before-hook.ps1 deploy-rate-limit.ps1",
+        "timeout": 10,
+        "matcher": "mvn\\s+deploy|gradlew.*deploy|npm\\s+run\\s+deploy|docker\\s+push|kubectl\\s+apply"
+      },
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/run-before-hook.ps1 pre-merge-checks.ps1 workspace",
+        "timeout": 300,
+        "matcher": "git\\s+push|git\\s+merge"
+      },
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/security-guard.ps1",
+        "timeout": 5
+      },
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-allow.ps1",
+        "timeout": 5
+      }
     ],
     "afterShellExecution": [
-      { "command": "./hooks/run-after-hook.ps1 rollback-on-test-failure.ps1", "timeout": 30, "matcher": "mvn\\s+deploy|gradlew.*deploy|npm\\s+run\\s+deploy" }
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/run-after-hook.ps1 rollback-on-test-failure.ps1",
+        "timeout": 30,
+        "matcher": "mvn\\s+deploy|gradlew.*deploy|npm\\s+run\\s+deploy"
+      }
     ],
-    "beforeMCPExecution": [{ "command": "./hooks/cursor-allow.ps1", "timeout": 5 }],
-    "afterMCPExecution": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "beforeReadFile": [{ "command": "./hooks/cursor-allow.ps1", "timeout": 5 }],
-    "afterFileEdit": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "beforeSubmitPrompt": [{ "command": "./hooks/cursor-continue.ps1", "timeout": 5 }],
-    "preCompact": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "stop": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "afterAgentResponse": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "afterAgentThought": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }],
-    "beforeTabFileRead": [{ "command": "./hooks/cursor-allow.ps1", "timeout": 5 }],
-    "afterTabFileEdit": [{ "command": "./hooks/cursor-noop.ps1", "timeout": 5 }]
+    "beforeMCPExecution": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/mcp-audit.ps1",
+        "timeout": 5
+      },
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-allow.ps1",
+        "timeout": 5
+      }
+    ],
+    "afterMCPExecution": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
+        "timeout": 5
+      }
+    ],
+    "beforeReadFile": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-allow.ps1",
+        "timeout": 5
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/quality-check.ps1",
+        "timeout": 5
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-continue.ps1",
+        "timeout": 5
+      }
+    ],
+    "preCompact": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
+        "timeout": 5
+      }
+    ],
+    "stop": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/task-close.ps1",
+        "timeout": 5
+      },
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/on-task-close.ps1",
+        "timeout": 5
+      },
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
+        "timeout": 5
+      }
+    ],
+    "beforeTabFileRead": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-allow.ps1",
+        "timeout": 5
+      }
+    ],
+    "afterTabFileEdit": [
+      {
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
+        "timeout": 5
+      }
+    ]
   }
 }

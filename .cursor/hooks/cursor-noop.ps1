@@ -1,3 +1,3 @@
-# Cursor hook: read stdin, do nothing, exit 0. For audit-only events (sessionEnd, afterFileEdit, etc.).
-$null = [System.Console]::In.ReadToEnd()
-exit 0
+# Audit-only / placeholder hook. Reads stdin, exits 0, outputs {}.
+$null = [Console]::In.ReadToEnd()
+Write-Output '{}'

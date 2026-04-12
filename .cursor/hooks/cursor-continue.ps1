@@ -1,3 +1,3 @@
-# Cursor hook for beforeSubmitPrompt: allow submission.
-$null = [System.Console]::In.ReadToEnd()
+# beforeSubmitPrompt — allow submit to continue.
+$null = [Console]::In.ReadToEnd()
 Write-Output '{"continue":true}'
