@@ -9,7 +9,7 @@ Cursor **project commands** (triggered with `/` in chat). Each file describes wh
 | `cmd-security-scan.md` | **Diff security** — OWASP-style review on changed or scoped files; optional backlog with `(diff)` subtitle. |
 | `cmd-dependency-audit.md` | **Dependencies** — manifest / lockfile / SCA recommendations (DevOps). |
 | `cmd-uml-diagrams.md` | **UML / Mermaid** — ensures `uml-diagrams/` and refreshes ER, use case, flow, and sequence diagrams from the codebase. |
-| `Bhumitra.md` | **Zeus PM** — `/Bhumitra [task…]` loads `zeus-pm.mdc` + `zeus-pm.md` and runs classification, delegation, gates, and memory protocol for any task. |
+| `Bhumitra.md` | **Zeus PM** — `/Bhumitra [task…]` loads `zeus-pm.mdc` + `zeus-pm.md` and runs classification, delegation, gates, and memory protocol for any task. Name: **Bhumit + Mitra** (friend); see **§ Why `Bhumitra`** in that file. |
 
 ### Security commands (when to use which)
 

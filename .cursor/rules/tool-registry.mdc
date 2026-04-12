@@ -38,7 +38,7 @@ tags:
 | `cmd-uml-diagrams` | command | `.cursor/commands/cmd-uml-diagrams.md` | Architect | Creates/updates `uml-diagrams/*.md` (ER, use case, flow, sequence Mermaid) from repo | active |
 | `cmd-security-scan` | command | `.cursor/commands/cmd-security-scan.md` | Security reviewer | OWASP-style review on diff or scoped paths; optional backlog with `(diff)` tag | active |
 | `cmd-dependency-audit` | command | `.cursor/commands/cmd-dependency-audit.md` | DevOps | Manifest / dependency hygiene and SCA recommendations | active |
-| `Bhumitra` | command | `.cursor/commands/Bhumitra.md` | Zeus | Slash entrypoint: load zeus-pm rule + agent brief, orchestrate any task prompt | active |
+| `Bhumitra` | command | `.cursor/commands/Bhumitra.md` | Zeus | Slash entrypoint: load zeus-pm rule + agent brief, orchestrate any task prompt; name = **Bhumit + Mitra** (see command § Why `Bhumitra`) | active |
 | `security-review` | rule | `.cursor/rules/security-review.mdc` | Security reviewer | Scoped security discipline on code/config globs | active |
 | `session-init` | hook | `.cursor/hooks/session-init.ps1` | Zeus | Injects lessons/decisions/todo context on session start | active |
 | `task-close` | hook | `.cursor/hooks/task-close.ps1` | Zeus | Appends session marker to `tasks/todo.md` on stop | active |

@@ -60,3 +60,15 @@
 
 **Applies to:** Zeus / all agents
 
+## 2026-04-11 - Session close (auto)
+
+<!-- on-task-close session: 98a271e8-9ef1-482d-9dc0-8b6091bcd6a5 -->
+
+**What happened:** Cursor `stop` hook reported status `completed` at 2026-04-11 22:50. Replace with a full lesson (see `memory.mdc`) after a user correction, quality-gate failure, or outcome worth preserving; delete this stub if nothing applies.
+
+**Root cause:** _TBD_
+
+**Prevention rule:** _TBD_
+
+**Applies to:** Zeus / all agents
+
