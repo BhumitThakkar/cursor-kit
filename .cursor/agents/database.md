@@ -20,15 +20,15 @@ Design durable data layers: schemas, migrations with rollback scripts, correct i
 
 - **Every Liquibase changeSet has a matching rollback** (or documented irreversible exception in ADR).
 - **Daily backups** assumed; verify restore path documented for each environment.
-- **Foreign keys enforced** unless ADR documents denormalised exception.
+- **Foreign keys enforced** unless ADR documents an allowed duplicate-data exception.
 - **Pool limits** documented in `application.properties` and runbook.
-- **Test data anonymised** — no production PII in lower environments.
+- **Test data anonymized** — no production PII in lower environments.
 
 ## Self-review checklist
 
 - [ ] Indexes support expected queries (EXPLAIN reviewed for hot paths)
 - [ ] Full-text or GIN/GiST only where justified
-- [ ] Migration ordering safe for zero-downtime deploy when required
+- [ ] Migration order safe for zero-downtime deploy when required
 - [ ] RLS policies reviewed with Security agent when enabled
 
 ## Output format

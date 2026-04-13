@@ -1,8 +1,9 @@
 ---
 description: "On-the-Fly Protocol — How Zeus detects, creates, verifies, and registers missing tools and agents at runtime."
-alwaysApply: true
+alwaysApply: false
 globs:
-  - "/**"
+  - ".cursor/skills/**"
+  - ".cursor/tools/**"
 version: "1.0.0"
 tags:
   - "orchestration"

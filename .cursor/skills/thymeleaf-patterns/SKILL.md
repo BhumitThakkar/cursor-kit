@@ -192,11 +192,11 @@ return "redirect:/bookings";
 - Page has a single `<h1>` — heading hierarchy is logical
 - `<main role="main">` wraps the primary content
 - Skip-to-main link at top of page for screen reader users
-- Meet **WCAG 2.1 AA** for colour contrast, focus visibility, and error identification
+- Meet **WCAG 2.1 AA** for color contrast, focus visibility, and error identification
 
 ## i18n (`messages.properties`)
 
-- Externalise all user-visible strings: `#{msg.key}`; provide `messages_en.properties`, `messages_hi.properties`, etc. as needed.
+- Move all user-visible strings to `messages.properties`: `#{msg.key}`; provide `messages_en.properties`, `messages_hi.properties`, etc. as needed.
 - Never ship placeholder English in production templates without ticket tracking.
 
 ## WebJars (Bootstrap 5 / jQuery)
@@ -206,7 +206,7 @@ return "redirect:/bookings";
 
 ## `th:utext` safety
 
-- Default to `th:text`. Use `th:utext` **only** for sanitised or fully trusted HTML; pipe user content through OWASP Java HTML Sanitizer or similar.
+- Default to `th:text`. Use `th:utext` **only** for sanitized or fully trusted HTML; pipe user content through OWASP Java HTML Sanitizer or similar.
 
 ## Content Security Policy (CSP)
 
@@ -214,7 +214,7 @@ return "redirect:/bookings";
 
 ## Performance budget
 
-- Critical path for primary pages: aim for usable render under **3 seconds** on target network; compress images, minimise blocking JS, leverage HTTP caching headers.
+- Critical path for primary pages: aim for usable render under **3 seconds** on target network; compress images, minimize blocking JS, leverage HTTP caching headers.
 
 ## No inline application logic
 

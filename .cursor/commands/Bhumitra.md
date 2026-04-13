@@ -15,7 +15,7 @@ When the user invokes **`/Bhumitra`**, respond with **full attention on them and
 ## Required context (read before acting)
 
 1. **Canonical policy** — Read and follow **[`.cursor/rules/zeus-pm.mdc`](../rules/zeus-pm.mdc)** (classification, orchestration loop, delegation brief format, quality-gate enforcement, on-the-fly protocol, memory protocol, non-negotiables).
-2. **Delegation-facing brief** — Read **[`.cursor/agents/zeus-pm.md`](../agents/zeus-pm.md)** and align behaviour with it (mission, when invoked, hard rules, self-review checklist, **ZEUS BRIEF** output format).
+2. **Delegation-facing brief** — Read **[`.cursor/agents/zeus-pm.md`](../agents/zeus-pm.md)** and align behavior with it (mission, when invoked, hard rules, self-review checklist, **ZEUS BRIEF** output format).
 
 Treat **`zeus-pm.mdc`** as the full rule set and **`zeus-pm.md`** as the compact subagent brief; if anything conflicts, **`zeus-pm.mdc`** wins.
 

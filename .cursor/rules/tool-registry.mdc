@@ -1,8 +1,8 @@
 ---
 description: "Tool Registry — Single source of truth for all available tools, skills, hooks, and commands in the system."
-alwaysApply: true
+alwaysApply: false
 globs:
-  - "/**"
+  - ".cursor/**"
 version: "1.0.0"
 tags:
   - "orchestration"
@@ -42,7 +42,6 @@ tags:
 | `security-review` | rule | `.cursor/rules/security-review.mdc` | Security reviewer | Scoped security discipline on code/config globs | active |
 | `session-init` | hook | `.cursor/hooks/session-init.ps1` | Zeus | Injects lessons/decisions/todo context on session start | active |
 | `task-close` | hook | `.cursor/hooks/task-close.ps1` | Zeus | Appends session marker to `tasks/todo.md` on stop | active |
-| `on-task-close` | hook | `.cursor/hooks/on-task-close.ps1` | Zeus | On `stop` with status `completed`, appends deduped lesson stub to `tasks/lessons.md` | active |
 | `quality-check` | hook | `.cursor/hooks/quality-check.ps1` | QA / Zeus | Java + secret heuristics after file edit | active |
 | `security-guard` | hook | `.cursor/hooks/security-guard.ps1` | Security | Blocks dangerous shell patterns before execution | active |
 | `mcp-audit` | hook | `.cursor/hooks/mcp-audit.ps1` | Security | Logs MCP calls; blocks prod writes | active |
@@ -55,9 +54,10 @@ tags:
 | `run-before-hook` | hook | `.cursor/hooks/run-before-hook.ps1` | Hook Manager | Wrapper returning allow/deny JSON | active |
 | `run-after-hook` | hook | `.cursor/hooks/run-after-hook.ps1` | Hook Manager | Runs follow-up PS1 after shell | active |
 | `cursor-allow` | hook | `.cursor/hooks/cursor-allow.ps1` | Hook Manager | Default allow for shell/MCP/read | active |
-| `cursor-noop` | hook | `.cursor/hooks/cursor-noop.ps1` | Hook Manager | No-op JSON for audit-only events | active |
+| `subagent-trace` | hook | `.cursor/hooks/subagent-trace.ps1` | Zeus | Logs subagent spawns to `tasks/subagent-trace.log` | active |
 | `cursor-continue` | hook | `.cursor/hooks/cursor-continue.ps1` | Hook Manager | `{continue:true}` for beforeSubmitPrompt | active |
-| `cursor-decision-allow` | hook | `.cursor/hooks/cursor-decision-allow.ps1` | Hook Manager | `{decision:allow}` for preToolUse/subagentStart | active |
+| `cursor-decision-allow` | hook | `.cursor/hooks/cursor-decision-allow.ps1` | Hook Manager | `{decision:allow}` for preToolUse | active |
+| `subagent-trace` | hook | `.cursor/hooks/subagent-trace.ps1` | Zeus | Logs which subagent was spawned to `tasks/subagent-trace.log`, then allows | active |
 | `install-dependency-check` | hook | `.cursor/hooks/install-dependency-check.ps1` | DevOps | Reserves `.cursor/tools` for Dependency-Check CLI | active |
 | `architect` | subagent | `.cursor/agents/architect.md` | Architect | System design, C4, ADRs | active |
 | `backend-dev` | subagent | `.cursor/agents/backend-dev.md` | Backend | Spring Boot implementation | active |
@@ -75,31 +75,15 @@ tags:
 | `debugging` | subagent | `.cursor/agents/debugging.md` | Debugging | Root-cause analysis | active |
 | `documentation` | subagent | `.cursor/agents/documentation.md` | Documentation | Docs and runbooks | active |
 | `self-improvement` | subagent | `.cursor/agents/self-improvement.md` | Self-Improvement | Metrics and learning log | active |
-| `skills-manager` | subagent | `.cursor/agents/skills-manager.md` | Skills Manager | SKILL.md lifecycle | active |
-| `rules-manager` | subagent | `.cursor/agents/rules-manager.md` | Rules Manager | `.mdc` rules lifecycle | active |
-| `hook-manager` | subagent | `.cursor/agents/hook-manager.md` | Hook Manager | Hook scripts lifecycle | active |
-| `commands-manager` | subagent | `.cursor/agents/commands-manager.md` | Commands Manager | Runnable commands | active |
-| `subagents-manager` | subagent | `.cursor/agents/subagents-manager.md` | Subagents Manager | AGENTS.md + disabled.txt | active |
+| `config-manager` | subagent | `.cursor/agents/config-manager.md` | Config Manager | Skills, rules, hooks, commands, and roster lifecycle | active |
 | `spring-boot-patterns` | skill | `.cursor/skills/spring-boot-patterns/SKILL.md` | Backend | Spring conventions | active |
 | `thymeleaf-patterns` | skill | `.cursor/skills/thymeleaf-patterns/SKILL.md` | Frontend | Thymeleaf conventions | active |
 | `owasp-checklist` | skill | `.cursor/skills/owasp-checklist/SKILL.md` | Security | L1 Spring/Java OWASP depth; load after `security-reviewer` when Java/Spring in scope | active |
 | `skill-security-reviewer` | skill | `.cursor/skills/security-reviewer/SKILL.md` | Security reviewer | L0 root security skill; L1 = `owasp-checklist` when triggered | active |
 | `mermaid-diagrams` | skill | `.cursor/skills/mermaid-diagrams/SKILL.md` | Architect | Mermaid: flowchart, sequence, ER, use case, C4-style | active |
-| `validate-spring-dto` | skill | `.cursor/skills/validate-spring-dto/SKILL.md` | Backend / QA | Read-only DTO/request-model Jakarta Validation coverage report | draft |
 | `test-coverage-check` | skill | `.cursor/skills/test-coverage-check/SKILL.md` | QA | JaCoCo / test gap analysis vs Gate 3 coverage expectations | active |
 | `adr-generator` | skill | `.cursor/skills/adr-generator/SKILL.md` | Architect | ADR scaffold under `docs/adr/` + link to `tasks/decisions.md` | active |
 | `lessons-summarizer` | skill | `.cursor/skills/lessons-summarizer/SKILL.md` | Zeus | Thematic digest of `tasks/lessons.md`; append only with user consent | active |
-| `skill-requirements-analyst` | skill | `.cursor/skills/requirements-analyst/SKILL.md` | Requirements Analyst | Requirements skill | draft |
-| `skill-api-contract` | skill | `.cursor/skills/api-contract/SKILL.md` | API Contract | Contract skill | draft |
-| `skill-database` | skill | `.cursor/skills/database/SKILL.md` | Database | DB skill | draft |
-| `skill-debugging` | skill | `.cursor/skills/debugging/SKILL.md` | Debugging | Debugging skill | draft |
-| `skill-documentation` | skill | `.cursor/skills/documentation/SKILL.md` | Documentation | Docs skill | draft |
-| `skill-self-improvement` | skill | `.cursor/skills/self-improvement/SKILL.md` | Self-Improvement | Self-improve skill | draft |
-| `skill-skills-manager` | skill | `.cursor/skills/skills-manager/SKILL.md` | Skills Manager | Skills meta | draft |
-| `skill-rules-manager` | skill | `.cursor/skills/rules-manager/SKILL.md` | Rules Manager | Rules meta | draft |
-| `skill-hook-manager` | skill | `.cursor/skills/hook-manager/SKILL.md` | Hook Manager | Hooks meta | draft |
-| `skill-commands-manager` | skill | `.cursor/skills/commands-manager/SKILL.md` | Commands Manager | Commands meta | draft |
-| `skill-subagents-manager` | skill | `.cursor/skills/subagents-manager/SKILL.md` | Subagents Manager | Roster meta | draft |
 | `AGENTS-index` | doc | `.cursor/AGENTS.md` | Zeus | Human-readable roster index | active |
 | `learning-log` | doc | `.cursor/learning-log.md` | Self-Improvement | Batched learning entries | active |
 | `security-review-bundle` | doc | `security-review/security-review.md` | Security reviewer | Where artifacts live + triggers | active |
@@ -117,6 +101,17 @@ When Builder Agent creates a new tool, Zeus adds a row using this template:
 
 Status progresses: `draft` → `active` after Zeus verifies it works on a real task → `deprecated` when superseded.
 
+### Promotion criteria (draft → active)
+
+A draft skill or tool is promoted to `active` when **all** of these are met:
+
+1. **Used on a real task** — the tool was invoked during actual work (not just created)
+2. **Output verified** — Zeus confirmed the output matched the declared contract
+3. **No rework needed** — the tool did not require immediate fixes after first use
+4. **Content is complete** — the file has real instructions, not placeholder text
+
+Draft items that have not been promoted within **30 days** of creation should be reviewed: either complete them or remove them from the registry.
+
 ---
 
 ## Tool Types Explained
@@ -127,7 +122,7 @@ Example: `validate-spring-dto` — checks a DTO for `@Valid` annotations and con
 
 ### Hook
 Triggered automatically by an event (file save, task close, git commit).
-Example: `on-task-close` — on successful session `stop`, appends a deduped stub to `tasks/lessons.md` for Zeus to refine or delete (see `.cursor/hooks/on-task-close.ps1`).
+Example: `task-close` — on session `stop`, appends a session marker to `tasks/todo.md`.
 
 ### Command
 Explicitly invoked by Zeus or the user with a specific trigger phrase.
@@ -146,3 +141,24 @@ Add a row here **before** Builder implements a new capability; **remove** the ro
 **Merged (do not re-file):** Former planned skill `mermaid-diagram-gen` — use active **`mermaid-diagrams`** (`.cursor/skills/mermaid-diagrams/SKILL.md`) plus **`cmd-uml-diagrams`** / `/cmd-uml-diagrams` for orchestrated updates under `uml-diagrams/`. Add a new planned row only if you need a distinct capability (for example AST-driven batch export to Mermaid).
 
 **Backlog:** *(none — prior planned items are now active in the Registry above.)*
+
+---
+
+## Draft / In Progress
+
+Skills that exist on disk but have not yet been promoted to active status. Zeus does not consult this table during delegation. See [Promotion criteria](#promotion-criteria-draft--active) above for what it takes to move a row to the main Registry.
+
+| Name | Type | Path | Owner | Purpose | Status |
+|---|---|---|---|---|---|
+| `validate-spring-dto` | skill | `.cursor/skills/validate-spring-dto/SKILL.md` | Backend / QA | Read-only DTO/request-model Jakarta Validation coverage report | draft |
+| `skill-requirements-analyst` | skill | `.cursor/skills/requirements-analyst/SKILL.md` | Requirements Analyst | Requirements skill | draft |
+| `skill-api-contract` | skill | `.cursor/skills/api-contract/SKILL.md` | API Contract | Contract skill | draft |
+| `skill-database` | skill | `.cursor/skills/database/SKILL.md` | Database | DB skill | draft |
+| `skill-debugging` | skill | `.cursor/skills/debugging/SKILL.md` | Debugging | Debugging skill | draft |
+| `skill-documentation` | skill | `.cursor/skills/documentation/SKILL.md` | Documentation | Docs skill | draft |
+| `skill-self-improvement` | skill | `.cursor/skills/self-improvement/SKILL.md` | Self-Improvement | Self-improve skill | draft |
+| `skill-skills-manager` | skill | `.cursor/skills/skills-manager/SKILL.md` | Skills Manager | Skills meta | draft |
+| `skill-rules-manager` | skill | `.cursor/skills/rules-manager/SKILL.md` | Rules Manager | Rules meta | draft |
+| `skill-hook-manager` | skill | `.cursor/skills/hook-manager/SKILL.md` | Hook Manager | Hooks meta | draft |
+| `skill-commands-manager` | skill | `.cursor/skills/commands-manager/SKILL.md` | Commands Manager | Commands meta | draft |
+| `skill-subagents-manager` | skill | `.cursor/skills/subagents-manager/SKILL.md` | Subagents Manager | Roster meta | draft |

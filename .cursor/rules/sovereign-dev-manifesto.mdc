@@ -1,5 +1,5 @@
 ---
-description: "AI Behaviour - Sovereign Dev Manifesto"
+description: "AI Behavior - Sovereign Dev Manifesto"
 alwaysApply: true
 globs:
   - "/**"
@@ -27,6 +27,7 @@ tags:
 - Offload research, exploration, and parallel analysis to subagents
 - For complex problems, throw more compute at it via subagents
 - One task per subagent for focused execution
+- **Visibility:** When delegating, name the agent in your response so the user sees the handoff. If you choose to work inline instead of delegating, say so and say why (e.g. "trivial task, no delegation needed")
 
 ### 3. Self-Improvement Loop
 - After ANY correction from the user: update `tasks/lessons.md` with the pattern

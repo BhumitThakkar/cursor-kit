@@ -152,7 +152,7 @@ private String uploadDir;
 
 ## Logging implementation: **Log4j2** (with SLF4J API)
 
-This project standardises on **SLF4J as the logging API** and **Apache Log4j2** as the implementation (not Logback).
+This project standardizes on **SLF4J as the logging API** and **Apache Log4j2** as the implementation (not Logback).
 
 ### Maven / Gradle (Spring Boot)
 
@@ -172,13 +172,13 @@ This project standardises on **SLF4J as the logging API** and **Apache Log4j2** 
 
 - Prefer **`log4j2-spring.xml`** (or `log4j2.xml`) on the classpath so Spring’s `LoggingSystem` and profile support work as expected.
 - Override levels without redeploy where possible: `logging.level.com.example=DEBUG` in `application.properties` / YAML.
-- Keep **appenders, layouts, and policies** in XML (or YAML if you standardise on it) — not hard-coded in Java.
+- Keep **appenders, layouts, and policies** in XML (or YAML if you standardize on it) — not hard-coded in Java.
 - Use **environment placeholders** for paths and sensitive file names — never commit secrets into `log4j2*.xml`.
 
 ### Application code (do)
 
 - Declare: `private static final Logger log = LoggerFactory.getLogger(MyClass.class);` with imports from **`org.slf4j`** only.
-- Always **parameterise**: `log.info("Created booking {}", bookingId);` — never string concatenation for variables.
+- Always **use placeholders**: `log.info("Created booking {}", bookingId);` — never string concatenation for variables.
 - Pass throwables as the last argument: `log.error("Payment failed", exception);`
 - Use **MDC** for correlation / trace / tenant keys; configure `%X{correlationId}` (or equivalent) in the pattern layout so logs are greppable in ELK/Loki/etc.
 - Use **sensible async appenders** only where measured benefit exists; understand queue full policy (lose vs block).

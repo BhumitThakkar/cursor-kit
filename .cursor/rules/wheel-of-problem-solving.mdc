@@ -1,8 +1,6 @@
 ---
-description: "How to think - Strategic problem deconstruction using First Principles, Second-Order Thinking, Root Cause Analysis, and OODA Loop"
-alwaysApply: true
-globs:
-  - "/**"
+description: "How to think - Strategic problem deconstruction using First Principles, Second-Order Thinking, Root Cause Analysis, and OODA Loop. Zeus loads this manually when a problem is strategic or goal-underdefined."
+alwaysApply: false
 version: "1.0.0"
 tags:
   - "ai-guidance"

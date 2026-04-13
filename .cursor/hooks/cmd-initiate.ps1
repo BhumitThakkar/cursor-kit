@@ -85,11 +85,11 @@ Test-PathPass 'cmd-uml-diagrams' '.cursor\commands\cmd-uml-diagrams.md'
 Write-Divider '7 / HOOKS (.ps1)'
 Test-PathPass 'hooks.json' '.cursor\hooks.json'
 @(
-  'session-init.ps1', 'task-close.ps1', 'on-task-close.ps1', 'quality-check.ps1', 'security-guard.ps1', 'mcp-audit.ps1',
+  'session-init.ps1', 'task-close.ps1', 'quality-check.ps1', 'security-guard.ps1', 'mcp-audit.ps1',
   'gate-check.ps1', 'cmd-initiate.ps1', 'check-kill-switch.ps1', 'deploy-rate-limit.ps1',
   'emergency-kill.ps1', 'pre-merge-checks.ps1', 'rollback-on-test-failure.ps1', 'run-before-hook.ps1',
-  'run-after-hook.ps1', 'cursor-allow.ps1', 'cursor-noop.ps1', 'cursor-continue.ps1',
-  'cursor-decision-allow.ps1', 'install-dependency-check.ps1'
+  'run-after-hook.ps1', 'cursor-allow.ps1', 'cursor-continue.ps1',
+  'cursor-decision-allow.ps1', 'subagent-trace.ps1', 'install-dependency-check.ps1'
 ) | ForEach-Object { Test-PathPass $_ ".cursor\hooks\$_" }
 
 Write-Divider '8 / SECURITY REVIEW BUNDLE (repo root)'

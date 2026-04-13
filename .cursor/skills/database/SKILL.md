@@ -12,7 +12,7 @@ description: PostgreSQL schema, Liquibase with rollback, indexing, backups, RLS,
 ## Instructions
 
 - Every changeSet includes `<rollback>` or documented irreversible ADR.
-- Use EXPLAIN (ANALYSE, BUFFERS) on hot queries in non-prod clones.
+- Use EXPLAIN (ANALYZE, BUFFERS) on hot queries in non-prod clones.
 - Document pool sizes and PgBouncer mode if used.
 
 ## Safety Checklist

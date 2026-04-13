@@ -26,11 +26,7 @@
 │   ├── debugging.md                      # Root-cause analysis
 │   ├── documentation.md                  # Docs / runbooks
 │   ├── self-improvement.md               # Metrics / learning log
-│   ├── skills-manager.md                 # SKILL.md lifecycle
-│   ├── rules-manager.md                  # .mdc rules lifecycle
-│   ├── hook-manager.md                   # Hook scripts lifecycle
-│   ├── commands-manager.md               # Runnable commands
-│   ├── subagents-manager.md              # AGENTS.md + disabled.txt
+│   ├── config-manager.md                 # Skills, rules, hooks, commands, and roster lifecycle
 │   └── disabled.txt                      # Optional: one agent stem per line to disable
 │
 ├── skills/                                 # Reusable knowledge — loaded dynamically
@@ -46,7 +42,7 @@
 ├── hooks/                                  # PowerShell — triggered by hooks.json
 │   ├── session-init.ps1                    # sessionStart — memory context JSON
 │   ├── task-close.ps1                      # stop — session marker in tasks/todo.md
-│   ├── on-task-close.ps1                   # stop — completed → lesson stub in tasks/lessons.md
+│   ├── subagent-trace.ps1                   # subagentStart — log spawned agent to tasks/subagent-trace.log
 │   ├── quality-check.ps1                   # afterFileEdit — Java + secret heuristics
 │   ├── security-guard.ps1                  # beforeShellExecution — dangerous cmd blocks
 │   ├── mcp-audit.ps1                       # beforeMCPExecution — log + prod write block
@@ -59,7 +55,7 @@
 │   ├── emergency-kill.ps1                  # Toggle .kill-switch
 │   ├── pre-merge-checks.ps1                # Tests before git push/merge
 │   ├── rollback-on-test-failure.ps1        # Post-deploy rollback log hint
-│   ├── cursor-allow.ps1 / cursor-noop.ps1 / cursor-continue.ps1 / cursor-decision-allow.ps1
+│   ├── cursor-allow.ps1 / cursor-continue.ps1 / cursor-decision-allow.ps1
 │   └── install-dependency-check.ps1        # Reserves .cursor/tools for OWASP DC
 │
 ├── hooks.json                              # Wires hooks to their shell scripts

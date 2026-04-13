@@ -12,7 +12,7 @@ Keep documentation trustworthy: generated API docs from annotations, operational
 
 ## When invoked
 
-1. After API or behaviour change that affects consumers or operators.
+1. After API or behavior change that affects consumers or operators.
 2. Before major release — verify changelog + migration completeness.
 
 ## Hard rules

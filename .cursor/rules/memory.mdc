@@ -1,8 +1,8 @@
 ---
 description: "Memory Protocol — How the system persists state, lessons, and decisions across sessions so every session starts informed, not blank."
-alwaysApply: true
+alwaysApply: false
 globs:
-  - "/**"
+  - "tasks/**"
 version: "1.0.0"
 tags:
   - "orchestration"
@@ -160,6 +160,40 @@ Zeus executes this silently at the start of every session before taking any acti
 | Todo items marked complete stay in the file for 1 session, then archived | Keeps todo.md actionable without losing history |
 | Lessons are written in plain language — no jargon | They must be understood at session start in seconds, not decoded |
 | Every lesson must have a prevention rule — observation alone is not a lesson | "X happened" is a log entry. "When X happens, do Y instead" is a lesson |
+| Lessons are written by Zeus when corrections or gate failures happen — not auto-generated | Real lessons have prevention rules; stubs without content are noise |
+| Session-end markers in `tasks/todo.md` should be cleaned when no active tasks exist | An empty todo file with 50 timestamps is not useful |
+
+---
+
+## Long-term Maintenance (keeping files useful)
+
+These files grow over time. Without cleanup, they become noise that wastes context window instead of helping. Here is how to keep each file useful:
+
+### `tasks/todo.md` — keep it short
+
+- **Only active work** lives here. When a task is done, remove it after the next session.
+- Session-end markers (`<!-- session-end ... -->`) are hook artifacts — clean them out periodically. They have no value once the session is over.
+- If the file has no active tasks, it should just say `_No active checklist items._`
+
+### `tasks/lessons.md` — quality over quantity
+
+- **Real lessons stay.** A lesson with a clear prevention rule is valuable forever.
+- **Stubs without a prevention rule** are noise, not lessons — delete them on sight.
+- **When the file exceeds ~30 entries:** Zeus should consolidate similar lessons into grouped patterns (e.g., three "validation missing" lessons become one with a broader prevention rule). Mark the originals as superseded.
+- **Quarterly review:** Skim the file and ask: "Is this lesson still relevant? Has the prevention rule actually helped?" Remove or update stale entries.
+
+### `tasks/decisions.md` — archive when stale
+
+- **Active decisions stay** in the main file — these are the ones that affect current work.
+- **Superseded decisions** should be clearly marked with `Status: Superseded by [newer decision]`. They stay in the file for reference but can be moved to `tasks/decisions-archive.md` after 90 days if the file gets long.
+- **When the file exceeds ~20 active entries:** Create `tasks/decisions-archive.md` and move all superseded entries there. Link from the main file: `_Older decisions: see [decisions-archive.md](decisions-archive.md)_`
+- **Never silently edit a decision.** If a decision changes, add a new entry and mark the old one superseded.
+
+### General rules
+
+- **Context window budget:** Zeus reads all three files at session start. If the combined size exceeds ~200 lines of useful content, it is time to archive or consolidate. More than that and the files start competing with the actual task for context space.
+- **Archival is not deletion.** Move old content to archive files (`tasks/decisions-archive.md`, `tasks/lessons-archive.md`) — do not throw it away.
+- **The user decides** when to run a cleanup. Zeus can suggest it ("lessons.md has 35 entries, want me to consolidate?") but should not do it silently.
 
 ---
 

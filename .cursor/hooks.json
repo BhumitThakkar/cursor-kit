@@ -7,12 +7,6 @@
         "timeout": 5
       }
     ],
-    "sessionEnd": [
-      {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
-        "timeout": 5
-      }
-    ],
     "preToolUse": [
       {
         "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/gate-check.ps1",
@@ -23,27 +17,9 @@
         "timeout": 5
       }
     ],
-    "postToolUse": [
-      {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
-        "timeout": 5
-      }
-    ],
-    "postToolUseFailure": [
-      {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
-        "timeout": 5
-      }
-    ],
     "subagentStart": [
       {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-decision-allow.ps1",
-        "timeout": 5
-      }
-    ],
-    "subagentStop": [
-      {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
+        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/subagent-trace.ps1",
         "timeout": 5
       }
     ],
@@ -89,12 +65,6 @@
         "timeout": 5
       }
     ],
-    "afterMCPExecution": [
-      {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
-        "timeout": 5
-      }
-    ],
     "beforeReadFile": [
       {
         "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-allow.ps1",
@@ -113,35 +83,15 @@
         "timeout": 5
       }
     ],
-    "preCompact": [
-      {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
-        "timeout": 5
-      }
-    ],
     "stop": [
       {
         "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/task-close.ps1",
-        "timeout": 5
-      },
-      {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/on-task-close.ps1",
-        "timeout": 5
-      },
-      {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
         "timeout": 5
       }
     ],
     "beforeTabFileRead": [
       {
         "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-allow.ps1",
-        "timeout": 5
-      }
-    ],
-    "afterTabFileEdit": [
-      {
-        "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .cursor/hooks/cursor-noop.ps1",
         "timeout": 5
       }
     ]

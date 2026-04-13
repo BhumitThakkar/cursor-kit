@@ -99,7 +99,7 @@ Applies to: any output from DevOps Agent
 | # | Criterion | Owner | Failure Action |
 |---|---|---|---|
 | 1 | No secrets in Dockerfiles or pipeline configs | DevOps | CRITICAL — block, escalate to user |
-| 2 | All image tags are specific versions — no `latest` | DevOps | Return to DevOps — list `latest` usages |
+| 2 | All image tags are specific versions — no `latest`. Pinned versions must be reviewed quarterly or when OWASP Dependency-Check flags a CVE | DevOps | Return to DevOps — list `latest` usages or stale pins |
 | 3 | Pipeline order: build → test → security scan → deploy | DevOps | Return to DevOps — reorder |
 | 4 | Environment variable names documented (no values) | DevOps | Return to DevOps — add env var list |
 | 5 | App verified running in container before done | DevOps | Return to DevOps — provide verification steps |

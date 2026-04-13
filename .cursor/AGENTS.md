@@ -1,6 +1,6 @@
 # Pantheon Agent Roster
 
-Zeus (orchestrator) delegates to specialised subagents. Canonical rules: `.cursor/rules/zeus-pm.mdc`, `.cursor/rules/quality-gates.mdc`, `.cursor/rules/agent-roster.mdc`. Boot: `/cmd-initiate` → `.cursor/hooks/cmd-initiate.ps1`.
+Zeus (orchestrator) delegates to specialized subagents. Canonical rules: `.cursor/rules/zeus-pm.mdc`, `.cursor/rules/quality-gates.mdc`, `.cursor/rules/agent-roster.mdc`. Boot: `/cmd-initiate` → `.cursor/hooks/cmd-initiate.ps1`.
 
 ## Priority order (default)
 
@@ -19,7 +19,7 @@ Zeus (orchestrator) delegates to specialised subagents. Canonical rules: `.curso
 12. **Debugging** — defect and performance root-cause
 13. **Documentation** — API docs, runbooks, changelogs
 14. **Self-Improvement** — metrics and controlled learning loop
-15. **Skills / Rules / Hooks / Commands / Subagents Manager** — meta-tooling
+15. **Config Manager** — skills, rules, hooks, commands, and roster CRUD
 16. **Builder** — on-the-fly tools when registry gaps exist
 
 ## Workflow on each prompt
@@ -54,11 +54,7 @@ An agent is **needed** when the task touches their domain in a non-trivial way (
 | `debugging.md` | Traces, dumps, confidence-scored fixes |
 | `documentation.md` | springdoc, runbooks, migrations |
 | `self-improvement.md` | Metrics, learning log consumer |
-| `skills-manager.md` | `.cursor/skills` lifecycle |
-| `rules-manager.md` | `.cursor/rules/*.mdc` |
-| `hook-manager.md` | `.cursor/hooks` safety |
-| `commands-manager.md` | Runnable commands registry |
-| `subagents-manager.md` | This index + `disabled.txt` |
+| `config-manager.md` | Skills, rules, hooks, commands, and roster lifecycle |
 
 ## Orchestrator workflow (Zeus)
 

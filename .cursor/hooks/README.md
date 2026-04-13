@@ -6,7 +6,7 @@ Scripts are invoked by [../hooks.json](../hooks.json). Most read **JSON from std
 | --- | --- | --- |
 | `session-init.ps1` | sessionStart | Inject `tasks/` memory into `additional_context`. |
 | `task-close.ps1` | stop | Append session marker to `tasks/todo.md`. |
-| `on-task-close.ps1` | stop | After `task-close`, if status is `completed`, append a deduped lesson stub to `tasks/lessons.md`. |
+| `subagent-trace.ps1` | subagentStart | Log which subagent was spawned to `tasks/subagent-trace.log`. |
 | `gate-check.ps1` | preToolUse | Remind agents of quality gates before Write/Shell. |
 | `cursor-decision-allow.ps1` | preToolUse / subagentStart | Default allow JSON. |
 | `quality-check.ps1` | afterFileEdit | Java heuristics + secret-pattern block. |
@@ -14,7 +14,6 @@ Scripts are invoked by [../hooks.json](../hooks.json). Most read **JSON from std
 | `run-before-hook.ps1` + inner `*.ps1` | beforeShellExecution | Kill switch, deploy rate limit, pre-merge tests. |
 | `mcp-audit.ps1` | beforeMCPExecution | Log MCP; block prod writes. |
 | `cursor-allow.ps1` | beforeShell / beforeMCP / beforeReadFile | Pass-through allow. |
-| `cursor-noop.ps1` | Various | No-op `{}` for audit-only slots. |
 | `cursor-continue.ps1` | beforeSubmitPrompt | `{ "continue": true }`. |
 | `run-after-hook.ps1` + `rollback-on-test-failure.ps1` | afterShellExecution | Log rollback reminder after deploy-class commands. |
 | `cmd-initiate.ps1` | *(manual / command)* | Full Pantheon file tree validation. |

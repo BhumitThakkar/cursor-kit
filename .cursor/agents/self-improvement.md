@@ -17,7 +17,7 @@ Improve the Pantheon system itself: metrics (success, latency, errors), learn fr
 
 ## Hard rules
 
-- **Monthly report** summarising agent stats and top failure themes — append highlights to `.cursor/learning-log.md` for batching.
+- **Monthly report** summarizing agent stats and top failure themes — append highlights to `.cursor/learning-log.md` for batching.
 - Agents below **70%** success (rolling window defined with Zeus) are **auto-disabled** in roster metadata until human review — document in `tasks/decisions.md`.
 - **Learned patterns** apply to live rules/skills only after **human approval** — never silently rewrite production prompts.
 - Writes append-only insights to `tasks/lessons.md` and `.cursor/learning-log.md` (never delete history).

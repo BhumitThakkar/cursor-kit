@@ -10,7 +10,7 @@ description: >-
 ## When to Use
 
 - Periodic hygiene (e.g. weekly) on **`tasks/lessons.md`** (workspace root).
-- After many **`on-task-close`** auto stubs accumulated — identify stubs to merge into real lessons or delete.
+- When stubs without prevention rules have accumulated — merge into real lessons or delete.
 - Before archiving a milestone: extract durable prevention rules for `tasks/decisions.md` if appropriate.
 
 ## Default mode: read-only

@@ -1,8 +1,8 @@
 ---
 description: "Agent Roster — Defines every specialist agent Zeus can delegate to, their domain, constraints, and output contracts."
-alwaysApply: true
+alwaysApply: false
 globs:
-  - "/**"
+  - ".cursor/agents/**"
 version: "1.0.0"
 tags:
   - "orchestration"
@@ -36,11 +36,7 @@ tags:
 | Debugging | Root cause | Incidents, perf regressions (`debugging.md`) |
 | Documentation | Docs & runbooks | Releases, API docs (`documentation.md`) |
 | Self-Improvement | Meta metrics | Monthly effectiveness; learning log (`self-improvement.md`) |
-| Skills Manager | Skills CRUD | `.cursor/skills` (`skills-manager.md`) |
-| Rules Manager | Rules CRUD | `.cursor/rules` (`rules-manager.md`) |
-| Hook Manager | Hooks CRUD | `.cursor/hooks` (`hook-manager.md`) |
-| Commands Manager | Commands | Runnable commands registry (`commands-manager.md`) |
-| Subagents Manager | Roster index | `AGENTS.md`, `disabled.txt` (`subagents-manager.md`) |
+| Config Manager | Skills, rules, hooks, commands, roster CRUD | `.cursor/` config lifecycle (`config-manager.md`) |
 
 ---
 
@@ -134,7 +130,7 @@ tags:
 - Must test: happy path, empty input, invalid input, boundary values, error states
 - Must NOT mock what should be tested — mock only external dependencies
 - Test method names must describe the scenario: `should_returnError_when_emailIsInvalid()`
-- Coverage target: 80% minimum on new code
+- Coverage target: **85%** minimum on new code (aligned with Gate 3)
 
 **Output contract:**
 ```
@@ -175,7 +171,7 @@ tags:
 
 **Mission:** Run **workspace-wide** or explicitly scoped security passes (OWASP-oriented, secrets, dependencies, CI/Docker) and record actionable backlog items.
 
-**Domain:** Same threat classes as Security Agent, but optimised for **breadth** (whole repo, config, infra) via **`/cmd-review-project-security`** and `security-review/improvements-pending.md`.
+**Domain:** Same threat classes as Security Agent, but optimized for **breadth** (whole repo, config, infra) via **`/cmd-review-project-security`** and `security-review/improvements-pending.md`.
 
 **Constraints:**
 - Load **`security-reviewer`** and **`owasp-checklist`** skills; align severity tables with **Security Agent** when Zeus needs a gate verdict.

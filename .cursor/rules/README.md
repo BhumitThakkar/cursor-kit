@@ -1,6 +1,6 @@
 # `rules/` — Cursor rules (`.mdc`)
 
-Markdown-with-frontmatter files Cursor applies according to **`alwaysApply`** and **`globs`**. These define **Pantheon** behaviour: orchestration, gates, memory, and tooling registry.
+Markdown-with-frontmatter files Cursor applies according to **`alwaysApply`** and **`globs`**. These define **Pantheon** behavior: orchestration, gates, memory, and tooling registry.
 
 | File | Purpose |
 | --- | --- |

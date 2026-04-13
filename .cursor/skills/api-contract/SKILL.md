@@ -8,7 +8,7 @@ description: Contract-first OpenAPI 3.0, DTOs, standard errors, pagination, filt
 ## When to Use
 
 - New HTTP surface or breaking API change.
-- Aligning Backend controllers with documented behaviour.
+- Aligning Backend controllers with documented behavior.
 
 ## Instructions
 

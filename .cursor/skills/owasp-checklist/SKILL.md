@@ -254,7 +254,7 @@ public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
 
 ## GDPR-oriented checks
 
-- Data minimisation: collect only fields you need; document lawful basis.
+- Data minimization: collect only fields you need; document lawful basis.
 - Consent capture for marketing communications; unsubscribe flows tested.
 - Right to erasure: define how PII is removed across DB, object storage, logs, and backups.
 
