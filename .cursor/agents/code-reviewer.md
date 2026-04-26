@@ -69,6 +69,11 @@ You are a principal engineer conducting a code review. Your bar is: would this p
 - No circular dependencies
 - No static state shared across requests
 
+### Validation & DTOs
+- Boundary validations (e.g., `@NotBlank`, `@Size`, `@Pattern`) must reside exclusively on Data Transfer Objects (DTOs), never directly on JPA entities.
+- JPA entities should only contain constraints necessary for database schema generation (e.g., `nullable = false`).
+- **Skill requirement:** Load the `.cursor/skills/validate-spring-dto/SKILL.md` skill automatically when reviewing Spring Controllers, DTOs, or Entities to enforce this standard.
+
 ## Output format
 
 ```
