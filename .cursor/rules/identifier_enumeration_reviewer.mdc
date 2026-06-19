@@ -1,0 +1,52 @@
+---
+description: >-
+  Cursor rule for identifier_enumeration_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot servlet MVC/REST identifiers and enumeration auditor.
+  Covers sequential PK exposure, IDOR authorization, user-existence leakage,
+  public ID entropy, and server-side tenant/user filters on search endpoints.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Identifiers & Enumeration Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`identifier_enumeration_reviewer`** -> `.cursor/agents/identifier_enumeration_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/identifier_enumeration_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/identifier_enumeration_reviewer/SKILL.md` |
+| Report path | `AI/identifier_enumeration_reviewer/identifier_enumeration_reviewer_report.md` |
+| Report line | `identifier_enumeration_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when entity ID fields, controller `@PathVariable` types, DTOs exposing identifiers, login/reset error messages, or search/list endpoints change.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define identifier policy.
+
+## Non-negotiable rules
+
+1. **Exposing sequential integer PKs as the sole API identifier for user-owned resources is always FAIL.**
+2. **Fetching a resource by ID without ownership/authorization check is always FAIL.**
+3. **Different error messages for existing vs non-existing users on login/reset is always FAIL.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

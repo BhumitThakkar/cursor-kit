@@ -1,0 +1,54 @@
+---
+description: >-
+  Cursor rule for session_reviewer v1.1 STRICT. Invoke agent only.
+  Spring Boot servlet MVC/REST session management and cookie security auditor.
+  Covers session ID entropy, cookie-only transport, fixation protection,
+  Secure/HttpOnly/Path/Domain/SameSite flags, logout invalidation, and
+  timeout enforcement. A safe dev profile does not excuse an unsafe prod profile.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Session Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`session_reviewer`** -> `.cursor/agents/session_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/session_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/session_reviewer/SKILL.md` |
+| Report path | `AI/session_reviewer/session_reviewer_report.md` |
+| Report line | `session_reviewer v1.1 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when session configuration, cookie attributes, login/logout handlers, session fixation settings, timeout values, URL rewriting, SameSite policy, or reverse proxy configuration changes.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define session/cookie policy.
+
+## Non-negotiable rules
+
+1. **Missing Secure or HttpOnly on session cookie is always FAIL.** No exception for dev, test, or internal environments.
+2. **Session fixation without rotation is always FAIL.** If the session ID does not change on login, it is a critical finding.
+3. **A safe dev profile does not excuse an unsafe prod profile.** Every profile must be reviewed independently.
+4. **Frontend-only cookie clearing without server session invalidation is always FAIL.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

@@ -1,0 +1,10 @@
+{
+  "agent_id": "zeus",
+  "sessions_tracked": 0,
+  "gate_failure_rate": 0.0,
+  "rework_cycle_rate": 0.0,
+  "escalation_rate": 0.0,
+  "avg_token_burn_l1": 0,
+  "avg_token_burn_l2": 0,
+  "last_updated": null
+}

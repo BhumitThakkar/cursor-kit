@@ -1,0 +1,54 @@
+---
+description: >-
+  Cursor rule for Spring Boot Actuator reviewer v1.0 STRICT. Invoke agent only.
+  Web exposure: health (no auth) and info (auth required) only. Any other Actuator
+  endpoint on web is a red flag — fail the finding.
+globs: "**/*.java,**/*.kt,**/*.kts,**/pom.xml,**/build.gradle,**/build.gradle.kts,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/*SecurityConfig*.java"
+alwaysApply: false
+---
+
+# Actuator Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`actuator_reviewer`** → `.cursor/agents/actuator_reviewer.md`.
+
+**One Resolution per finding.** Five rows: Pattern, Mechanism, Security property, Prohibited, Verify. Rules: **SKILL.md §5.2** + **§6.1** + catalog **§6**. **Only Evidence** may quote source code.
+
+## Policy (fixed)
+
+| Endpoint | Web | Auth |
+|---|---|---|
+| health | Allowed | None |
+| info | Allowed | Required |
+| **All others** | **Forbidden** | Remove from exposure — red flag |
+
+**POLICY.md wins.**
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/actuator_reviewer/POLICY.md` |
+| Scan + §5 + §6 | `.cursor/skills/actuator_reviewer/SKILL.md` |
+| Report path | `AI/actuator_reviewer/actuator_reviewer_report.md` |
+| Report line | `actuator_reviewer v1.0 STRICT` |
+| Scoring | SKILL.md §8 |
+
+## Invoke when
+
+Actuator or `management.*` config changes, security matcher changes on Actuator paths, or pre-deploy. Skip `target/`, `build/`, docs-only edits.
+
+## Stack gate
+
+**SKILL.md §1.1** before CHECK-IDs. On fail → **§1.2** report only; no scored findings.
+
+## Finding table (per issue)
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line from project (only place for code) |
+| Pattern | §6 · CHECK-ID — pattern name |
+| Mechanism | Plain English + property/API names |
+| Prohibited | Short label (e.g. `env on web exposure`) |
+| Verify | Action + pass signal per §6.1 |
+
+Forbidden in Resolution rows: code fences, pasteable config/Java, bare "Review actuator config" in Verify.

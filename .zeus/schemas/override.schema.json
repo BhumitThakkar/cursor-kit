@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Human Override",
+  "description": "Mid-session human override. Zeus reads at the start of each turn (highest priority). Override is logged as ADR. See Part VIII of cursor-kit-v2-FINAL.md.",
+  "type": "object",
+  "required": ["action", "details", "written_at"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["REDIRECT", "CANCEL", "INJECT_DEPENDENCY", "FORCE_PASS", "RESEQUENCE"],
+      "description": "REDIRECT=update contract & re-dispatch. CANCEL=kill task & release locks. INJECT_DEPENDENCY=add to DAG. FORCE_PASS=manually approve gate. RESEQUENCE=rebuild DAG with new ordering."
+    },
+    "details": {
+      "type": "string",
+      "description": "Specific instructions for the override action."
+    },
+    "written_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+---
+description: >-
+  Cursor rule for unsafe_parsing_deserialization_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot parsing and deserialization auditor.
+  Covers native Java deserialization, XML XXE protections, polymorphic JSON/YAML,
+  archive extraction safety (Zip Slip), and complex document parsing limits.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Unsafe Parsing & Deserialization Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`unsafe_parsing_deserialization_reviewer`** -> `.cursor/agents/unsafe_parsing_deserialization_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/unsafe_parsing_deserialization_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/unsafe_parsing_deserialization_reviewer/SKILL.md` |
+| Report path | `AI/unsafe_parsing_deserialization_reviewer/unsafe_parsing_deserialization_reviewer_report.md` |
+| Report line | `unsafe_parsing_deserialization_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when `ObjectInputStream`, XML parsing logic, Jackson/YAML polymorphic settings, zip extraction, or complex document parsing features (PDF, SVG, Office) change.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define data processing or deserialization policy.
+
+## Non-negotiable rules
+
+1. **Native Java deserialization (`ObjectInputStream`) on untrusted data is always FAIL.**
+2. **XML parsers instantiated without disabling external entities and DTDs is always FAIL.**
+3. **Extracting zip entries to the filesystem without canonical path validation is always FAIL.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

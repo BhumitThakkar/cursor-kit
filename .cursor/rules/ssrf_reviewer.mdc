@@ -1,0 +1,52 @@
+---
+description: >-
+  Cursor rule for ssrf_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot SSRF and outbound request safety auditor.
+  Covers URL allow-listing, blocking internal/private IP ranges, redirect handling,
+  blocking non-HTTP schemes, setting timeouts, and preventing sensitive header forwarding.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# SSRF & Outbound Request Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`ssrf_reviewer`** -> `.cursor/agents/ssrf_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/ssrf_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/ssrf_reviewer/SKILL.md` |
+| Report path | `AI/ssrf_reviewer/ssrf_reviewer_report.md` |
+| Report line | `ssrf_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when outbound HTTP clients (`RestTemplate`, `WebClient`), webhook logic, URL fetching features, redirect handling, or header proxying logic changes.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define outbound fetching policy.
+
+## Non-negotiable rules
+
+1. **Allowing `file://` or other non-HTTP schemes via user input is always FAIL.**
+2. **Failing to block private/loopback/cloud-metadata IPs for dynamic URLs is always FAIL.**
+3. **Blindly forwarding incoming `Authorization` headers to arbitrary outbound URLs is always FAIL.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

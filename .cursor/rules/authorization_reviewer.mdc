@@ -1,0 +1,35 @@
+---
+description: >-
+  Cursor rule for authorization_reviewer v2.0 STRICT. Strict allow-path policy:
+  explicit paths, denyAll catch-all, no wildcards. Supersedes strict_allow_path_reviewer.
+globs: "**/SecurityConfig.java,**/*Application.java,**/security/**/*.java,**/*.java,**/*.kt,**/application.properties,**/application.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Authorization Reviewer Rule v2.0 STRICT
+
+Invoke **`authorization_reviewer`** → `.cursor/agents/authorization_reviewer.md`.
+
+| Policy | `.cursor/skills/authorization_reviewer/POLICY.md` |
+| Report line | `authorization_reviewer v2.0 STRICT` |
+
+**POLICY.md wins.**
+
+## When editing SecurityFilterChain
+
+1. **Explicit paths only** — no `*` or `**` in matchers
+2. **PUBLIC** — `permitAll()` on named paths only
+3. **ROLES** — `hasRole` / `hasAnyRole` on named paths (role names per app)
+4. **LOGIN-ONLY** — `authenticated()` on named paths only (optional)
+5. **Catch-all** — `.anyRequest().denyAll()` only
+
+**Unacceptable catch-all:** `permitAll()`, `authenticated()`
+
+## Non-negotiable rules
+
+1. **Missing intentional `SecurityFilterChain` → FAIL (AUTH01).**
+2. **`.anyRequest().permitAll()` or `.anyRequest().authenticated()` → FAIL (AUTH03).**
+3. **Wildcard `*` or `**` in matcher paths → FAIL (AUTH04).**
+4. **Client-supplied user/owner/tenant ID for authorization → FAIL (AUTH08).**
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**.

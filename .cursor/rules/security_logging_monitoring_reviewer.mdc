@@ -1,0 +1,52 @@
+---
+description: >-
+  Cursor rule for security_logging_monitoring_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot security logging and monitoring auditor.
+  Covers auditing of authz/authn events, MDC correlation IDs, secret masking in logs,
+  and documentation of log retention/protection policies.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts,**/logback*.xml,**/log4j2*.xml"
+alwaysApply: false
+---
+
+# Security Logging & Monitoring Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`security_logging_monitoring_reviewer`** -> `.cursor/agents/security_logging_monitoring_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/security_logging_monitoring_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/security_logging_monitoring_reviewer/SKILL.md` |
+| Report path | `AI/security_logging_monitoring_reviewer/security_logging_monitoring_reviewer_report.md` |
+| Report line | `security_logging_monitoring_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when logging frameworks (`logback`, `log4j`), `MDC` context filters, global exception handlers, authentication listeners, or sensitive `toString()` methods change.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define logging policies.
+
+## Non-negotiable rules
+
+1. **Logging raw passwords, tokens, API keys, or session IDs is always FAIL.**
+2. **Failing to log authentication and authorization failures is always FAIL.**
+3. **Omitting correlation context (MDC) for security events is always FAIL.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

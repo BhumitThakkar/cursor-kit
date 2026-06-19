@@ -1,0 +1,51 @@
+---
+description: >-
+  Cursor rule for cryptography_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot cryptography security auditor. Covers algorithms, randomness,
+  key lengths, mode configurations (no ECB), and hashing.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Cryptography Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`cryptography_reviewer`** -> `.cursor/agents/cryptography_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/cryptography_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/cryptography_reviewer/SKILL.md` |
+| Report path | `AI/cryptography_reviewer/cryptography_reviewer_report.md` |
+| Report line | `cryptography_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when encryption logic, token generation, cryptography libraries (BouncyCastle), or key configurations change.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define crypto policy.
+
+## Non-negotiable rules
+
+1. **Insecure random (`java.util.Random` for security) is always FAIL.**
+2. **Hardcoded keys are always FAIL.**
+3. **Insecure symmetric modes (ECB, DES) are always FAIL.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

@@ -1,0 +1,54 @@
+---
+description: >-
+  Cursor rule for injection_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot servlet MVC/REST injection auditor. Covers SQL, NoSQL, command,
+  header, email, LDAP, XPath, SpEL, and template injection surfaces.
+  Frontend-only validation is always a failure.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.ftl,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Injection Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`injection_reviewer`** -> `.cursor/agents/injection_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/injection_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/injection_reviewer/SKILL.md` |
+| Report path | `AI/injection_reviewer/injection_reviewer_report.md` |
+| Report line | `injection_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when SQL queries, JPA repositories, native queries, NoSQL operations, command execution, expression evaluation, template rendering, email sending, LDAP queries, XPath expressions, or dynamic class/bean resolution changes.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define query or injection policy.
+
+## Non-negotiable rules
+
+1. **String concatenation in SQL/JPQL/HQL with user input is always FAIL.** No exception for perceived safety, low risk, or internal-only use.
+2. **Frontend-only validation is UX only.** If injection prevention relies only on HTML, JavaScript, or browser constraints, the reviewer must report a failure.
+3. **User-controlled strings must never be evaluated as code.** This includes expressions, templates, class names, bean names, and scripts.
+
+Backend/server-side parameterization or allow-listing must independently prevent injection for direct requests that bypass the UI.
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gate Execution Log Entry",
+  "description": "Per-gate execution log entry. Written to .zeus/gates/session-YYYYMMDD.jsonl. Used by Self-Improvement Agent for metrics analysis. See Part IV of cursor-kit-v2-FINAL.md.",
+  "type": "object",
+  "required": ["task_id", "gate_id", "tier", "result", "timestamp"],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "pattern": "^T\\d+$"
+    },
+    "gate_id": {
+      "type": "string",
+      "enum": ["G0", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8"],
+      "description": "G0=contract exists, G1=compiles, G2=Javadoc, G3=coverage>=85%, G4=no hardcoded values, G5=CSRF, G6=role-based access, G7=no secrets, G8=img alt text."
+    },
+    "tier": {
+      "type": "integer",
+      "enum": [0, 1, 2, 3],
+      "description": "Tier 0=pre-exec, Tier 1=inline, Tier 2=handoff, Tier 3=closure."
+    },
+    "result": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "ESCALATE", "SKIPPED"]
+    },
+    "method": {
+      "type": "string",
+      "description": "How the gate was evaluated (e.g., 'mvn compile exit code', 'regex scan', 'AST parse')."
+    },
+    "details": {
+      "type": ["string", "null"],
+      "description": "Additional context on failure or escalation."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+---
+description: >-
+  Cursor rule for security_testing_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot servlet MVC/REST security testing and assurance auditor.
+  Covers OWASP ZAP DAST presence, High/Critical alert remediation, authenticated
+  scan coverage, CI report archiving, and CSRF context handling in scans.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts,**/*.yml,**/*.yaml,**/Jenkinsfile"
+alwaysApply: false
+---
+
+# Security Testing & Assurance Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`security_testing_reviewer`** -> `.cursor/agents/security_testing_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/security_testing_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/security_testing_reviewer/SKILL.md` |
+| Report path | `AI/security_testing_reviewer/security_testing_reviewer_report.md` |
+| Report line | `security_testing_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when CI/CD pipeline definitions, ZAP configurations, scan scripts, or release processes change.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define security testing policy.
+
+## Non-negotiable rules
+
+1. **No DAST scan at all before production is always FAIL.**
+2. **Unresolved High/Critical ZAP alerts shipped to production is always FAIL.**
+3. **Skipping a scan tool because it is missing is MANUAL_REVIEW, never PASS.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

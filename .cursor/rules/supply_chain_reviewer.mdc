@@ -1,0 +1,23 @@
+---
+description: >-
+  Cursor rule for supply_chain_reviewer v2.0 STRICT. Frontend-only: SRI/self-host
+  and external script allow-lists in Thymeleaf/HTML. Maven SCA is vulnerability_reviewer.
+globs: "**/*.html,**/templates/**,**/static/**,**/*.jsp"
+alwaysApply: false
+---
+
+# Frontend Supply Chain Reviewer Rule v2.0 STRICT
+
+Invoke **`supply_chain_reviewer`** -> `.cursor/agents/supply_chain_reviewer.md`.
+
+| Report line | `supply_chain_reviewer v2.0 STRICT` |
+
+## Non-negotiable rules
+
+1. **Cross-origin scripts without SRI are FAIL (SUP01) unless self-hosted.**
+2. **Cross-origin scripts not on SUP02 allow-list are FAIL (empty list = no external scripts).**
+3. **Do not score pom.xml, OWASP, or Dockerfile here** — use `vulnerability_reviewer` and `container_secrets_reviewer`.
+
+## Fleet run order
+
+`vulnerability_reviewer` → `container_secrets_reviewer` (if Docker) → `supply_chain_reviewer` (this rule)

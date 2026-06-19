@@ -1,0 +1,30 @@
+---
+description: >-
+  Cursor rule for cors_reviewer v2.0 STRICT. Invoke agent only.
+  Spring Boot CORS auditor: wildcards, reflection, dev origins (all profiles),
+  pattern allow-lists, credentials+headers, filter-chain wiring.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# CORS Configuration Reviewer Rule v2.0 STRICT
+
+**Do not inline-audit.** Invoke **`cors_reviewer`** -> `.cursor/agents/cors_reviewer.md`.
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/cors_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/cors_reviewer/SKILL.md` |
+| Report path | `AI/cors_reviewer/cors_reviewer_report.md` |
+| Report line | `cors_reviewer v2.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Non-negotiable rules
+
+1. **`allowedOrigins("*")` with `allowCredentials(true)` is always FAIL (CORS01).**
+2. **Any wildcard origin is FAIL (CORS09), even without credentials.**
+3. **Dev/tunnel hostnames in CORS allow-lists are FAIL in every profile (CORS08).**
+4. **Reflecting `Origin` without allow-list validation is always FAIL (CORS02).**
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**.

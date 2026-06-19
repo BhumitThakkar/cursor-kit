@@ -1,0 +1,12 @@
+{
+  "session": {
+    "id": null,
+    "started": null,
+    "root_task": null,
+    "classification": null,
+    "status": "IDLE"
+  },
+  "tasks": [],
+  "locks": {},
+  "dag_version": 0
+}

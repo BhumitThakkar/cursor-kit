@@ -1,0 +1,53 @@
+---
+description: >-
+  Cursor rule for mass_assignment_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot mass assignment and data binding auditor.
+  Covers direct JPA entity binding, client-supplied sensitive fields, unknown JSON field
+  rejection, deriving trusted state (ownership/price/role) from server context, and
+  broad object mapper safety.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Mass Assignment Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`mass_assignment_reviewer`** -> `.cursor/agents/mass_assignment_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/mass_assignment_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/mass_assignment_reviewer/SKILL.md` |
+| Report path | `AI/mass_assignment_reviewer/mass_assignment_reviewer_report.md` |
+| Report line | `mass_assignment_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when controller endpoints, `@RequestBody` / `@ModelAttribute` payload DTOs, object mapping logic (`BeanUtils`, MapStruct), Jackson configurations, or sensitive business logic derivation change.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define data binding policy.
+
+## Non-negotiable rules
+
+1. **Binding external inputs directly into JPA `@Entity` classes is always FAIL.**
+2. **Allowing clients to submit `role`, `isAdmin`, `price`, or `ownerId` in request payloads is always FAIL.**
+3. **Using broad object mappers (e.g., `BeanUtils.copyProperties`) directly onto entities without an explicit allow-list is always FAIL.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

@@ -1,0 +1,20 @@
+---
+description: >-
+  Cursor rule for xss_encoding_reviewer v2.0 STRICT. Thymeleaf, DOM sinks,
+  response patterns, rich-text allow-lists, trace-confidence rules.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# XSS & Output Encoding Reviewer Rule v2.0 STRICT
+
+Invoke **`xss_encoding_reviewer`** -> `.cursor/agents/xss_encoding_reviewer.md`.
+
+| Report line | `xss_encoding_reviewer v2.0 STRICT` |
+
+## Non-negotiable rules
+
+1. **Unsanitized `th:utext` is always FAIL (XSS02).**
+2. **`innerHTML` / `outerHTML` with untrusted data is always FAIL (XSS04/XSS10).**
+3. **XSS15/XSS26 Fail only at HIGH trace confidence (SKILL §2.2).**
+4. **HTML built in controllers is always FAIL (XSS23–XSS25).**

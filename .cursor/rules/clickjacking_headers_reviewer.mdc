@@ -1,0 +1,20 @@
+---
+description: >-
+  Cursor rule for clickjacking_headers_reviewer v2.0 STRICT. Frame-ancestors,
+  HSTS, CSP, nosniff, defaultsDisabled, Referrer-Policy, cache control.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Clickjacking & Headers Reviewer Rule v2.0 STRICT
+
+Invoke **`clickjacking_headers_reviewer`** -> `.cursor/agents/clickjacking_headers_reviewer.md`.
+
+| Report line | `clickjacking_headers_reviewer v2.0 STRICT` |
+
+## Non-negotiable rules
+
+1. **Implicit Spring defaults do not pass when headers are customized.**
+2. **JS-only frame busting without HTTP headers is FAIL (HDR04).**
+3. **Unguarded `defaultsDisabled()` is FAIL (HDR09).**
+4. **HSTS absent or max-age zero is FAIL (HDR07).**

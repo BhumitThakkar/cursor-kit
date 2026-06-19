@@ -1,0 +1,52 @@
+---
+description: >-
+  Cursor rule for middleware_tls_dos_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot servlet MVC/REST middleware, TLS, and DoS resilience auditor.
+  Covers HTTPS enforcement, forward-headers-strategy, HSTS, patching cadence,
+  secure proxy behaviour, request body size limits, and outbound HTTP client timeouts.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts,**/Dockerfile"
+alwaysApply: false
+---
+
+# Middleware, TLS & DoS Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`middleware_tls_dos_reviewer`** -> `.cursor/agents/middleware_tls_dos_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/middleware_tls_dos_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/middleware_tls_dos_reviewer/SKILL.md` |
+| Report path | `AI/middleware_tls_dos_reviewer/middleware_tls_dos_reviewer_report.md` |
+| Report line | `middleware_tls_dos_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when `application.properties` proxy/TLS settings, `SecurityFilterChain` channel security, outbound HTTP client beans, multipart configurations, or Spring Boot parent versions change.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define transport policy.
+
+## Non-negotiable rules
+
+1. **Transmitting passwords or cookies over HTTP is always FAIL.**
+2. **Outbound HTTP clients without explicit timeouts is always FAIL.**
+3. **Missing request body size limits is always FAIL.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

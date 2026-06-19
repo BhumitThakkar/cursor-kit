@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Execution Contract",
+  "description": "Every task dispatched by Zeus MUST include a contract. No exceptions. A brief that cannot be contracted is not ready. See Part II §1 of cursor-kit-v2-FINAL.md.",
+  "type": "object",
+  "required": ["input", "output", "definition_of_done", "validation"],
+  "properties": {
+    "input": {
+      "type": "string",
+      "description": "What this task receives. Must reference specific artifacts, file paths, or data structures — not vague descriptions."
+    },
+    "output": {
+      "type": "string",
+      "description": "What this task must produce. Must name specific files, methods, or deliverables with measurable characteristics."
+    },
+    "definition_of_done": {
+      "type": "string",
+      "description": "Measurable, binary criteria. Must be verifiable by automated means or explicit inspection. Examples: 'Compiles clean. Test coverage >= 85%. No hardcoded strings.'"
+    },
+    "validation": {
+      "type": "string",
+      "description": "Exact command or procedure to verify the contract is met. Examples: 'mvn compile && mvn test -pl user-module', 'git secrets --scan'."
+    }
+  }
+}

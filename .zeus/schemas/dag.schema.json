@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Zeus DAG",
+  "description": "Directed Acyclic Graph for task orchestration. Rebuilt once per orchestration cycle. Version increments on structural changes. See Part II §3 of cursor-kit-v2-FINAL.md.",
+  "type": "object",
+  "required": ["version", "confidence", "nodes", "edges", "critical_path", "estimated_wall_clock"],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "DAG version. Increments when task structure changes."
+    },
+    "confidence": {
+      "type": ["number", "null"],
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Architect Agent's confidence score. >= 0.80 proceeds, < 0.80 halts for human review."
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "agent", "status"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^T\\d+$"
+          },
+          "agent": {
+            "type": "string",
+            "description": "Agent assigned to this node."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["PENDING", "IN_PROGRESS", "DONE", "FAILED", "BLOCKED"]
+          },
+          "depends_on": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Task IDs this node depends on."
+          },
+          "duration_est": {
+            "type": ["string", "null"],
+            "description": "Estimated duration (e.g., '8m', '15m')."
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": { "type": "string" },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "description": "Directed edges as [from, to] pairs."
+    },
+    "critical_path": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ordered list of task IDs on the critical path."
+    },
+    "estimated_wall_clock": {
+      "type": ["string", "null"],
+      "description": "Total estimated wall-clock time for the session."
+    }
+  }
+}

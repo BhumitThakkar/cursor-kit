@@ -1,0 +1,27 @@
+---
+description: >-
+  Cursor rule for disclosure_reviewer v2.0 STRICT. Errors, static leaks, log
+  redaction only. Actuator → actuator_reviewer. Auth page cache → clickjacking_headers HDR06.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/logback*.xml,**/log4j2*.xml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Information Disclosure Reviewer Rule v2.0 STRICT
+
+Invoke **`disclosure_reviewer`** → `.cursor/agents/disclosure_reviewer.md`.
+
+| Report line | `disclosure_reviewer v2.0 STRICT` |
+
+## Invoke order
+
+1. **`actuator_reviewer`** when Actuator is on the classpath.
+2. **`clickjacking_headers_reviewer`** when the app serves authenticated HTML.
+3. **`disclosure_reviewer`** — DISC01–DISC04 only.
+
+## Non-negotiable rules
+
+1. **Stack traces in production HTTP responses → FAIL (DISC02).**
+2. **Cleartext passwords or tokens in logs → FAIL (DISC04).**
+3. **Do not score actuator or Cache-Control here** — use companion agents.
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**.

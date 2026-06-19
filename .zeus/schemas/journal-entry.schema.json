@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Journal Entry",
+  "description": "Immutable append-only event journal entry. Every action is a journal entry — nothing happens unrecorded. See Part I §1 of cursor-kit-v2-FINAL.md.",
+  "type": "object",
+  "required": ["seq", "ts", "type", "source", "payload"],
+  "properties": {
+    "seq": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Monotonically increasing sequence number within a session."
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO8601 timestamp of the event."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "SESSION.STARTED",
+        "SESSION.KILLED",
+        "SESSION.COMPLETED",
+        "TASK.CREATED",
+        "TASK.DISPATCHED",
+        "TASK.REWORK",
+        "AGENT.DONE",
+        "GATE.PASSED",
+        "GATE.FAILED",
+        "GATE.ESCALATED",
+        "ESCALATION.TRIGGERED",
+        "OVERRIDE.APPLIED",
+        "LOCK.ACQUIRED",
+        "LOCK.RELEASED",
+        "DAG.REBUILT",
+        "CIRCUIT.OPENED",
+        "CIRCUIT.CLOSED",
+        "CIRCUIT.PROBE"
+      ],
+      "description": "Event type — exhaustive list of possible journal events."
+    },
+    "source": {
+      "type": "string",
+      "description": "Agent or system component that produced this event (e.g., 'zeus', 'backend', 'qa')."
+    },
+    "payload": {
+      "type": "object",
+      "description": "Event-specific data. Structure varies by event type."
+    }
+  }
+}

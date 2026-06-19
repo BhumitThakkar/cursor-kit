@@ -1,0 +1,52 @@
+---
+description: >-
+  Cursor rule for file_upload_inclusion_reviewer v1.0 STRICT. Invoke agent only.
+  Spring Boot servlet MVC/REST file upload and path traversal auditor.
+  Covers magic bytes, extension lists, safe storage, max size, active content,
+  zip slip, and path traversal prevention (no raw APIs, canonicalization, UUID mapping).
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# File Upload & Inclusion Reviewer Rule v1.0 STRICT
+
+**Do not inline-audit.** Invoke **`file_upload_inclusion_reviewer`** -> `.cursor/agents/file_upload_inclusion_reviewer.md`.
+
+## References
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/file_upload_inclusion_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/file_upload_inclusion_reviewer/SKILL.md` |
+| Report path | `AI/file_upload_inclusion_reviewer/file_upload_inclusion_reviewer_report.md` |
+| Report line | `file_upload_inclusion_reviewer v1.0 STRICT` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when `MultipartFile` handling, file downloads, path construction, zip extraction, storage directories, or file validation logic changes.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define upload policy.
+
+## Non-negotiable rules
+
+1. **Trusting client MIME types or file extensions without magic byte validation is always FAIL.**
+2. **Using client input directly in `new File()` or path APIs is always FAIL.**
+3. **Extracting archives without zip slip canonicalization checks is always FAIL.**
+
+## Finding table
+
+Every finding includes:
+
+| Row | Content |
+|---|---|
+| Evidence | Bad line or runtime proof from project |
+| Policy Rule | POLICY.md - CHECK-ID - citation |
+| Pattern | SKILL.md section 8 pattern |
+| Mechanism | Plain English + framework/API names |
+| Security property | What must be true after fix |
+| Prohibited | Short label only |
+| Verify | Action + pass signal |
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.

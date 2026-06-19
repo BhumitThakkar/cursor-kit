@@ -1,0 +1,21 @@
+---
+description: >-
+  Cursor rule for csrf_reviewer v2.0 STRICT. Auth-model gating, session mutation
+  inventory, hybrid CSRF, Thymeleaf/AJAX tokens, documented API exclusions.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# CSRF Reviewer Rule v2.0 STRICT
+
+**Do not inline-audit.** Invoke **`csrf_reviewer`** -> `.cursor/agents/csrf_reviewer.md`.
+
+| Report line | `csrf_reviewer v2.0 STRICT` |
+| Report path | `AI/csrf_reviewer/csrf_reviewer_report.md` |
+
+## Non-negotiable rules
+
+1. **Document CSRF00 auth model before scoring CSRF03 family.**
+2. **Global `csrf().disable()` on SESSION-COOKIE or BOTH is always FAIL.**
+3. **CSRF07 Fail only at HIGH trace confidence (SKILL §2.3).**
+4. **SameSite-only CSRF defense on session apps is always FAIL (CSRF04).**

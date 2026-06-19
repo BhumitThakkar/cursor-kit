@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Zeus State Store",
+  "description": "Single source of truth for the orchestration system. Derived state is never stored — only ground truth. See Part I §2 of cursor-kit-v2-FINAL.md.",
+  "type": "object",
+  "required": ["session", "tasks", "locks", "dag_version"],
+  "properties": {
+    "session": {
+      "type": "object",
+      "required": ["id", "started", "root_task", "classification", "status"],
+      "properties": {
+        "id": {
+          "type": ["string", "null"],
+          "description": "UUID for the current session. Null when IDLE."
+        },
+        "started": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "ISO8601 timestamp of session start."
+        },
+        "root_task": {
+          "type": ["string", "null"],
+          "description": "Human-readable description of the session's root task."
+        },
+        "classification": {
+          "type": ["string", "null"],
+          "enum": ["L0", "L1", "L2", "L3", "L4", null],
+          "description": "Task complexity level. L0=Trivial, L1=Sequential, L2=Parallel-safe, L3=Cross-domain, L4=Unknown deps."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["IDLE", "ACTIVE", "BLOCKED", "DONE", "KILLED"],
+          "description": "Current session status."
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/task"
+      }
+    },
+    "locks": {
+      "type": "object",
+      "description": "Map of file/module path to owning agent. Acquired by Zeus before dispatch, released on AGENT.DONE or SESSION.KILL.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "dag_version": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Increments when DAG structure changes. Starts at 0."
+    }
+  },
+  "definitions": {
+    "task": {
+      "type": "object",
+      "required": ["id", "description", "owner", "status", "depends_on", "contract", "gate_results"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^T\\d+$",
+          "description": "Task identifier (T1, T2, etc.)"
+        },
+        "description": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string",
+          "description": "Agent assigned to this task (e.g., 'backend', 'frontend')."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["PENDING", "IN_PROGRESS", "GATING", "PASSED", "FAILED", "BLOCKED"]
+        },
+        "depends_on": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Task IDs that must complete before this task can start."
+        },
+        "contract": {
+          "$ref": "contract.schema.json"
+        },
+        "gate_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "gate_id": { "type": "string" },
+              "result": { "type": "string", "enum": ["PASS", "FAIL", "ESCALATE"] },
+              "details": { "type": "string" },
+              "timestamp": { "type": "string", "format": "date-time" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
