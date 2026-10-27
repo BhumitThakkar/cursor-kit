@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/cors_reviewer.md` |
 | Skill directory | `.cursor/skills/cors_reviewer/` |
 | Cursor invoke name | `cors_reviewer` |
-| Report path | `AI/cors_reviewer/cors_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/cors_reviewer/cors_reviewer_report.md` |
 | Report reviewer line | `cors_reviewer v2.0 STRICT` |
+| Fleet position line | `#9 — Phase 4 (Browser & transport)` |
 
 ---
 
@@ -170,7 +171,7 @@ Fail when `allowCredentials(true)` is combined with `allowedHeaders("*")`.
 
 ## 7. Report Requirements
 
-Every scored finding: File, Evidence, Policy Rule, Possible Attack Scenario, five Resolution rows.
+Every scored finding: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, five Resolution rows.
 
 **Possible Attack Scenario:** One or two sentences on possible impact if unfixed — not fix advice.
 

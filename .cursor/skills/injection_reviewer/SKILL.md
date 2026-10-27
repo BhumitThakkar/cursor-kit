@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/injection_reviewer.md` |
 | Skill directory | `.cursor/skills/injection_reviewer/` |
 | Cursor invoke name | `injection_reviewer` |
-| Report path | `AI/injection_reviewer/injection_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/injection_reviewer/injection_reviewer_report.md` |
 | Report reviewer line | `injection_reviewer v1.0 STRICT` |
+| Fleet position line | `#2 — Phase 1 (Input & injection)` |
 
 ---
 
@@ -248,6 +249,7 @@ Every scored finding must include:
 | Evidence | Exact source/config/test line or runtime proof |
 | Policy Rule | `POLICY.md - {CHECK-ID} - {citation}` |
 | Possible Attack Scenario | Realistic impact in one or two sentences |
+| Picture in your head | Mandatory `#### Picture in your head` — concrete mental model / analogy / before-after; prefer **In even simpler terms...** or **Here's a practical example:** |
 | Resolution | Five rows from section 8 |
 
 Evidence is the only field that may quote project source. Resolution rows are prose, not pasteable code.

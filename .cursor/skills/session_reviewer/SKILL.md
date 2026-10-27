@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/session_reviewer.md` |
 | Skill directory | `.cursor/skills/session_reviewer/` |
 | Cursor invoke name | `session_reviewer` |
-| Report path | `AI/session_reviewer/session_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/session_reviewer/session_reviewer_report.md` |
 | Report reviewer line | `session_reviewer v1.1 STRICT` |
+| Fleet position line | `#6 — Phase 2 (Identity & credentials)` |
 
 ---
 
@@ -233,9 +234,11 @@ Fail when the JWT parser does not strictly validate the `exp` (expiration), `iss
 ### SES16 - JWT Explicit Invalidation
 Fail when the application uses stateless JWTs for authentication but provides a logout endpoint that merely deletes the client-side cookie without invalidating the token on the server (e.g., via a Redis blocklist).
 
-### SES17 - Session Cookie SameSite Explicit
+### SES17 - Session Cookie SameSite Strict Default
 
-Fail when session cookie configuration omits explicit SameSite (Strict or Lax). Exception: documented `SameSite=None` path covered by SES09.
+Fail when session cookie configuration omits explicit `SameSite=Strict`, including when the property is unset and the application relies on container/browser default (typically Lax). Fail when `SameSite=Lax` is configured without documented UX justification for cross-site top-level navigation. Exception: documented `SameSite=None` path covered by SES09.
+
+Pass when config explicitly sets `strict` or an env placeholder whose default is `strict` (e.g. `server.servlet.session.cookie.same-site=${EMAILINGSERVICE_SESSION_COOKIE_SAME_SITE:strict}`).
 
 ### SES18 - Custom Cookie Flags Complete
 
@@ -274,6 +277,7 @@ Every scored finding must include:
 | Evidence | Exact source/config/test line or runtime proof |
 | Policy Rule | `POLICY.md - {CHECK-ID} - {citation}` |
 | Possible Attack Scenario | Realistic impact in one or two sentences |
+| Picture in your head | Mandatory `#### Picture in your head` — concrete mental model / analogy / before-after; prefer **In even simpler terms...** or **Here's a practical example:** |
 | Resolution | Five rows from section 8 |
 
 Evidence is the only field that may quote project source. Resolution rows are prose, not pasteable code.
@@ -318,7 +322,7 @@ Use one row set per finding.
 | SES14 | Strong Secrets | Inject a 256+ bit secure random key via environment variables | Keys cannot be brute-forced | Hardcoded weak keys | Verify key length and source in code |
 | SES15 | Validate Claims | Require `exp`, `iss`, `aud` in parser builder | Expired or misdirected tokens fail | Ignoring standard claims | Submit expired token; confirm 401 |
 | SES16 | Token Blocklist | Store revoked JTI (Token ID) in Redis with TTL equal to token expiration | Logged out tokens cannot be reused | Pure stateless logout | Logout, then replay token; confirm 401 |
-| SES17 | Explicit SameSite | Set `server.servlet.session.cookie.same-site=Strict` or `Lax` | CSRF mitigation on session cookie | Missing SameSite on session | Set-Cookie includes SameSite Strict or Lax |
+| SES17 | Explicit SameSite Strict | Set `server.servlet.session.cookie.same-site=strict` or env default `${VAR:strict}`; use Lax only with documented cross-site navigation need | Session cookie SameSite is Strict unless justified otherwise | Missing SameSite; implicit Lax default; Lax without documentation | Set-Cookie shows SameSite=Strict matching config; unset env resolves to strict |
 | SES18 | Full flag set on custom cookies | `ResponseCookie` with httpOnly, secure, sameSite on each custom cookie | Custom cookies meet session standard | Partial flags on custom cookies | Each custom cookie builder sets all three flags |
 | SES19 | No cookie echo | Use cookie as lookup key only; never reflect value in output | Cookie value not in HTML/JSON | Cookie value in template or response body | Cookie value absent from response body |
 

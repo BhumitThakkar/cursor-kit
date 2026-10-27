@@ -13,8 +13,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/supply_chain_reviewer.md` |
 | Cursor invoke name | `supply_chain_reviewer` |
-| Report path | `AI/supply_chain_reviewer/supply_chain_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/supply_chain_reviewer/supply_chain_reviewer_report.md` |
 | Report reviewer line | `supply_chain_reviewer v2.0 STRICT` |
+| Fleet position line | `#22 — Phase 7 (Build, container, frontend supply)` |
 
 ---
 
@@ -32,6 +33,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 

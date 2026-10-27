@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/open_redirect_reviewer.md` |
 | Skill directory | `.cursor/skills/open_redirect_reviewer/` |
 | Cursor invoke name | `open_redirect_reviewer` |
-| Report path | `AI/open_redirect_reviewer/open_redirect_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/open_redirect_reviewer/open_redirect_reviewer_report.md` |
 | Report reviewer line | `open_redirect_reviewer v1.0 STRICT` |
+| Fleet position line | `#13 — Phase 4 (Browser & transport)` |
 
 ---
 
@@ -121,7 +122,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

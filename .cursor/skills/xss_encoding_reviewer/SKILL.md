@@ -9,7 +9,8 @@ disable-model-invocation: true
 ## 0. Naming
 
 | Report line | `xss_encoding_reviewer v2.0 STRICT` |
-| Report path | `AI/xss_encoding_reviewer/xss_encoding_reviewer_report.md` |
+| Fleet position line | `#11 — Phase 4 (Browser & transport)` |
+| Report path | `AI/agents/security_reviewers/xss_encoding_reviewer/xss_encoding_reviewer_report.md` |
 
 ---
 
@@ -83,6 +84,8 @@ See **POLICY.md** block. Default `th:text` only.
 ---
 
 ## 5. Report Requirements
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after story. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Place after Evidence / Policy Rule / Possible Attack Scenario and before Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 **Possible Attack Scenario:** 1–2 sentences; no code fences.
 

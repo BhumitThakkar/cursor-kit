@@ -11,7 +11,7 @@ alwaysApply: false
 
 **Do not inline-audit.** Invoke **`actuator_reviewer`** → `.cursor/agents/actuator_reviewer.md`.
 
-**One Resolution per finding.** Five rows: Pattern, Mechanism, Security property, Prohibited, Verify. Rules: **SKILL.md §5.2** + **§6.1** + catalog **§6**. **Only Evidence** may quote source code.
+**Picture in your head** mandatory on every scored finding (`#### Picture in your head`). **One Resolution per finding.** Five rows: Pattern, Mechanism, Security property, Prohibited, Verify. Rules: **SKILL.md §5.2** + **§6.1** + catalog **§6**. **Only Evidence** may quote source code.
 
 ## Policy (fixed)
 
@@ -29,8 +29,9 @@ alwaysApply: false
 |---|---|
 | Policy | `.cursor/skills/actuator_reviewer/POLICY.md` |
 | Scan + §5 + §6 | `.cursor/skills/actuator_reviewer/SKILL.md` |
-| Report path | `AI/actuator_reviewer/actuator_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/actuator_reviewer/actuator_reviewer_report.md` |
 | Report line | `actuator_reviewer v1.0 STRICT` |
+| Fleet position line | `#19 — Phase 6 (Disclosure)` |
 | Scoring | SKILL.md §8 |
 
 ## Invoke when

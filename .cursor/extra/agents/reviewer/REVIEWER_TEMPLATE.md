@@ -22,7 +22,7 @@
 | 3 | `.cursor/agents/{agent_name}.md` | Workflow steps, report contract |
 | 4 | `.cursor/rules/{agent_name}.mdc` | Cursor invoke wrapper; non-negotiable rules |
 | 5 | `.cursor/scripts/agents/{agent_name}/` | Optional scan scripts (e.g. `vulnerability_reviewer`) |
-| 6 | `AI/{agent_name}/{agent_name}_report.md` | Report output (created per project run) |
+| 6 | `AI/agents/security_reviewers/{agent_name}/{agent_name}_report.md` | Report output (created per project run) |
 
 **Placeholders**
 
@@ -94,8 +94,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/{agent_name}.md` |
 | Cursor invoke name | `{agent_name}` |
-| Report path | `AI/{agent_name}/{agent_name}_report.md` |
+| Report path | `AI/agents/security_reviewers/{agent_name}/{agent_name}_report.md` |
 | Report reviewer line | `{agent_name} v{VERSION} STRICT` |
+| Fleet position line | `#{ORDER} — Phase {N} ({phase name})` — from `FLEET_INVOCATION_ORDER.md` |
 
 ---
 
@@ -108,6 +109,8 @@ Every finding must cite one row from Appendix A:
 ## Resolution Requirement
 
 Every finding: five Resolution rows (Pattern, Mechanism, Security property, Prohibited, Verify). Only Evidence may quote source.
+
+Every scored finding and Manual Review CHECK-ID explanation must also include **`#### Picture in your head`** — concrete mental model / analogy / before-after story (not jargon-only). Prefer ending with **In even simpler terms...** or **Here's a practical example:**. See `SCORING_REVIEWER_AGENT_MECHANISM.md` · Picture in your head.
 
 ---
 
@@ -203,8 +206,9 @@ disable-model-invocation: true
 | Shared — scoring law | `.cursor/extra/agents/reviewer/SCORING_REVIEWER_AGENT_MECHANISM.md` |
 | Shared — attack surface | `.cursor/extra/agents/reviewer/ATTACK_SURFACE_INVENTORY.md` |
 | Cursor invoke name | `{agent_name}` |
-| Report path | `AI/{agent_name}/{agent_name}_report.md` |
+| Report path | `AI/agents/security_reviewers/{agent_name}/{agent_name}_report.md` |
 | Report reviewer line | `{agent_name} v{VERSION} STRICT` |
+| Fleet position line | `#{ORDER} — Phase {N} ({phase name})` — from `FLEET_INVOCATION_ORDER.md` |
 
 ---
 
@@ -274,9 +278,15 @@ Record probes and meaningful results in Scope Notes.
 
 ## 7. Report Requirements
 
-Every scored finding: File, Evidence, Policy Rule, Possible Attack Scenario, five Resolution rows.
+Every scored finding: File, Evidence, Policy Rule, Possible Attack Scenario, **`#### Picture in your head`**, five Resolution rows.
 
-### 7.1 Verify Row Rules
+Manual Review CHECK-ID explanations also require **`#### Picture in your head`**.
+
+### 7.1 Picture in your head
+
+Concrete mental model, analogy, or before/after story a non-expert can picture. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Place after Evidence / Policy Rule / Possible Attack Scenario and before Resolution rows.
+
+### 7.2 Verify Row Rules
 
 Every Verify row: **Action + pass signal.**
 
@@ -304,8 +314,10 @@ Grades: 90+ A, 75+ B, 60+ C, 40+ D, below F
 
 Before finalizing a report:
 
+- Confirm report header has **Reviewer** and **Fleet position** (or documented solo N/A).
 - Confirm stack gate result.
 - Confirm every failed CHECK-ID has 5 resolution rows.
+- Confirm every scored finding and Manual Review CHECK-ID has `#### Picture in your head`.
 - Confirm every N/A has proof in Scope Notes.
 - Confirm Executive Summary counts match Findings.
 - Confirm no CHECK-IDs owned by sibling agents appear in this report.
@@ -336,10 +348,11 @@ Read completely before scanning:
 | Artifact | Path / value |
 |---|---|
 | Invoke name | `{agent_name}` |
-| Report path | `AI/{agent_name}/{agent_name}_report.md` |
+| Report path | `AI/agents/security_reviewers/{agent_name}/{agent_name}_report.md` |
 | Report reviewer line | `{agent_name} v{VERSION} STRICT` |
+| Fleet position line | `#{ORDER} — Phase {N} ({phase name})` — from `FLEET_INVOCATION_ORDER.md` |
 
-**STRICT mode:** Fixed severity per CHECK-ID. Every finding gets five Resolution rows. Only Evidence may quote project source.
+**STRICT mode:** Fixed severity per CHECK-ID. Every finding gets five Resolution rows plus **`#### Picture in your head`**. Only Evidence may quote project source.
 
 ---
 
@@ -380,7 +393,7 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 
 ## Step 4 - Write Report
 
-**Path:** `AI/{agent_name}/{agent_name}_report.md` (create `AI/{agent_name}/` if missing)
+**Path:** `AI/agents/security_reviewers/{agent_name}/{agent_name}_report.md` (create `AI/agents/security_reviewers/{agent_name}/` if missing)
 
 ### In-scope report structure
 
@@ -388,6 +401,7 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 # {DOMAIN_TITLE} Security Report - {PROJECT_NAME}
 
 **Reviewer:** {agent_name} v{VERSION} STRICT
+**Fleet position:** #{ORDER} — Phase {N} ({phase name})
 **Date:** {date}
 **Mode:** STRICT
 **Stack status:** IN SCOPE
@@ -423,6 +437,10 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 **Policy Rule:** `POLICY.md - {CHECK-ID} - {citation}`
 **Possible Attack Scenario:** One or two sentences.
 
+#### Picture in your head
+
+Concrete mental model, analogy, or before/after story a non-expert can picture. Prefer ending with **In even simpler terms...** or **Here's a practical example:**.
+
 | Resolution row | Content |
 |---|---|
 | Pattern | SKILL.md §8 - {CHECK-ID} |
@@ -432,6 +450,8 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 | Verify | Action plus pass signal. |
 
 ## Manual Review
+
+(each Manual Review CHECK-ID explanation also includes `#### Picture in your head`)
 
 ## Passed Checks
 
@@ -444,7 +464,8 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 
 Before saving the report, verify:
 
-- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+- Report header includes **Reviewer** and **Fleet position** (or `N/A — solo run` with Scope Notes reason).
+- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 - Every Verify row includes action + pass signal.
 - Every N/A has proof.
 - Every MANUAL_REVIEW has exact missing evidence.
@@ -475,7 +496,8 @@ alwaysApply: false
 **Do not inline-audit.** Invoke **`{agent_name}`** -> `.cursor/agents/{agent_name}.md`.
 
 | Report line | `{agent_name} v{VERSION} STRICT` |
-| Report path | `AI/{agent_name}/{agent_name}_report.md` |
+| Fleet position line | `#{ORDER} — Phase {N} ({phase name})` |
+| Report path | `AI/agents/security_reviewers/{agent_name}/{agent_name}_report.md` |
 
 **POLICY.md wins.**
 
@@ -551,6 +573,7 @@ Document prerequisite order in agent Step 3: "CHECK-IDs (order matters)".
 |---|---|
 | 1 | Version bumped in all four files + `FLEET_INVOCATION_ORDER.md` |
 | 2 | Report reviewer line matches everywhere: `{agent_name} v{VERSION} STRICT` |
+| 2b | Fleet position line matches `FLEET_INVOCATION_ORDER.md` row for this agent |
 | 3 | Every CHECK-ID in POLICY appears in SKILL §5 and §8 |
 | 4 | Every CHECK-ID in agent Step 3 checklist |
 | 5 | Invoke order row exists in `FLEET_INVOCATION_ORDER.md` |
@@ -580,11 +603,13 @@ When shipping `{agent_name}` v{N+1}:
 | Topic | Standard |
 |---|---|
 | Evidence | Only field that may quote source lines or tool output |
+| Picture in your head | Mandatory `#### Picture in your head` on scored findings and Manual Review CHECK-ID explanations |
 | Resolution prose | No pasteable code fences in Resolution rows |
 | Frontend-only controls | Always **FAIL** when backend lacks equivalent enforcement |
 | Spring defaults | Pass only with cited config/API proof across all profiles |
 | Secrets in reports | Mask values; preserve proof of issue |
 | Invoke | User/rule invokes `{agent_name}` — agent does not inline-audit from rule alone |
+| Report header | **Reviewer** + **Fleet position** mandatory under title (see scoring law) |
 | Scoring | 100 base; Critical −20, High −10, Medium −5, Low −2; floor 0 |
 
 ---
@@ -601,4 +626,4 @@ When shipping `{agent_name}` v{N+1}:
 
 ---
 
-*Template version: 1.0 · Fleet: 25 live agents · Maintained in `.cursor/extra/agents/reviewer/`*
+*Template version: 1.0 · Fleet: 26 live agents · Maintained in `.cursor/extra/agents/reviewer/`*

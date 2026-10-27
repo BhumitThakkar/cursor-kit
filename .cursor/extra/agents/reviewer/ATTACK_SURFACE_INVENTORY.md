@@ -23,7 +23,7 @@ The goal is to know what can be attacked, not what feature the app is supposed t
 | Parsers | XML, YAML, CSV, JSON polymorphism, Java serialization, document parsers | `file_upload_inclusion_reviewer`, `unsafe_parsing_deserialization_reviewer` |
 | Secrets/config | Properties, env placeholders, Dockerfile, gitignore, CI scripts | `password_credentials_reviewer`, `disclosure_reviewer`, `container_secrets_reviewer` |
 | Dependencies | Maven parent, plugins, CVE tools, third-party JS | `vulnerability_reviewer`, `supply_chain_reviewer`, `security_testing_reviewer` |
-| Runtime/ops | TLS, proxy headers, rate limits, timeouts, actuator, logging | `clickjacking_headers_reviewer`, `disclosure_reviewer`, `middleware_tls_dos_reviewer`, `security_logging_monitoring_reviewer` |
+| Runtime/ops | TLS, proxy headers, ingress/workload rate limits, timeouts, actuator, logging | `application_rate_limit_reviewer`, `clickjacking_headers_reviewer`, `disclosure_reviewer`, `middleware_tls_dos_reviewer`, `security_logging_monitoring_reviewer` |
 
 ---
 
@@ -43,6 +43,7 @@ These are starting probes, not the full audit.
 | Find secret defaults | `rg -n "\\$\\{[^}:]+:[^}]+\\}|password|secret|token|key" src pom.xml Dockerfile .gitignore` |
 | Find actuator exposure | `rg -n "management\\.endpoints|management\\.endpoint|spring-boot-starter-actuator" .` |
 | Find deserialization/parser risk | `rg -n "ObjectInputStream|readObject|enableDefaultTyping|XmlMapper|DocumentBuilderFactory|SAXParserFactory|TransformerFactory|Yaml" src` |
+| Find rate limit surfaces | `rg -n -i "RateLimit|rate.limit|throttle|Bucket4j|tryConsume|acquireOrThrow|LoginAttempt" src` |
 
 Agents may add domain-specific probes, but they must not skip this inventory when the surface is in scope.
 
@@ -61,6 +62,7 @@ Agents may add domain-specific probes, but they must not skip this inventory whe
 | Upload | Renamed executable/polyglot/oversized file rejected; download served non-executable. |
 | Actuator | `/actuator/env`, `/actuator/beans`, wildcard exposure are unavailable on web. |
 | SSRF | URL input cannot reach private IPs, metadata IPs, file schemes, or redirects to blocked hosts. |
+| Rate limit | Excess login or job-create requests return 429 server-side; Retry-After or JSON retry hint; JS-only throttle is insufficient. |
 
 ---
 

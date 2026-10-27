@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/mass_assignment_reviewer.md` |
 | Skill directory | `.cursor/skills/mass_assignment_reviewer/` |
 | Cursor invoke name | `mass_assignment_reviewer` |
-| Report path | `AI/mass_assignment_reviewer/mass_assignment_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/mass_assignment_reviewer/mass_assignment_reviewer_report.md` |
 | Report reviewer line | `mass_assignment_reviewer v1.0 STRICT` |
+| Fleet position line | `#15 — Phase 5 (Abuse surfaces)` |
 
 ---
 
@@ -129,7 +130,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

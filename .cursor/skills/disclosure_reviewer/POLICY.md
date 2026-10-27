@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/disclosure_reviewer.md` |
 | Cursor invoke name | `disclosure_reviewer` |
-| Report path | `AI/disclosure_reviewer/disclosure_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/disclosure_reviewer/disclosure_reviewer_report.md` |
 | Report reviewer line | `disclosure_reviewer v2.0 STRICT` |
+| Fleet position line | `#20 — Phase 6 (Disclosure)` |
 
 ---
 
@@ -25,6 +26,8 @@ Every finding must cite one row from Appendix A:
 ## Resolution Requirement
 
 Every finding: five Resolution rows (Pattern, Mechanism, Security property, Prohibited, Verify). Only Evidence may quote source.
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after (prefer **In even simpler terms...** or **Here's a practical example:**). See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 ---
 

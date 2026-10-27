@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Execution Contract",
-  "description": "Every task dispatched by Zeus MUST include a contract. No exceptions. A brief that cannot be contracted is not ready. See Part II §1 of cursor-kit-v2-FINAL.md.",
+  "description": "Every task dispatched by Zeus MUST include a contract. No exceptions. A brief that cannot be contracted is not ready. Acceptance Gate: gate_self_check is a claim; dispatcher must re-run validation before acceptance.",
   "type": "object",
   "required": ["input", "output", "definition_of_done", "validation"],
   "properties": {
@@ -20,6 +20,10 @@
     "validation": {
       "type": "string",
       "description": "Exact command or procedure to verify the contract is met. Examples: 'mvn compile && mvn test -pl user-module', 'git secrets --scan'."
+    },
+    "pattern_reference": {
+      "type": "string",
+      "description": "Optional. Existing sibling path or symbol in the codebase under review that the implementation must match for style and structure. Filled at dispatch from the project under review."
     }
   }
 }

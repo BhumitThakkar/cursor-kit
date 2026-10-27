@@ -18,8 +18,9 @@ alwaysApply: false
 |---|---|
 | Policy | `.cursor/skills/injection_reviewer/POLICY.md` |
 | Scan skill | `.cursor/skills/injection_reviewer/SKILL.md` |
-| Report path | `AI/injection_reviewer/injection_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/injection_reviewer/injection_reviewer_report.md` |
 | Report line | `injection_reviewer v1.0 STRICT` |
+| Fleet position line | `#2 — Phase 1 (Input & injection)` |
 
 **POLICY.md wins.**
 
@@ -44,6 +45,7 @@ Every finding includes:
 | Row | Content |
 |---|---|
 | Evidence | Bad line or runtime proof from project |
+| Picture in your head | Mandatory `#### Picture in your head` mental model / analogy / before-after; prefer **In even simpler terms...** or **Here's a practical example:** |
 | Policy Rule | POLICY.md - CHECK-ID - citation |
 | Pattern | SKILL.md section 8 pattern |
 | Mechanism | Plain English + framework/API names |

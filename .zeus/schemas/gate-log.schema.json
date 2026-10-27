@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Gate Execution Log Entry",
-  "description": "Per-gate execution log entry. Written to .zeus/gates/session-YYYYMMDD.jsonl. Used by Self-Improvement Agent for metrics analysis. See Part IV of cursor-kit-v2-FINAL.md.",
+  "description": "Per-gate execution log entry. Written to .zeus/gates/session-YYYYMMDD.jsonl. Used by Self-Improvement Agent for metrics analysis.",
   "type": "object",
   "required": ["task_id", "gate_id", "tier", "result", "timestamp"],
   "properties": {

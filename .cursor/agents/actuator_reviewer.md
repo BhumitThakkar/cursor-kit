@@ -19,8 +19,9 @@ Read completely before scanning:
 | Agent file | `.cursor/agents/actuator_reviewer.md` |
 | Skill directory | `.cursor/skills/actuator_reviewer/` |
 | Cursor invoke name | `actuator_reviewer` |
-| Report path | `AI/actuator_reviewer/actuator_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/actuator_reviewer/actuator_reviewer_report.md` |
 | Report reviewer line | `actuator_reviewer v1.0 STRICT` |
+| Fleet position line | `#19 — Phase 6 (Disclosure)` |
 
 **STRICT mode:** Fixed severity per Appendix A. **Every finding gets its own Resolution** (five rows per §6 + §5.2). **Only Evidence** may quote source code.
 
@@ -85,7 +86,7 @@ Record in Scope Notes:
 
 ## Step 4 — Write Report
 
-**Path:** `AI/actuator_reviewer/actuator_reviewer_report.md` (create `AI/actuator_reviewer/` if missing)
+**Path:** `AI/agents/security_reviewers/actuator_reviewer/actuator_reviewer_report.md` (create `AI/agents/security_reviewers/actuator_reviewer/` if missing)
 
 ### Out-of-scope (Step 2.5 fail)
 
@@ -97,6 +98,7 @@ Use **SKILL.md §1.2** text. **Score: N/A — out of scope.** No §6 Resolution 
 # Actuator Security Report — {PROJECT_NAME}
 
 **Reviewer:** actuator_reviewer v1.0 STRICT
+**Fleet position:** #19 — Phase 6 (Disclosure)
 **Date:** {date}
 **Mode:** STRICT
 
@@ -184,7 +186,7 @@ Critical: N | High: N | Medium: N | Low: N | Info: N
 
 **Skip if Step 2.5 failed.**
 
-- Every scored finding has: File, Evidence, Policy Rule, Possible Attack Scenario, five Resolution rows
+- Every scored finding has: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, five Resolution rows
 - **Evidence** only field with source code quotes
 - **§5.2 pass:** no code fences or pasteable statements in Resolution
 - **Verify pass (§6.1):** action + pass signal on every Verify row

@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/session_reviewer.md` |
 | Cursor invoke name | `session_reviewer` |
-| Report path | `AI/session_reviewer/session_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/session_reviewer/session_reviewer_report.md` |
 | Report reviewer line | `session_reviewer v1.1 STRICT` |
+| Fleet position line | `#6 — Phase 2 (Identity & credentials)` |
 
 ---
 
@@ -30,6 +31,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 
@@ -68,7 +71,7 @@ Only Evidence may quote project source. Resolution rows must be prose, not paste
 | SES10 | Timeout invalidates server session | Server session is not invalidated on timeout; session data persists server-side after inactivity or absolute timeout |
 | SES12 | Inactivity and absolute timeout defined | No inactivity timeout or no absolute/reauthentication timeout is configured for sessions |
 | SES15 | JWT claims validation | Application accepts JWTs without strictly validating the `exp` (expiration), `iss` (issuer), and `aud` (audience) claims |
-| SES17 | Session cookie SameSite explicit | Session cookie lacks explicit SameSite (Strict or Lax) configuration |
+| SES17 | Session cookie SameSite strict default | Session cookie lacks explicit `SameSite=Strict` configuration; uses `Lax` without documented justification; or relies on container/browser default (typically Lax) without declaring Strict in config |
 | SES19 | Cookie value not echoed | `@CookieValue` or cookie value reflected in HTML/JSON output without validation |
 
 ### Medium
@@ -101,7 +104,7 @@ Only Evidence may quote project source. Resolution rows must be prose, not paste
 | SES14 | JWT symmetric keys are cryptographically random, securely injected via environment/vault, and meet the algorithm's minimum length (e.g., ≥ 256 bits). |
 | SES15 | JWT parser is configured to strictly require and validate the `exp`, `iss`, and `aud` claims against expected values. |
 | SES16 | A token blocklist (e.g., in Redis) or short-lived token + refresh token architecture is implemented to allow explicit revocation of stateless JWTs. |
-| SES17 | Session cookie sets explicit SameSite (Strict or Lax) in all reviewed profiles. |
+| SES17 | Session cookie sets explicit `SameSite=Strict` in all reviewed profiles, or an env-backed property whose default resolves to `strict` (e.g. `${VAR:strict}`). `Lax` is allowed only with documented UX justification for cross-site top-level navigation in Scope Notes. Container or browser defaults alone (typically Lax) do not pass. |
 | SES18 | Every custom cookie builder sets HttpOnly, Secure, and SameSite explicitly. |
 | SES19 | Cookie values are lookup keys only; never echoed in response bodies. |
 
@@ -166,6 +169,6 @@ Manual review is not Pass.
 | SES14 | Session | Critical | JWT secret key strength |
 | SES15 | Session | High | JWT claims validation |
 | SES16 | Session | Critical | JWT explicit invalidation |
-| SES17 | Cookies | High | Session cookie SameSite explicit |
+| SES17 | Cookies | High | Session cookie SameSite strict default |
 | SES18 | Cookies | Medium | Custom cookie flags complete |
 | SES19 | Cookies | High | Cookie value not echoed |

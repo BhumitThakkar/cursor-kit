@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/input_validation_reviewer.md` |
 | Cursor invoke name | `input_validation_reviewer` |
-| Report path | `AI/input_validation_reviewer/input_validation_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/input_validation_reviewer/input_validation_reviewer_report.md` |
 | Report reviewer line | `input_validation_reviewer v1.0 STRICT` |
+| Fleet position line | `#1 — Phase 1 (Input & injection)` |
 
 ---
 
@@ -30,6 +31,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 

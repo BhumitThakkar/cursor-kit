@@ -12,6 +12,7 @@ Invoke **`authorization_reviewer`** → `.cursor/agents/authorization_reviewer.m
 
 | Policy | `.cursor/skills/authorization_reviewer/POLICY.md` |
 | Report line | `authorization_reviewer v2.0 STRICT` |
+| Fleet position line | `#7 — Phase 3 (Access control)` |
 
 **POLICY.md wins.**
 
@@ -33,3 +34,6 @@ Invoke **`authorization_reviewer`** → `.cursor/agents/authorization_reviewer.m
 4. **Client-supplied user/owner/tenant ID for authorization → FAIL (AUTH08).**
 
 Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**.
+
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.

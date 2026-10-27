@@ -22,8 +22,9 @@ Read completely before scanning:
 | Agent file | `.cursor/agents/open_redirect_reviewer.md` |
 | Skill directory | `.cursor/skills/open_redirect_reviewer/` |
 | Cursor invoke name | `open_redirect_reviewer` |
-| Report path | `AI/open_redirect_reviewer/open_redirect_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/open_redirect_reviewer/open_redirect_reviewer_report.md` |
 | Report reviewer line | `open_redirect_reviewer v1.0 STRICT` |
+| Fleet position line | `#13 — Phase 4 (Browser & transport)` |
 
 **STRICT mode:** Fixed severity per CHECK-ID. **Frontend-only validation is always Fail.** Every finding gets its own Resolution with five rows: Pattern, Mechanism, Security property, Prohibited, Verify. Only Evidence may quote project source.
 
@@ -84,7 +85,7 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 
 ## Step 4 - Write Report
 
-**Path:** `AI/open_redirect_reviewer/open_redirect_reviewer_report.md` (create `AI/open_redirect_reviewer/` if missing)
+**Path:** `AI/agents/security_reviewers/open_redirect_reviewer/open_redirect_reviewer_report.md` (create `AI/agents/security_reviewers/open_redirect_reviewer/` if missing)
 
 ### Out-of-scope report
 
@@ -96,6 +97,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 # Open Redirect Security Report - {PROJECT_NAME}
 
 **Reviewer:** open_redirect_reviewer v1.0 STRICT
+**Fleet position:** #13 — Phase 4 (Browser & transport)
 **Date:** {date}
 **Mode:** STRICT
 **Stack status:** IN SCOPE
@@ -133,6 +135,10 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 **Policy Rule:** `POLICY.md - {CHECK-ID} - {citation}`
 **Possible Attack Scenario:** One or two sentences.
 
+#### Picture in your head
+
+Concrete mental model, analogy, or before/after story a non-expert can picture (not jargon-only). Prefer ending complex explanations with **In even simpler terms...** or **Here's a practical example:**.
+
 | Resolution row | Content |
 |---|---|
 | Pattern | SKILL.md section 8 - {CHECK-ID} - {pattern name} |
@@ -154,7 +160,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 
 Before saving the report, verify:
 
-- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 - Every Verify row includes an action and pass signal.
 - Using client `returnUrl` directly in `redirect:` is a Critical failure (RED02).
 - Every N/A has proof.

@@ -11,6 +11,7 @@ alwaysApply: false
 Invoke **`disclosure_reviewer`** → `.cursor/agents/disclosure_reviewer.md`.
 
 | Report line | `disclosure_reviewer v2.0 STRICT` |
+| Fleet position line | `#20 — Phase 6 (Disclosure)` |
 
 ## Invoke order
 
@@ -25,3 +26,6 @@ Invoke **`disclosure_reviewer`** → `.cursor/agents/disclosure_reviewer.md`.
 3. **Do not score actuator or Cache-Control here** — use companion agents.
 
 Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**.
+
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.

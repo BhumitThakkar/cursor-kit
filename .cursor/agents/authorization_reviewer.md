@@ -15,7 +15,8 @@ description: >-
 2. `.cursor/skills/authorization_reviewer/POLICY.md` (strict allow-path structure)
 
 | Report line | `authorization_reviewer v2.0 STRICT` |
-| Report path | `AI/authorization_reviewer/authorization_reviewer_report.md` |
+| Fleet position line | `#7 — Phase 3 (Access control)` |
+| Report path | `AI/agents/security_reviewers/authorization_reviewer/authorization_reviewer_report.md` |
 
 ---
 
@@ -54,10 +55,14 @@ Scope Notes: document PUBLIC / ROLE / AUTHENTICATED path layers when present.
 
 ## Step 4 - Report
 
-`AI/authorization_reviewer/authorization_reviewer_report.md`
+**Finding storytelling (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
+
+`AI/agents/security_reviewers/authorization_reviewer/authorization_reviewer_report.md`
 
 ---
 
+
+**Mandatory report header:** `**Reviewer:** authorization_reviewer v... STRICT` and `**Fleet position:** #7 — Phase 3 (Access control)` immediately under the title (see `SCORING_REVIEWER_AGENT_MECHANISM.md` · Required report header).
 ## Step 5 - Validation
 
 - `.anyRequest().permitAll()` or `.anyRequest().authenticated()` → **AUTH03 Critical Fail**

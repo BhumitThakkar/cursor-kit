@@ -15,8 +15,15 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/security_testing_reviewer.md` |
 | Skill directory | `.cursor/skills/security_testing_reviewer/` |
 | Cursor invoke name | `security_testing_reviewer` |
-| Report path | `AI/security_testing_reviewer/security_testing_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/security_testing_reviewer/security_testing_reviewer_report.md` |
+| ZAP scan output dir | `AI/agents/security_reviewers/security_testing_reviewer/` |
+| ZAP config dir | `AI/agents/security_reviewers/security_testing_reviewer/.zap/` |
+| ZAP automation plan | `AI/agents/security_reviewers/security_testing_reviewer/.zap/automation.yaml` |
+| ZAP HTML report | `AI/agents/security_reviewers/security_testing_reviewer/zap-report.html` |
+| ZAP JSON report | `AI/agents/security_reviewers/security_testing_reviewer/zap-report.json` |
+| Local DAST app log | `AI/agents/security_reviewers/security_testing_reviewer/dast-app.log` (from `run-zap-dast.ps1`) |
 | Report reviewer line | `security_testing_reviewer v1.0 STRICT` |
+| Fleet position line | `#24 — Phase 8 (Platform & assurance)` |
 
 ---
 
@@ -59,16 +66,14 @@ Scan in this order.
 
 ### ZAP Configuration
 
-- `.zap/` directory
-- `zap-baseline.yaml`, `zap-full-scan.yaml`
-- ZAP context files (`.context`)
-- ZAP automation framework YAML
+- `AI/agents/security_reviewers/security_testing_reviewer/.zap/` directory
+- `automation.yaml`, `EmailingService.context`, and `rules.tsv` in that `.zap/` directory
 
 ### Reports and Scan Artefacts
 
-- `AI/vulnerability_reviewer/` directory
-- `reports/` directory
-- ZAP HTML/JSON reports
+- `AI/agents/security_reviewers/vulnerability_reviewer/` directory (dependency/CVE scans)
+- `AI/agents/security_reviewers/security_testing_reviewer/` directory (ZAP DAST HTML/JSON, local app log, `.zap/` config)
+- `zap-report.html` and `zap-report.json` under the security_testing_reviewer output directory
 
 ### Scan Scripts
 
@@ -137,7 +142,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

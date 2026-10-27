@@ -18,8 +18,9 @@ alwaysApply: false
 |---|---|
 | Policy | `.cursor/skills/unsafe_parsing_deserialization_reviewer/POLICY.md` |
 | Scan skill | `.cursor/skills/unsafe_parsing_deserialization_reviewer/SKILL.md` |
-| Report path | `AI/unsafe_parsing_deserialization_reviewer/unsafe_parsing_deserialization_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/unsafe_parsing_deserialization_reviewer/unsafe_parsing_deserialization_reviewer_report.md` |
 | Report line | `unsafe_parsing_deserialization_reviewer v1.0 STRICT` |
+| Fleet position line | `#17 — Phase 5 (Abuse surfaces)` |
 
 **POLICY.md wins.**
 
@@ -42,6 +43,7 @@ Every finding includes:
 | Row | Content |
 |---|---|
 | Evidence | Bad line or runtime proof from project |
+| Picture in your head | Mandatory `#### Picture in your head` mental model / analogy / before-after; prefer **In even simpler terms...** or **Here's a practical example:** |
 | Policy Rule | POLICY.md - CHECK-ID - citation |
 | Pattern | SKILL.md section 8 pattern |
 | Mechanism | Plain English + framework/API names |

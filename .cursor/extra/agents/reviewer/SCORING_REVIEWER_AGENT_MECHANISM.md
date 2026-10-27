@@ -78,9 +78,28 @@ Every finding must include:
 | Evidence | Exact source line, config value, command output, response header, or runtime request/response. |
 | Policy rule | `POLICY.md · {CHECK-ID} — {citation}` |
 | Attack scenario | One or two sentences explaining how a real attacker could use it. |
+| **Picture in your head** | Mandatory storytelling section (exact header `#### Picture in your head`) — see below. |
 | Resolution | Pattern, mechanism, security property, prohibited behavior, and verify action. |
 
 Evidence must be fresh. Do not rely on memory, previous reports, or "Spring usually does this."
+
+### Picture in your head (mandatory storytelling)
+
+Every **scored finding** and every **Manual Review** item that explains a CHECK-ID must include this section **after** Evidence / Policy Rule / Possible Attack Scenario (or equivalent header fields) and **before or alongside** the Resolution rows:
+
+```markdown
+#### Picture in your head
+```
+
+| Rule | Detail |
+|------|--------|
+| Header | Exact text: `#### Picture in your head` |
+| Content | Concrete mental model, analogy, or before/after story a non-expert can picture — not jargon-only |
+| Close | Prefer ending complex explanations with **In even simpler terms...** or **Here's a practical example:** |
+| Scope | Required for scored Fail findings and Manual Review CHECK-ID explanations; not required for bare Pass list rows |
+| Preserved structure | Do **not** remove Reviewer, Fleet position, or Resolution rows (Pattern, Mechanism, Security property, Prohibited, Verify) — **add** this layer |
+
+Findings that omit `#### Picture in your head` fail Tier 2 handoff validation.
 
 ---
 
@@ -121,6 +140,31 @@ Security assertions without verification are not allowed in agent reports.
 
 ## Agent report rules
 
+### Required report header
+
+Every report must include **both** fields **immediately under the title** (before Scope Notes or Executive Summary):
+
+| Field | Required | Format |
+|-------|----------|--------|
+| **Reviewer** | Yes | `**Reviewer:** {agent_name} v{VERSION} STRICT` |
+| **Fleet position** | Yes | `**Fleet position:** #{order} — Phase {N} ({phase name})` — lookup **Order** and **Phase** from [`FLEET_INVOCATION_ORDER.md`](FLEET_INVOCATION_ORDER.md) |
+
+**Example:**
+
+```markdown
+# Authorization Security Report — EmailingService
+
+**Reviewer:** authorization_reviewer v2.0 STRICT
+**Fleet position:** #7 — Phase 3 (Access control)
+**Date:** 2026-06-21
+```
+
+**Solo / out-of-fleet run:** use `**Fleet position:** N/A — solo run` and document why in Scope Notes. Do not invent an order number.
+
+Reports missing **Reviewer** or **Fleet position** fail Tier 2 handoff validation.
+
+---
+
 1. Report-only unless the user explicitly asks the agent to fix code.
 2. Findings come before praise or summaries.
 3. Every failed `MUST` gets its own finding.
@@ -129,6 +173,7 @@ Security assertions without verification are not allowed in agent reports.
 6. N/A checks require evidence, not silence.
 7. Manual review items are not counted as pass.
 8. Do not quote secrets. Mask values while preserving proof of the issue.
+9. Every scored finding and Manual Review CHECK-ID explanation includes **`#### Picture in your head`** (see above).
 
 ---
 

@@ -1,4 +1,4 @@
-# Clickjacking & Headers Security Policy v2.0 STRICT
+# Clickjacking & Headers Security Policy v2.1 STRICT
 # Spring Boot Servlet MVC and REST Applications
 
 **Mode:** STRICT. Fixed severity per CHECK-ID. Spring Security implicit defaults alone do **not** pass when headers are customized. JS-only frame busting is always a finding.
@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/clickjacking_headers_reviewer.md` |
 | Cursor invoke name | `clickjacking_headers_reviewer` |
-| Report path | `AI/clickjacking_headers_reviewer/clickjacking_headers_reviewer_report.md` |
-| Report reviewer line | `clickjacking_headers_reviewer v2.0 STRICT` |
+| Report path | `AI/agents/security_reviewers/clickjacking_headers_reviewer/clickjacking_headers_reviewer_report.md` |
+| Report reviewer line | `clickjacking_headers_reviewer v2.1 STRICT` |
+| Fleet position line | `#12 — Phase 4 (Browser & transport)` |
 
 ---
 
@@ -25,6 +26,8 @@ Every finding must cite one row from Appendix A:
 ## Resolution Requirement
 
 Five Resolution rows per finding. Only Evidence may quote source.
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after (prefer **In even simpler terms...** or **Here's a practical example:**).
 
 ---
 
@@ -62,6 +65,8 @@ Five Resolution rows per finding. Only Evidence may quote source.
 | HDR10 | Explicit nosniff | No `contentTypeOptions()` / `noSniff()` when headers are customized |
 | HDR11 | CSP no unsafe script-src | `unsafe-inline` or `unsafe-eval` in `script-src` |
 | HDR12 | CSP no wildcard script-src | `*` in `script-src` |
+| HDR15 | CSP no unsafe style-src | `unsafe-inline` or `unsafe-eval` in `style-src` (ZAP 10055 / style injection weakening) |
+| HDR16 | No inline style attributes | `style=` on Thymeleaf HTML templates or JS-built HTML strings when UI chain emits enforcing CSP |
 
 ### Low
 
@@ -81,7 +86,7 @@ Five Resolution rows per finding. Only Evidence may quote source.
 
 | ID | N/A when |
 |---|---|
-| HDR01–HDR04, HDR06 | Pure JSON/XML API with no HTML responses |
+| HDR01–HDR04, HDR06, HDR15–HDR16 | Pure JSON/XML API with no HTML responses |
 | HDR05–HDR13 | Headers provably injected at edge — **MANUAL_REVIEW** if not in repo |
 
 ---
@@ -104,3 +109,5 @@ Five Resolution rows per finding. Only Evidence may quote source.
 | HDR12 | Security Headers | Medium | CSP no wildcard script-src |
 | HDR13 | Security Headers | Low | Referrer-Policy set |
 | HDR14 | Security Headers | Info | X-XSS-Protection disabled |
+| HDR15 | Security Headers | Medium | CSP no unsafe style-src |
+| HDR16 | Security Headers | Medium | No inline style attributes |

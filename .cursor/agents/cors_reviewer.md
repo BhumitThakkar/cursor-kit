@@ -19,8 +19,9 @@ Read completely before scanning:
 | Artifact | Path / value |
 |---|---|
 | Cursor invoke name | `cors_reviewer` |
-| Report path | `AI/cors_reviewer/cors_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/cors_reviewer/cors_reviewer_report.md` |
 | Report reviewer line | `cors_reviewer v2.0 STRICT` |
+| Fleet position line | `#9 — Phase 4 (Browser & transport)` |
 
 **STRICT mode:** Fixed severity per CHECK-ID. Every finding gets five Resolution rows. Only Evidence may quote project source.
 
@@ -73,12 +74,16 @@ Verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A** only.
 
 ## Step 4 - Write Report
 
-**Path:** `AI/cors_reviewer/cors_reviewer_report.md`
+**Finding storytelling (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
+
+**Path:** `AI/agents/security_reviewers/cors_reviewer/cors_reviewer_report.md`
 
 In-scope report must include Scope Notes (profiles reviewed, CORS10 allow-list, N/A proof), Executive Summary, Findings with Possible Attack Scenario + five Resolution rows, Passed Checks, Completion Summary.
 
 ---
 
+
+**Mandatory report header:** `**Reviewer:** cors_reviewer v... STRICT` and `**Fleet position:** #9 — Phase 4 (Browser & transport)` immediately under the title (see `SCORING_REVIEWER_AGENT_MECHANISM.md` · Required report header).
 ## Step 5 - Final Validation
 
 - CORS08 evidence quotes a CORS origin line, not merely "localhost exists in repo".

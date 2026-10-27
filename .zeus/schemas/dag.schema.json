@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Zeus DAG",
-  "description": "Directed Acyclic Graph for task orchestration. Rebuilt once per orchestration cycle. Version increments on structural changes. See Part II §3 of cursor-kit-v2-FINAL.md.",
+  "description": "Directed Acyclic Graph for task orchestration. Rebuilt once per orchestration cycle. Version increments on structural changes.",
   "type": "object",
   "required": ["version", "confidence", "nodes", "edges", "critical_path", "estimated_wall_clock"],
   "properties": {

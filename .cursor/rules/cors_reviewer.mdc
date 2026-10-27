@@ -15,8 +15,9 @@ alwaysApply: false
 |---|---|
 | Policy | `.cursor/skills/cors_reviewer/POLICY.md` |
 | Scan skill | `.cursor/skills/cors_reviewer/SKILL.md` |
-| Report path | `AI/cors_reviewer/cors_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/cors_reviewer/cors_reviewer_report.md` |
 | Report line | `cors_reviewer v2.0 STRICT` |
+| Fleet position line | `#9 — Phase 4 (Browser & transport)` |
 
 **POLICY.md wins.**
 
@@ -28,3 +29,6 @@ alwaysApply: false
 4. **Reflecting `Origin` without allow-list validation is always FAIL (CORS02).**
 
 Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**.
+
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.

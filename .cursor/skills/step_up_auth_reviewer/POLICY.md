@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/step_up_auth_reviewer.md` |
 | Cursor invoke name | `step_up_auth_reviewer` |
-| Report path | `AI/step_up_auth_reviewer/step_up_auth_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/step_up_auth_reviewer/step_up_auth_reviewer_report.md` |
 | Report reviewer line | `step_up_auth_reviewer v1.0 STRICT` |
+| Fleet position line | `#5 — Phase 2 (Identity & credentials)` |
 
 ---
 
@@ -30,6 +31,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 

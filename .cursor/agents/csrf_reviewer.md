@@ -15,7 +15,8 @@ description: >-
 2. `.cursor/skills/csrf_reviewer/POLICY.md`
 
 | Report reviewer line | `csrf_reviewer v2.0 STRICT` |
-| Report path | `AI/csrf_reviewer/csrf_reviewer_report.md` |
+| Fleet position line | `#10 — Phase 4 (Browser & transport)` |
+| Report path | `AI/agents/security_reviewers/csrf_reviewer/csrf_reviewer_report.md` |
 
 ---
 
@@ -60,10 +61,14 @@ Scope Notes must include: auth model, **session mutation inventory**, trace conf
 
 ## Step 4 - Write Report
 
-`AI/csrf_reviewer/csrf_reviewer_report.md` — include Authentication Model from CSRF00 in header.
+**Finding storytelling (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
+
+`AI/agents/security_reviewers/csrf_reviewer/csrf_reviewer_report.md` — include Authentication Model from CSRF00 in header.
 
 ---
 
+
+**Mandatory report header:** `**Reviewer:** csrf_reviewer v... STRICT` and `**Fleet position:** #10 — Phase 4 (Browser & transport)` immediately under the title (see `SCORING_REVIEWER_AGENT_MECHANISM.md` · Required report header).
 ## Step 5 - Final Validation
 
 - CSRF07 Fail only when trace confidence HIGH.

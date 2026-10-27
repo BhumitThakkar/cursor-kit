@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/middleware_tls_dos_reviewer.md` |
 | Skill directory | `.cursor/skills/middleware_tls_dos_reviewer/` |
 | Cursor invoke name | `middleware_tls_dos_reviewer` |
-| Report path | `AI/middleware_tls_dos_reviewer/middleware_tls_dos_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/middleware_tls_dos_reviewer/middleware_tls_dos_reviewer_report.md` |
 | Report reviewer line | `middleware_tls_dos_reviewer v1.0 STRICT` |
+| Fleet position line | `#23 — Phase 8 (Platform & assurance)` |
 
 ---
 
@@ -145,7 +146,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

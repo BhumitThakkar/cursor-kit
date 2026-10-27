@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/security_logging_monitoring_reviewer.md` |
 | Skill directory | `.cursor/skills/security_logging_monitoring_reviewer/` |
 | Cursor invoke name | `security_logging_monitoring_reviewer` |
-| Report path | `AI/security_logging_monitoring_reviewer/security_logging_monitoring_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/security_logging_monitoring_reviewer/security_logging_monitoring_reviewer_report.md` |
 | Report reviewer line | `security_logging_monitoring_reviewer v1.0 STRICT` |
+| Fleet position line | `#25 — Phase 8 (Platform & assurance)` |
 
 ---
 
@@ -127,7 +128,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

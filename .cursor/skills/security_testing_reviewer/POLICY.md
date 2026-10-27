@@ -11,8 +11,11 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/security_testing_reviewer.md` |
 | Cursor invoke name | `security_testing_reviewer` |
-| Report path | `AI/security_testing_reviewer/security_testing_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/security_testing_reviewer/security_testing_reviewer_report.md` |
+| ZAP scan output dir | `AI/agents/security_reviewers/security_testing_reviewer/` |
+| ZAP config dir | `AI/agents/security_reviewers/security_testing_reviewer/.zap/` |
 | Report reviewer line | `security_testing_reviewer v1.0 STRICT` |
+| Fleet position line | `#24 — Phase 8 (Platform & assurance)` |
 
 ---
 
@@ -30,6 +33,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 
@@ -69,7 +74,7 @@ Only Evidence may quote project source. Resolution rows must be prose, not paste
 | TEST01 | A ZAP baseline or full scan script/config exists in the repo or CI pipeline and evidence shows it has been executed against a staging or pre-production environment. |
 | TEST02 | The latest ZAP report shows zero High/Critical alerts, or each remaining alert has a documented accepted-risk entry with owner, reason, and expiry. |
 | TEST03 | ZAP context files or CI configuration include authentication setup (login URL, credentials, session detection) for at least one authenticated user role. |
-| TEST04 | CI pipeline definition archives the ZAP report as a build artefact, or a `reports/` directory contains timestamped reports linked from release records. |
+| TEST04 | CI pipeline definition archives the ZAP report as a build artefact, or `AI/agents/security_reviewers/security_testing_reviewer/` contains the latest ZAP HTML/JSON reports. |
 | TEST05 | ZAP context or automation framework config includes CSRF token name extraction and header/form-field injection. |
 
 ---

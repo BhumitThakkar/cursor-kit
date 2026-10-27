@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Progress Snapshot",
-  "description": "Per-task agent completion snapshot. Written by each agent on completion. Zeus reads at the start of each turn. See Part III §2 of cursor-kit-v2-FINAL.md.",
+  "description": "Per-task agent completion snapshot. Written by each agent on completion. Zeus reads at the start of each turn.",
   "type": "object",
   "required": ["task_id", "agent", "progress_pct", "current_step", "artifacts", "gate_self_check", "updated_at"],
   "properties": {

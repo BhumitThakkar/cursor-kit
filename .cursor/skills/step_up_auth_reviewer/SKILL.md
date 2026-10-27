@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/step_up_auth_reviewer.md` |
 | Skill directory | `.cursor/skills/step_up_auth_reviewer/` |
 | Cursor invoke name | `step_up_auth_reviewer` |
-| Report path | `AI/step_up_auth_reviewer/step_up_auth_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/step_up_auth_reviewer/step_up_auth_reviewer_report.md` |
 | Report reviewer line | `step_up_auth_reviewer v1.0 STRICT` |
+| Fleet position line | `#5 — Phase 2 (Identity & credentials)` |
 
 ---
 
@@ -226,6 +227,7 @@ Every scored finding must include:
 | Evidence | Exact source/config/test line or runtime proof |
 | Policy Rule | `POLICY.md - {CHECK-ID} - {citation}` |
 | Possible Attack Scenario | Realistic impact in one or two sentences |
+| Picture in your head | Mandatory `#### Picture in your head` — concrete mental model / analogy / before-after; prefer **In even simpler terms...** or **Here's a practical example:** |
 | Resolution | Five rows from section 8 |
 
 Evidence is the only field that may quote project source. Resolution rows are prose, not pasteable code.

@@ -19,8 +19,9 @@ alwaysApply: false
 |---|---|
 | Policy | `.cursor/skills/step_up_auth_reviewer/POLICY.md` |
 | Scan skill | `.cursor/skills/step_up_auth_reviewer/SKILL.md` |
-| Report path | `AI/step_up_auth_reviewer/step_up_auth_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/step_up_auth_reviewer/step_up_auth_reviewer_report.md` |
 | Report line | `step_up_auth_reviewer v1.0 STRICT` |
+| Fleet position line | `#5 — Phase 2 (Identity & credentials)` |
 
 **POLICY.md wins.**
 
@@ -45,6 +46,7 @@ Every finding includes:
 | Row | Content |
 |---|---|
 | Evidence | Bad line or runtime proof from project |
+| Picture in your head | Mandatory `#### Picture in your head` mental model / analogy / before-after; prefer **In even simpler terms...** or **Here's a practical example:** |
 | Policy Rule | POLICY.md - CHECK-ID - citation |
 | Pattern | SKILL.md section 8 pattern |
 | Mechanism | Plain English + framework/API names |

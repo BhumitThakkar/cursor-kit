@@ -11,6 +11,7 @@ alwaysApply: false
 Invoke **`supply_chain_reviewer`** -> `.cursor/agents/supply_chain_reviewer.md`.
 
 | Report line | `supply_chain_reviewer v2.0 STRICT` |
+| Fleet position line | `#22 — Phase 7 (Build, container, frontend supply)` |
 
 ## Non-negotiable rules
 
@@ -21,3 +22,6 @@ Invoke **`supply_chain_reviewer`** -> `.cursor/agents/supply_chain_reviewer.md`.
 ## Fleet run order
 
 `vulnerability_reviewer` → `container_secrets_reviewer` (if Docker) → `supply_chain_reviewer` (this rule)
+
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.

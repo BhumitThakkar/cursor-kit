@@ -11,7 +11,8 @@ alwaysApply: false
 **Do not inline-audit.** Invoke **`csrf_reviewer`** -> `.cursor/agents/csrf_reviewer.md`.
 
 | Report line | `csrf_reviewer v2.0 STRICT` |
-| Report path | `AI/csrf_reviewer/csrf_reviewer_report.md` |
+| Fleet position line | `#10 — Phase 4 (Browser & transport)` |
+| Report path | `AI/agents/security_reviewers/csrf_reviewer/csrf_reviewer_report.md` |
 
 ## Non-negotiable rules
 
@@ -19,3 +20,6 @@ alwaysApply: false
 2. **Global `csrf().disable()` on SESSION-COOKIE or BOTH is always FAIL.**
 3. **CSRF07 Fail only at HIGH trace confidence (SKILL §2.3).**
 4. **SameSite-only CSRF defense on session apps is always FAIL (CSRF04).**
+
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.

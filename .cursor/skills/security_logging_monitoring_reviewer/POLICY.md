@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/security_logging_monitoring_reviewer.md` |
 | Cursor invoke name | `security_logging_monitoring_reviewer` |
-| Report path | `AI/security_logging_monitoring_reviewer/security_logging_monitoring_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/security_logging_monitoring_reviewer/security_logging_monitoring_reviewer_report.md` |
 | Report reviewer line | `security_logging_monitoring_reviewer v1.0 STRICT` |
+| Fleet position line | `#25 — Phase 8 (Platform & assurance)` |
 
 ---
 
@@ -30,6 +31,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 

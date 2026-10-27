@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/cors_reviewer.md` |
 | Cursor invoke name | `cors_reviewer` |
-| Report path | `AI/cors_reviewer/cors_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/cors_reviewer/cors_reviewer_report.md` |
 | Report reviewer line | `cors_reviewer v2.0 STRICT` |
+| Fleet position line | `#9 — Phase 4 (Browser & transport)` |
 
 ---
 
@@ -25,6 +26,8 @@ Allowed values only: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows: Pattern, Mechanism, Security property, Prohibited, Verify.
 

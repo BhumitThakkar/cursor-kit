@@ -11,6 +11,7 @@ alwaysApply: false
 Invoke **`xss_encoding_reviewer`** -> `.cursor/agents/xss_encoding_reviewer.md`.
 
 | Report line | `xss_encoding_reviewer v2.0 STRICT` |
+| Fleet position line | `#11 — Phase 4 (Browser & transport)` |
 
 ## Non-negotiable rules
 
@@ -18,3 +19,6 @@ Invoke **`xss_encoding_reviewer`** -> `.cursor/agents/xss_encoding_reviewer.md`.
 2. **`innerHTML` / `outerHTML` with untrusted data is always FAIL (XSS04/XSS10).**
 3. **XSS15/XSS26 Fail only at HIGH trace confidence (SKILL §2.2).**
 4. **HTML built in controllers is always FAIL (XSS23–XSS25).**
+
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.

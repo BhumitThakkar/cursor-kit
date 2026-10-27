@@ -7,8 +7,8 @@
 >
 > **Note:** On systems supporting symlinks, this file should be a symlink:
 > ```
-> mklink /D "tasks\decisions.md" "..\.zeus\memory\decisions\"
+> mklink "AI\input\tasks\decisions.md" "..\..\..\.zeus\memory\decisions\index.md"
 > ```
-> On Windows without admin privileges, manually sync or reference the source directory directly.
+> On Windows without admin privileges, manually sync or reference the source directory/index directly.
 
-See [.zeus/memory/decisions/index.md](../.zeus/memory/decisions/index.md) for the decision index.
+See [../../../.zeus/memory/decisions/index.md](../../../.zeus/memory/decisions/index.md) for the decision index.

@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/cryptography_reviewer.md` |
 | Skill directory | `.cursor/skills/cryptography_reviewer/` |
 | Cursor invoke name | `cryptography_reviewer` |
-| Report path | `AI/cryptography_reviewer/cryptography_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/cryptography_reviewer/cryptography_reviewer_report.md` |
 | Report reviewer line | `cryptography_reviewer v1.0 STRICT` |
+| Fleet position line | `#4 — Phase 2 (Identity & credentials)` |
 
 ---
 
@@ -120,7 +121,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ---
 

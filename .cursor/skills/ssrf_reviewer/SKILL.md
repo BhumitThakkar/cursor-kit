@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/ssrf_reviewer.md` |
 | Skill directory | `.cursor/skills/ssrf_reviewer/` |
 | Cursor invoke name | `ssrf_reviewer` |
-| Report path | `AI/ssrf_reviewer/ssrf_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/ssrf_reviewer/ssrf_reviewer_report.md` |
 | Report reviewer line | `ssrf_reviewer v1.0 STRICT` |
+| Fleet position line | `#16 — Phase 5 (Abuse surfaces)` |
 
 ---
 
@@ -128,7 +129,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

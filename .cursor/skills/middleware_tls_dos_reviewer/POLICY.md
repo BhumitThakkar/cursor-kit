@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/middleware_tls_dos_reviewer.md` |
 | Cursor invoke name | `middleware_tls_dos_reviewer` |
-| Report path | `AI/middleware_tls_dos_reviewer/middleware_tls_dos_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/middleware_tls_dos_reviewer/middleware_tls_dos_reviewer_report.md` |
 | Report reviewer line | `middleware_tls_dos_reviewer v1.0 STRICT` |
+| Fleet position line | `#23 — Phase 8 (Platform & assurance)` |
 
 ---
 
@@ -30,6 +31,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 

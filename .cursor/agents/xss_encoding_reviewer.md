@@ -14,6 +14,7 @@ description: >-
 2. `.cursor/skills/xss_encoding_reviewer/POLICY.md`
 
 | Report line | `xss_encoding_reviewer v2.0 STRICT` |
+| Fleet position line | `#11 — Phase 4 (Browser & transport)` |
 
 ---
 
@@ -43,10 +44,14 @@ Scope Notes: trace confidence for XSS15, XSS26.
 
 ## Step 4 - Report
 
-`AI/xss_encoding_reviewer/xss_encoding_reviewer_report.md`
+**Finding storytelling (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
+
+`AI/agents/security_reviewers/xss_encoding_reviewer/xss_encoding_reviewer_report.md`
 
 ---
 
+
+**Mandatory report header:** `**Reviewer:** xss_encoding_reviewer v... STRICT` and `**Fleet position:** #11 — Phase 4 (Browser & transport)` immediately under the title (see `SCORING_REVIEWER_AGENT_MECHANISM.md` · Required report header).
 ## Step 5 - Validation
 
 - Unsanitized th:utext = Critical (XSS02).

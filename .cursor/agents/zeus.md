@@ -109,6 +109,16 @@ AGENT BRIEF = [STATIC ROLE]            → from .cursor/agents/{agent-name}.md
 
 **Token budget enforcement:** Check estimated brief size before dispatch. If tokens exceed 1.5x budget for that agent + level, trim lessons (keep only top 3 by recency + relevance).
 
+### Default Output Path
+
+When a task contract does not specify explicit output artifact paths, Zeus resolves output to:
+
+```
+AI/zeus/output/{session_id}/{task_id}/
+```
+
+Zeus writes the resolved path into the contract `output` field before dispatch. Progress snapshots must list resolved paths in `artifacts[]`. Explicit paths in the brief always take precedence.
+
 ### Context Window Budget
 
 | Agent | L0–L1 | L2–L4 |
@@ -281,3 +291,7 @@ ESCALATED (after 3 OPEN cycles)
 | `.zeus/memory/decisions/` | ADR-style decision records |
 | `.zeus/memory/agent-effectiveness/` | Per-agent metrics |
 | `.zeus/schemas/` | JSON schemas for all data structures |
+| `AI/input/tasks/todo.md` | Human task board |
+| `AI/input/tasks/lessons.md` | Human view of lessons (→ `.zeus/memory/lessons.md`) |
+| `AI/input/tasks/decisions.md` | Human view of ADRs (→ `.zeus/memory/decisions/`) |
+| `AI/zeus/output/{session_id}/{task_id}/` | Default deliverables when contract has no explicit output path |

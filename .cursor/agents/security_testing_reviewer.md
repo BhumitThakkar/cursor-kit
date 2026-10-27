@@ -22,8 +22,11 @@ Read completely before scanning:
 | Agent file | `.cursor/agents/security_testing_reviewer.md` |
 | Skill directory | `.cursor/skills/security_testing_reviewer/` |
 | Cursor invoke name | `security_testing_reviewer` |
-| Report path | `AI/security_testing_reviewer/security_testing_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/security_testing_reviewer/security_testing_reviewer_report.md` |
+| ZAP scan output dir | `AI/agents/security_reviewers/security_testing_reviewer/` |
+| ZAP config dir | `AI/agents/security_reviewers/security_testing_reviewer/.zap/` |
 | Report reviewer line | `security_testing_reviewer v1.0 STRICT` |
+| Fleet position line | `#24 — Phase 8 (Platform & assurance)` |
 
 **STRICT mode:** Fixed severity per CHECK-ID. **Frontend-only validation is always Fail.** Every finding gets its own Resolution with five rows: Pattern, Mechanism, Security property, Prohibited, Verify. Only Evidence may quote project source.
 
@@ -63,8 +66,8 @@ Skip if stack gate failed.
 
 - [ ] Build files and Spring Boot servlet indicators
 - [ ] CI/CD pipeline definitions (`.github/workflows/`, `Jenkinsfile`, `.gitlab-ci.yml`)
-- [ ] ZAP configuration files (`.zap/`, `zap-*.yaml`, context files)
-- [ ] ZAP reports (HTML/JSON) in `AI/` or `reports/` directories
+- [ ] ZAP configuration in `AI/agents/security_reviewers/security_testing_reviewer/.zap/`
+- [ ] ZAP reports (HTML/JSON) in `AI/agents/security_reviewers/security_testing_reviewer/`
 - [ ] Vulnerability scan scripts (`run-vulnerability-scan.ps1`)
 - [ ] OWASP dependency-check profile in build file
 - [ ] Gitleaks / Trivy configuration
@@ -84,7 +87,7 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 
 ## Step 4 - Write Report
 
-**Path:** `AI/security_testing_reviewer/security_testing_reviewer_report.md` (create `AI/security_testing_reviewer/` if missing)
+**Path:** `AI/agents/security_reviewers/security_testing_reviewer/security_testing_reviewer_report.md` (create `AI/agents/security_reviewers/security_testing_reviewer/` and `.zap/` under it if missing)
 
 ### Out-of-scope report
 
@@ -96,6 +99,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 # Security Testing & Assurance Report - {PROJECT_NAME}
 
 **Reviewer:** security_testing_reviewer v1.0 STRICT
+**Fleet position:** #24 — Phase 8 (Platform & assurance)
 **Date:** {date}
 **Mode:** STRICT
 **Stack status:** IN SCOPE
@@ -133,6 +137,10 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 **Policy Rule:** `POLICY.md - {CHECK-ID} - {citation}`
 **Possible Attack Scenario:** One or two sentences.
 
+#### Picture in your head
+
+Concrete mental model, analogy, or before/after story a non-expert can picture (not jargon-only). Prefer ending complex explanations with **In even simpler terms...** or **Here's a practical example:**.
+
 | Resolution row | Content |
 |---|---|
 | Pattern | SKILL.md section 8 - {CHECK-ID} - {pattern name} |
@@ -154,7 +162,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 
 Before saving the report, verify:
 
-- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 - Every Verify row includes an action and pass signal.
 - Missing DAST scan altogether is a Critical failure (TEST01).
 - Unresolved High/Critical ZAP alerts going to prod is Critical (TEST02).

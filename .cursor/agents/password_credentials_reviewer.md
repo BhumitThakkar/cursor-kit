@@ -22,8 +22,9 @@ Read completely before scanning:
 | Agent file | `.cursor/agents/password_credentials_reviewer.md` |
 | Skill directory | `.cursor/skills/password_credentials_reviewer/` |
 | Cursor invoke name | `password_credentials_reviewer` |
-| Report path | `AI/password_credentials_reviewer/password_credentials_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/password_credentials_reviewer/password_credentials_reviewer_report.md` |
 | Report reviewer line | `password_credentials_reviewer v1.0 STRICT` |
+| Fleet position line | `#3 — Phase 2 (Identity & credentials)` |
 
 **STRICT mode:** Fixed severity per CHECK-ID. **Frontend-only validation is always Fail.** Every finding gets its own Resolution with five rows: Pattern, Mechanism, Security property, Prohibited, Verify. Only Evidence may quote project source.
 
@@ -97,7 +98,7 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 
 ## Step 4 - Write Report
 
-**Path:** `AI/password_credentials_reviewer/password_credentials_reviewer_report.md` (create `AI/password_credentials_reviewer/` if missing)
+**Path:** `AI/agents/security_reviewers/password_credentials_reviewer/password_credentials_reviewer_report.md` (create `AI/agents/security_reviewers/password_credentials_reviewer/` if missing)
 
 ### Out-of-scope report
 
@@ -109,6 +110,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 # Password Credentials Security Report - {PROJECT_NAME}
 
 **Reviewer:** password_credentials_reviewer v1.0 STRICT
+**Fleet position:** #3 — Phase 2 (Identity & credentials)
 **Date:** {date}
 **Mode:** STRICT
 **Stack status:** IN SCOPE
@@ -147,6 +149,10 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 **Policy Rule:** `POLICY.md - {CHECK-ID} - {citation}`
 **Possible Attack Scenario:** One or two sentences.
 
+#### Picture in your head
+
+Concrete mental model, analogy, or before/after story a non-expert can picture (not jargon-only). Prefer ending complex explanations with **In even simpler terms...** or **Here's a practical example:**.
+
 | Resolution row | Content |
 |---|---|
 | Pattern | SKILL.md section 8 - {CHECK-ID} - {pattern name} |
@@ -168,7 +174,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 
 Before saving the report, verify:
 
-- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 - Every Verify row includes an action and pass signal.
 - Frontend-only validation appears as a Fail, never Pass.
 - `{noop}` or plaintext passwords are a Critical failure.

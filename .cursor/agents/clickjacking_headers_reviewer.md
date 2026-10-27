@@ -1,14 +1,15 @@
 ---
 name: clickjacking_headers_reviewer
-version: 2.0
+version: 2.1
 description: >-
   STRICT Spring Boot security headers auditor. Verifies HTTP CSP frame-ancestors
   enforcement, absence of meta-tag frame configurations, rejection of JS-only frame
-  busting, enforcement of Cache-Control on authenticated pages, and presence of standard
-  security headers (HSTS, nosniff, etc.). Report-only.
+  busting, strict script-src and style-src (no unsafe-inline), no inline style
+  attributes on HTML templates, enforcement of Cache-Control on authenticated pages,
+  and presence of standard security headers (HSTS, nosniff, etc.). Report-only.
 ---
 
-# Clickjacking & Headers Reviewer v2.0 STRICT
+# Clickjacking & Headers Reviewer v2.1 STRICT
 
 ## Step 1 - Load References
 
@@ -22,8 +23,9 @@ Read completely before scanning:
 | Agent file | `.cursor/agents/clickjacking_headers_reviewer.md` |
 | Skill directory | `.cursor/skills/clickjacking_headers_reviewer/` |
 | Cursor invoke name | `clickjacking_headers_reviewer` |
-| Report path | `AI/clickjacking_headers_reviewer/clickjacking_headers_reviewer_report.md` |
-| Report reviewer line | `clickjacking_headers_reviewer v2.0 STRICT` |
+| Report path | `AI/agents/security_reviewers/clickjacking_headers_reviewer/clickjacking_headers_reviewer_report.md` |
+| Report reviewer line | `clickjacking_headers_reviewer v2.1 STRICT` |
+| Fleet position line | `#12 — Phase 4 (Browser & transport)` |
 
 **STRICT mode:** Fixed severity per CHECK-ID. HDR06 owns auth-page Cache-Control — not `disclosure_reviewer`. Companion: **`disclosure_reviewer` v2.0** for errors, static leaks, logs.
 
@@ -64,8 +66,8 @@ Skip if stack gate failed.
 - [ ] Build files and Spring Boot servlet indicators
 - [ ] Spring Security configuration (`SecurityFilterChain` headers config)
 - [ ] Custom `Filter` classes manipulating `HttpServletResponse` headers
-- [ ] HTML view templates (Thymeleaf, Freemarker)
-- [ ] JavaScript files for frame-busting logic
+- [ ] HTML view templates (Thymeleaf, Freemarker) — including inline `style=` attributes
+- [ ] JavaScript files for frame-busting logic and HTML sinks with inline styles
 - [ ] Application properties disabling default Spring Security headers
 - [ ] Cache-Control configurations for authenticated endpoints
 
@@ -85,6 +87,8 @@ Skip if stack gate failed.
 - [ ] HDR12 - CSP no wildcard script-src
 - [ ] HDR13 - Referrer-Policy set
 - [ ] HDR14 - X-XSS-Protection (Info only)
+- [ ] HDR15 - CSP no unsafe style-src
+- [ ] HDR16 - No inline style attributes on HTML
 
 Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEAR` is forbidden.
 
@@ -92,7 +96,7 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 
 ## Step 4 - Write Report
 
-**Path:** `AI/clickjacking_headers_reviewer/clickjacking_headers_reviewer_report.md` (create `AI/clickjacking_headers_reviewer/` if missing)
+**Path:** `AI/agents/security_reviewers/clickjacking_headers_reviewer/clickjacking_headers_reviewer_report.md` (create `AI/agents/security_reviewers/clickjacking_headers_reviewer/` if missing)
 
 ### Out-of-scope report
 
@@ -103,7 +107,8 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 ```markdown
 # Clickjacking & Headers Security Report - {PROJECT_NAME}
 
-**Reviewer:** clickjacking_headers_reviewer v2.0 STRICT
+**Reviewer:** clickjacking_headers_reviewer v2.1 STRICT
+**Fleet position:** #12 — Phase 4 (Browser & transport)
 **Date:** {date}
 **Mode:** STRICT
 **Stack status:** IN SCOPE
@@ -141,6 +146,10 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 **Policy Rule:** `POLICY.md - {CHECK-ID} - {citation}`
 **Possible Attack Scenario:** One or two sentences.
 
+#### Picture in your head
+
+Concrete mental model, analogy, or before/after story a non-expert can picture (not jargon-only). Prefer ending complex explanations with **In even simpler terms...** or **Here's a practical example:**.
+
 | Resolution row | Content |
 |---|---|
 | Pattern | SKILL.md section 8 - {CHECK-ID} - {pattern name} |
@@ -162,10 +171,12 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 
 Before saving the report, verify:
 
-- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 - Every Verify row includes an action and pass signal.
 - Frontend JS-only frame busting appears as a Fail, never Pass (HDR04).
 - Placing `frame-ancestors` in a `<meta>` tag is a Fail (HDR02).
+- `'unsafe-inline'` or `'unsafe-eval'` in `style-src` is a Fail (HDR15), including when `script-src` is already strict.
+- Inline `style=` in reviewed Thymeleaf templates or UI JS HTML sinks is a Fail (HDR16) unless nonce/hash style CSP is fully documented and applied.
 - Every N/A has proof.
 - Every MANUAL_REVIEW has exact missing evidence and follow-up action.
 - Executive Summary counts match Findings and Manual Review.

@@ -22,8 +22,9 @@ Read completely before scanning:
 | Agent file | `.cursor/agents/supply_chain_reviewer.md` |
 | Skill directory | `.cursor/skills/supply_chain_reviewer/` |
 | Cursor invoke name | `supply_chain_reviewer` |
-| Report path | `AI/supply_chain_reviewer/supply_chain_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/supply_chain_reviewer/supply_chain_reviewer_report.md` |
 | Report reviewer line | `supply_chain_reviewer v2.0 STRICT` |
+| Fleet position line | `#22 — Phase 7 (Build, container, frontend supply)` |
 
 **STRICT mode:** Fixed severity per CHECK-ID. Every finding gets its own Resolution with five rows: Pattern, Mechanism, Security property, Prohibited, Verify. Only Evidence may quote project source.
 
@@ -77,7 +78,7 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 
 ## Step 4 - Write Report
 
-**Path:** `AI/supply_chain_reviewer/supply_chain_reviewer_report.md` (create `AI/supply_chain_reviewer/` if missing)
+**Path:** `AI/agents/security_reviewers/supply_chain_reviewer/supply_chain_reviewer_report.md` (create `AI/agents/security_reviewers/supply_chain_reviewer/` if missing)
 
 ### Out-of-scope report
 
@@ -89,6 +90,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 # Frontend Supply Chain Security Report - {PROJECT_NAME}
 
 **Reviewer:** supply_chain_reviewer v2.0 STRICT
+**Fleet position:** #22 — Phase 7 (Build, container, frontend supply)
 **Date:** {date}
 **Mode:** STRICT
 **Stack status:** IN SCOPE
@@ -125,6 +127,10 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 **Policy Rule:** `POLICY.md - {CHECK-ID} - {citation}`
 **Possible Attack Scenario:** One or two sentences.
 
+#### Picture in your head
+
+Concrete mental model, analogy, or before/after story a non-expert can picture (not jargon-only). Prefer ending complex explanations with **In even simpler terms...** or **Here's a practical example:**.
+
 | Resolution row | Content |
 |---|---|
 | Pattern | SKILL.md section 8 - {CHECK-ID} - {pattern name} |
@@ -146,7 +152,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 
 Before saving the report, verify:
 
-- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 - Every Verify row includes an action and pass signal.
 - Using third-party CDN scripts without SRI is a Critical failure (SUP01).
 - SUP02 allow-list documented in Scope Notes before external scripts scored.

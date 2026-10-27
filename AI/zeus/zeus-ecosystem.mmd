@@ -1,0 +1,203 @@
+%% Zeus Ecosystem — flow + every toolkit file/folder
+%% Render: VS Code Mermaid preview, mermaid.live, or GitHub
+%% Excludes external design docs (AI/*.md planning files outside this toolkit)
+
+flowchart TB
+
+  %% ═══════════════════════════════════════════════════════════════
+  %% ① TURN LOOP — what Zeus does each session
+  %% ═══════════════════════════════════════════════════════════════
+
+  HUMAN(["👤 Human<br/>Brief · Override · Escalation response"])
+
+  subgraph LOOP["① Zeus Turn Loop"]
+    direction TB
+    T1["TURN 1 — PLAN<br/>Read state + overrides + kill-switch<br/>Tier 0 validate brief · Build DAG<br/>Report critical path"]
+    T2["TURN 2 — DISPATCH<br/>Batch all ready DAG nodes<br/>Assemble brief + contract per agent"]
+    T3["TURN 3 — CONVERGE<br/>Read progress snapshots<br/>Run Tier 2 gates · Update state + journal"]
+    TN["TURN N — REPEAT<br/>Until DAG exhausted"]
+    TC["FINAL — CLOSE<br/>Tier 3 sign-off<br/>Write session report"]
+    T1 --> T2 --> T3 --> TN --> TC
+  end
+
+  HUMAN -->|"brief / questions"| T1
+  TC -->|"session report"| HUMAN
+
+  %% ═══════════════════════════════════════════════════════════════
+  %% ② ZEUS ORCHESTRATOR — configuration that defines Zeus
+  %% ═══════════════════════════════════════════════════════════════
+
+  subgraph ORCH["② Zeus Orchestrator (.cursor/)"]
+    direction TB
+    ZEUS_MD["agents/zeus.md<br/>━━━━━━<br/>Orchestrator role · turn loop<br/>Tier 0–3 gates · DAG rules<br/>Escalation · kill-switch · contracts<br/>Default output path rule"]
+    ORCH_MD["rules/orchestration.md<br/>━━━━━━<br/>Constitution for all agents<br/>14 principles · contract schema<br/>Progress snapshot schema<br/>File-system separation rules"]
+  end
+
+  T1 & T2 & T3 & TC -.->|"governed by"| ZEUS_MD
+  ZEUS_MD -.->|"extends"| ORCH_MD
+
+  %% ═══════════════════════════════════════════════════════════════
+  %% ③ .zeus/ — persistent + ephemeral (Zeus-managed)
+  %% ═══════════════════════════════════════════════════════════════
+
+  subgraph DOTZEUS["③ .zeus/ — Zeus-managed project state"]
+    direction TB
+
+    subgraph ZROOT["Root (tracked)"]
+      STATE["state.json<br/>SSoT: session · tasks · locks · dag_version"]
+      DAG["dag.json<br/>DAG nodes · edges · confidence · critical path"]
+    end
+
+    subgraph ZEPH["Ephemeral runtime (gitignored — created per session)"]
+      direction TB
+      JOURNAL["journal/session-YYYYMMDD.jsonl<br/>Append-only event log"]
+      JARCH["journal/archive/<br/>Past sessions · compressed"]
+      PROG["progress/(task_id).json<br/>Agent completion snapshots"]
+      OVR["overrides/(task_id).json<br/>Human mid-session overrides<br/>REDIRECT · CANCEL · FORCE_PASS…"]
+      GATES["gates/session-YYYYMMDD.jsonl<br/>Automated gate execution log"]
+      SREP["session-reports/YYYYMMDD-UUID.md<br/>End-of-session summary"]
+      SREP_SIM["session-reports/simulate-UUID.md<br/>Simulation-mode report"]
+      PEND["pending/(tool-name)/<br/>SPEC.md · audit-record.json<br/>Beta tools awaiting review"]
+    end
+
+    subgraph ZTASKS["tasks/ — human planning views (tracked)"]
+      TODO["todo.md<br/>Human roadmap · implementation checklist"]
+      TLESS["lessons.md<br/>Human view → memory/lessons.md"]
+      TDEC["decisions.md<br/>Human view → memory/decisions/"]
+    end
+
+    subgraph ZMEM["memory/ — persistent project knowledge (tracked)"]
+      direction TB
+      LESS["lessons.md<br/>Tagged lessons · machine source"]
+      IDX["index.json<br/>Tag → lesson ID retrieval index"]
+      DEC_IDX["decisions/index.md<br/>ADR index"]
+      DEC_ADR["decisions/adr-NNN.md<br/>Pattern — one file per decision"]
+      PAT["patterns/.gitkeep<br/>Reusable playbooks placeholder"]
+      AE["agent-effectiveness/<br/>Per-agent metrics JSON"]
+      AE_Z["zeus.json"]
+      AE_A["architect.json"]
+      AE_B["backend.json"]
+      AE_F["frontend.json"]
+      AE_Q["qa.json"]
+      AE_S["security.json"]
+      AE_D["devops.json"]
+      AE --> AE_Z & AE_A & AE_B & AE_F & AE_Q & AE_S & AE_D
+    end
+
+    subgraph ZSCHEMA["schemas/ — JSON contracts (tracked)"]
+      direction LR
+      SCH_S["state.schema.json"]
+      SCH_D["dag.schema.json"]
+      SCH_C["contract.schema.json"]
+      SCH_P["progress-snapshot.schema.json"]
+      SCH_J["journal-entry.schema.json"]
+      SCH_O["override.schema.json"]
+      SCH_G["gate-log.schema.json"]
+      SCH_A["agent-effectiveness.schema.json"]
+    end
+
+    subgraph ZTOOLS["tools/ (tracked)"]
+      REG["registry.json<br/>Approved on-the-fly tool registry"]
+    end
+  end
+
+  %% Turn-loop I/O arrows
+  T1 -->|"read/write"| STATE & DAG & OVR
+  T1 -->|"read"| JOURNAL
+  T2 -->|"read locks + lessons + ADRs"| ZMEM
+  T2 -->|"dispatch"| SUBAGENTS
+  T3 -->|"read"| PROG & GATES
+  T3 -->|"write"| STATE & JOURNAL
+  TC -->|"write"| SREP
+
+  %% ═══════════════════════════════════════════════════════════════
+  %% ④ AI/zeus/ — user-visible deliverables
+  %% ═══════════════════════════════════════════════════════════════
+
+  subgraph AIZEUS["④ AI/zeus/ — default deliverable sink"]
+    OUT_KEEP["output/.gitkeep<br/>Preserves folder in git"]
+    OUT_RT["output/(session_id)/(task_id)/<br/>Default artifacts when contract<br/>has no explicit output path<br/>gitignored at runtime"]
+    OUT_KEEP --- OUT_RT
+  end
+
+  T2 -->|"default output path"| OUT_RT
+  SUBAGENTS -->|"writes artifacts"| OUT_RT
+
+  %% ═══════════════════════════════════════════════════════════════
+  %% ⑤ SUBAGENTS — single block (all worker agents + their toolkit)
+  %% ═══════════════════════════════════════════════════════════════
+
+  subgraph SUBAGENTS["⑤ Subagents — dispatched by Zeus (one block)"]
+    direction TB
+
+    SA_BRIEFS[".cursor/agents/ — 32 agent briefs<br/>━━━━━━<br/>6 core: architect · backend · frontend<br/>qa · security · devops<br/>━━━━━━<br/>26 security reviewers:<br/>actuator · application_rate_limit · authorization<br/>clickjacking_headers · container_secrets · cors · csrf<br/>cryptography · disclosure · file_upload_inclusion<br/>identifier_enumeration · injection · input_validation<br/>mass_assignment · middleware_tls_dos · open_redirect<br/>password_credentials · security_logging_monitoring<br/>security_testing · session · ssrf · step_up_auth<br/>supply_chain · unsafe_parsing_deserialization<br/>vulnerability · xss_encoding"]
+
+    SA_SKILLS[".cursor/skills/ — 26 reviewer skill dirs<br/>Each: SKILL.md + POLICY.md<br/>(52 files total)"]
+
+    SA_RULES[".cursor/rules/ — 26 reviewer rules<br/>*.mdc — auto-invoke reviewers on matching globs"]
+
+    SA_EXTRA[".cursor/extra/agents/reviewer/<br/>ATTACK_SURFACE_INVENTORY.md<br/>FLEET_INVOCATION_ORDER.md<br/>REVIEWER_TEMPLATE.md<br/>SCORING_REVIEWER_AGENT_MECHANISM.md"]
+
+    SA_SCRIPTS[".cursor/scripts/agents/<br/>security_testing_reviewer/run-zap-dast.ps1<br/>vulnerability_reviewer/run-vulnerability-scan.ps1"]
+
+    SA_REPORTS["AI/agents/security_reviewers/(agent)/(agent)_report.md<br/>Runtime scan reports — created per run"]
+
+    SA_BRIEFS --> SA_SKILLS & SA_RULES & SA_EXTRA & SA_SCRIPTS
+    SA_SKILLS & SA_RULES --> SA_REPORTS
+  end
+
+  T2 -->|"loads .cursor/agents/(agent-name).md"| SA_BRIEFS
+  SUBAGENTS -->|"write snapshot"| PROG
+
+  %% ═══════════════════════════════════════════════════════════════
+  %% ⑥ SAFETY + GITIGNORE contract
+  %% ═══════════════════════════════════════════════════════════════
+
+  subgraph SAFETY["⑥ Safety & repo hygiene"]
+    KILL[".kill-switch (repo root)<br/>Atomic session abort — checked each turn"]
+    GIT[".gitignore<br/>Ignores: journal · progress · gates<br/>session-reports · overrides · pending<br/>AI/zeus/output/* (keeps .gitkeep)"]
+  end
+
+  T1 -->|"if exists → abort"| KILL
+  ZEPH -.->|"paths listed in"| GIT
+  OUT_RT -.->|"paths listed in"| GIT
+
+  %% ═══════════════════════════════════════════════════════════════
+  %% ⑦ QUALITY GATE TIERS (reference)
+  %% ═══════════════════════════════════════════════════════════════
+
+  subgraph GATES_REF["⑦ Quality Gate Tiers (reference)"]
+    direction LR
+    G0["Tier 0<br/>Zeus validates brief<br/>before dispatch"]
+    G1["Tier 1<br/>Agent self-check<br/>during work"]
+    G2["Tier 2<br/>Contract DoD + gates G0–G8<br/>on handoff"]
+    G3["Tier 3<br/>Zeus closure sign-off"]
+    G0 --> G1 --> G2 --> G3
+  end
+
+  T1 -.-> G0
+  SUBAGENTS -.-> G1
+  T3 -.-> G2
+  TC -.-> G3
+
+  %% ═══════════════════════════════════════════════════════════════
+  %% Styling
+  %% ═══════════════════════════════════════════════════════════════
+
+  classDef human fill:#e8f4fc,stroke:#2563eb,stroke-width:2px
+  classDef loop fill:#fef9c3,stroke:#ca8a04,stroke-width:2px
+  classDef orch fill:#fce7f3,stroke:#db2777,stroke-width:2px
+  classDef persistent fill:#dcfce7,stroke:#16a34a,stroke-width:1px
+  classDef ephemeral fill:#f3f4f6,stroke:#6b7280,stroke-width:1px,stroke-dasharray:5 5
+  classDef subagent fill:#ede9fe,stroke:#7c3aed,stroke-width:2px
+  classDef deliver fill:#ffedd5,stroke:#ea580c,stroke-width:2px
+  classDef safety fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+
+  class HUMAN human
+  class T1,T2,T3,TN,TC loop
+  class ZEUS_MD,ORCH_MD orch
+  class STATE,DAG,TODO,TLESS,TDEC,LESS,IDX,DEC_IDX,DEC_ADR,PAT,AE,REG,SCH_S,SCH_D,SCH_C,SCH_P,SCH_J,SCH_O,SCH_G,SCH_A persistent
+  class JOURNAL,JARCH,PROG,OVR,GATES,SREP,SREP_SIM,PEND,OUT_RT ephemeral
+  class SA_BRIEFS,SA_SKILLS,SA_RULES,SA_EXTRA,SA_SCRIPTS,SA_REPORTS subagent
+  class OUT_KEEP,OUT_RT deliver
+  class KILL,GIT safety

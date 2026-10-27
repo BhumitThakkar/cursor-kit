@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/input_validation_reviewer.md` |
 | Skill directory | `.cursor/skills/input_validation_reviewer/` |
 | Cursor invoke name | `input_validation_reviewer` |
-| Report path | `AI/input_validation_reviewer/input_validation_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/input_validation_reviewer/input_validation_reviewer_report.md` |
 | Report reviewer line | `input_validation_reviewer v1.0 STRICT` |
+| Fleet position line | `#1 — Phase 1 (Input & injection)` |
 
 ---
 
@@ -203,6 +204,7 @@ Every scored finding must include:
 | Evidence | Exact source/config/test line or runtime proof |
 | Policy Rule | `POLICY.md - {CHECK-ID} - {citation}` |
 | Possible Attack Scenario | Realistic impact in one or two sentences |
+| Picture in your head | Mandatory `#### Picture in your head` — concrete mental model / analogy / before-after; prefer **In even simpler terms...** or **Here's a practical example:** |
 | Resolution | Five rows from section 8 |
 
 Evidence is the only field that may quote project source. Resolution rows are prose, not pasteable code.

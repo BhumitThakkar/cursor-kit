@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/authorization_reviewer.md` |
 | Cursor invoke name | `authorization_reviewer` |
-| Report path | `AI/authorization_reviewer/authorization_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/authorization_reviewer/authorization_reviewer_report.md` |
 | Report reviewer line | `authorization_reviewer v2.0 STRICT` |
+| Fleet position line | `#7 — Phase 3 (Access control)` |
 
 ---
 
@@ -25,6 +26,8 @@ Every finding must cite one row from Appendix A:
 ## Resolution Requirement
 
 Every finding: five Resolution rows (Pattern, Mechanism, Security property, Prohibited, Verify). Only Evidence may quote source.
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after (prefer **In even simpler terms...** or **Here's a practical example:**). See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 ---
 

@@ -19,8 +19,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/actuator_reviewer.md` |
 | Skill directory | `.cursor/skills/actuator_reviewer/` |
 | Cursor invoke name | `actuator_reviewer` |
-| Report path | `AI/actuator_reviewer/actuator_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/actuator_reviewer/actuator_reviewer_report.md` |
 | Report reviewer line | `actuator_reviewer v1.0 STRICT` |
+| Fleet position line | `#19 — Phase 6 (Disclosure)` |
 
 ---
 
@@ -49,7 +50,7 @@ Run after project name is known. **Do not score CHECK-IDs** until Spring Boot is
 
 ### 1.2 Out-of-scope report
 
-Output: `AI/actuator_reviewer/actuator_reviewer_report.md`
+Output: `AI/agents/security_reviewers/actuator_reviewer/actuator_reviewer_report.md`
 
 ```
 Project "{PROJECT_NAME}" is out of scope for actuator_reviewer because it uses {TECHNOLOGY}, which is not a Spring Boot application.
@@ -162,13 +163,16 @@ Policy citation: `POLICY.md · {CHECK-ID} — {citation string from Appendix A}`
 
 ## 5. Finding format
 
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after story. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Place after Evidence / Policy Rule / Possible Attack Scenario and before Resolution rows.
+
 Every **scored** finding includes:
 
 1. **File** — path and line  
 2. **Evidence** — offending line (only field that may quote source code)  
 3. **Policy Rule** — Appendix A citation  
 4. **Possible Attack Scenario** — **§5.1**  
-5. **Resolution** — five rows per **§5.2** and **§6**
+5. **Picture in your head** — mandatory `#### Picture in your head` mental model / analogy / before-after; prefer **In even simpler terms...** or **Here's a practical example:**
+6. **Resolution** — five rows per **§5.2** and **§6**
 
 ### 5.1 Possible Attack Scenario
 

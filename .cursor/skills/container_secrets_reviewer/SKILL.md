@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/container_secrets_reviewer.md` |
 | Skill directory | `.cursor/skills/container_secrets_reviewer/` |
 | Cursor invoke name | `container_secrets_reviewer` |
-| Report path | `AI/container_secrets_reviewer/container_secrets_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/container_secrets_reviewer/container_secrets_reviewer_report.md` |
 | Report reviewer line | `container_secrets_reviewer v1.1 STRICT` |
+| Fleet position line | `#21 — Phase 7 (Build, container, frontend supply)` |
 
 ---
 
@@ -144,7 +145,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

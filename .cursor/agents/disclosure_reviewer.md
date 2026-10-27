@@ -15,6 +15,7 @@ description: >-
 2. `.cursor/skills/disclosure_reviewer/POLICY.md` (§ related reviewers)
 
 | Report line | `disclosure_reviewer v2.0 STRICT` |
+| Fleet position line | `#20 — Phase 6 (Disclosure)` |
 
 ---
 
@@ -51,12 +52,16 @@ description: >-
 
 ## Step 4 - Report
 
-`AI/disclosure_reviewer/disclosure_reviewer_report.md`
+**Finding storytelling (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
+
+`AI/agents/security_reviewers/disclosure_reviewer/disclosure_reviewer_report.md`
 
 Scope Notes must include companion reviewer report paths when applicable.
 
 ---
 
+
+**Mandatory report header:** `**Reviewer:** disclosure_reviewer v... STRICT` and `**Fleet position:** #20 — Phase 6 (Disclosure)` immediately under the title (see `SCORING_REVIEWER_AGENT_MECHANISM.md` · Required report header).
 ## Step 5 - Validation
 
 - Stack traces in prod responses → DISC02 Critical Fail.

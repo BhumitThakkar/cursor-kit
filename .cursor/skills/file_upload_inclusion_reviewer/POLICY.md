@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/file_upload_inclusion_reviewer.md` |
 | Cursor invoke name | `file_upload_inclusion_reviewer` |
-| Report path | `AI/file_upload_inclusion_reviewer/file_upload_inclusion_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/file_upload_inclusion_reviewer/file_upload_inclusion_reviewer_report.md` |
 | Report reviewer line | `file_upload_inclusion_reviewer v1.0 STRICT` |
+| Fleet position line | `#14 — Phase 5 (Abuse surfaces)` |
 
 ---
 
@@ -30,6 +31,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 

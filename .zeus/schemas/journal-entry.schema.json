@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Journal Entry",
-  "description": "Immutable append-only event journal entry. Every action is a journal entry — nothing happens unrecorded. See Part I §1 of cursor-kit-v2-FINAL.md.",
+  "description": "Immutable append-only event journal entry. Every action is a journal entry — nothing happens unrecorded.",
   "type": "object",
   "required": ["seq", "ts", "type", "source", "payload"],
   "properties": {

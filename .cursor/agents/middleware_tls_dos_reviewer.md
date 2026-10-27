@@ -22,8 +22,9 @@ Read completely before scanning:
 | Agent file | `.cursor/agents/middleware_tls_dos_reviewer.md` |
 | Skill directory | `.cursor/skills/middleware_tls_dos_reviewer/` |
 | Cursor invoke name | `middleware_tls_dos_reviewer` |
-| Report path | `AI/middleware_tls_dos_reviewer/middleware_tls_dos_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/middleware_tls_dos_reviewer/middleware_tls_dos_reviewer_report.md` |
 | Report reviewer line | `middleware_tls_dos_reviewer v1.0 STRICT` |
+| Fleet position line | `#23 — Phase 8 (Platform & assurance)` |
 
 **STRICT mode:** Fixed severity per CHECK-ID. **Frontend-only validation is always Fail.** Every finding gets its own Resolution with five rows: Pattern, Mechanism, Security property, Prohibited, Verify. Only Evidence may quote project source.
 
@@ -87,7 +88,7 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 
 ## Step 4 - Write Report
 
-**Path:** `AI/middleware_tls_dos_reviewer/middleware_tls_dos_reviewer_report.md` (create `AI/middleware_tls_dos_reviewer/` if missing)
+**Path:** `AI/agents/security_reviewers/middleware_tls_dos_reviewer/middleware_tls_dos_reviewer_report.md` (create `AI/agents/security_reviewers/middleware_tls_dos_reviewer/` if missing)
 
 ### Out-of-scope report
 
@@ -99,6 +100,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 # Middleware, TLS & DoS Security Report - {PROJECT_NAME}
 
 **Reviewer:** middleware_tls_dos_reviewer v1.0 STRICT
+**Fleet position:** #23 — Phase 8 (Platform & assurance)
 **Date:** {date}
 **Mode:** STRICT
 **Stack status:** IN SCOPE
@@ -136,6 +138,10 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 **Policy Rule:** `POLICY.md - {CHECK-ID} - {citation}`
 **Possible Attack Scenario:** One or two sentences.
 
+#### Picture in your head
+
+Concrete mental model, analogy, or before/after story a non-expert can picture (not jargon-only). Prefer ending complex explanations with **In even simpler terms...** or **Here's a practical example:**.
+
 | Resolution row | Content |
 |---|---|
 | Pattern | SKILL.md section 8 - {CHECK-ID} - {pattern name} |
@@ -157,7 +163,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 
 Before saving the report, verify:
 
-- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 - Every Verify row includes an action and pass signal.
 - Missing outbound HTTP timeouts is a Critical failure (MTD07).
 - Missing request body limits is a High failure (MTD06).

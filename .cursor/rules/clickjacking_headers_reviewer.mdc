@@ -1,16 +1,18 @@
 ---
 description: >-
-  Cursor rule for clickjacking_headers_reviewer v2.0 STRICT. Frame-ancestors,
-  HSTS, CSP, nosniff, defaultsDisabled, Referrer-Policy, cache control.
+  Cursor rule for clickjacking_headers_reviewer v2.1 STRICT. Frame-ancestors,
+  HSTS, CSP script-src and style-src, nosniff, defaultsDisabled, Referrer-Policy,
+  cache control, no inline style attributes.
 globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
 alwaysApply: false
 ---
 
-# Clickjacking & Headers Reviewer Rule v2.0 STRICT
+# Clickjacking & Headers Reviewer Rule v2.1 STRICT
 
 Invoke **`clickjacking_headers_reviewer`** -> `.cursor/agents/clickjacking_headers_reviewer.md`.
 
-| Report line | `clickjacking_headers_reviewer v2.0 STRICT` |
+| Report line | `clickjacking_headers_reviewer v2.1 STRICT` |
+| Fleet position line | `#12 — Phase 4 (Browser & transport)` |
 
 ## Non-negotiable rules
 
@@ -18,3 +20,9 @@ Invoke **`clickjacking_headers_reviewer`** -> `.cursor/agents/clickjacking_heade
 2. **JS-only frame busting without HTTP headers is FAIL (HDR04).**
 3. **Unguarded `defaultsDisabled()` is FAIL (HDR09).**
 4. **HSTS absent or max-age zero is FAIL (HDR07).**
+5. **`unsafe-inline` / `unsafe-eval` in `script-src` is FAIL (HDR11).**
+6. **`unsafe-inline` / `unsafe-eval` in `style-src` is FAIL (HDR15)** — strict `script-src` does not excuse weak `style-src`.
+7. **Inline `style=` on Thymeleaf templates or UI JS HTML sinks is FAIL (HDR16)** unless nonce/hash style CSP is fully evidenced.
+
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.

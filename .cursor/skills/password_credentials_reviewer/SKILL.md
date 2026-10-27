@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/password_credentials_reviewer.md` |
 | Skill directory | `.cursor/skills/password_credentials_reviewer/` |
 | Cursor invoke name | `password_credentials_reviewer` |
-| Report path | `AI/password_credentials_reviewer/password_credentials_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/password_credentials_reviewer/password_credentials_reviewer_report.md` |
 | Report reviewer line | `password_credentials_reviewer v1.0 STRICT` |
+| Fleet position line | `#3 — Phase 2 (Identity & credentials)` |
 
 ---
 
@@ -191,7 +192,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

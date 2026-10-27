@@ -17,8 +17,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/supply_chain_reviewer.md` |
 | Skill directory | `.cursor/skills/supply_chain_reviewer/` |
 | Cursor invoke name | `supply_chain_reviewer` |
-| Report path | `AI/supply_chain_reviewer/supply_chain_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/supply_chain_reviewer/supply_chain_reviewer_report.md` |
 | Report reviewer line | `supply_chain_reviewer v2.0 STRICT` |
+| Fleet position line | `#22 — Phase 7 (Build, container, frontend supply)` |
 
 ---
 
@@ -114,7 +115,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

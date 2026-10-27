@@ -10,8 +10,9 @@ Every finding must cite exactly one row from **Appendix A**:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/actuator_reviewer.md` |
 | Cursor invoke name | `actuator_reviewer` |
-| Report path | `AI/actuator_reviewer/actuator_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/actuator_reviewer/actuator_reviewer_report.md` |
 | Report reviewer line | `actuator_reviewer v1.0 STRICT` |
+| Fleet position line | `#19 — Phase 6 (Disclosure)` |
 
 ---
 
@@ -28,6 +29,8 @@ Procedure: **SKILL.md §2.1**. Wildcard `*` in web exposure is forbidden.
 ---
 
 ## Resolution requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding **must** include a **Resolution** structured per **SKILL.md §6** for that CHECK-ID.
 

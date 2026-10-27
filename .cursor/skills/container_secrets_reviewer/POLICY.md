@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/container_secrets_reviewer.md` |
 | Cursor invoke name | `container_secrets_reviewer` |
-| Report path | `AI/container_secrets_reviewer/container_secrets_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/container_secrets_reviewer/container_secrets_reviewer_report.md` |
 | Report reviewer line | `container_secrets_reviewer v1.1 STRICT` |
+| Fleet position line | `#21 — Phase 7 (Build, container, frontend supply)` |
 
 **Scope:** Dockerfile hygiene, `.gitignore` secret patterns, and Spring properties secrets. Maven BOM/OWASP/plugin pins are owned by `vulnerability_reviewer`. CDN scripts are owned by `supply_chain_reviewer`.
 
@@ -43,6 +44,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 

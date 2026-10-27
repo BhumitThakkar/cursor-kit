@@ -15,8 +15,9 @@ disable-model-invocation: true
 | Agent file | `.cursor/agents/identifier_enumeration_reviewer.md` |
 | Skill directory | `.cursor/skills/identifier_enumeration_reviewer/` |
 | Cursor invoke name | `identifier_enumeration_reviewer` |
-| Report path | `AI/identifier_enumeration_reviewer/identifier_enumeration_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/identifier_enumeration_reviewer/identifier_enumeration_reviewer_report.md` |
 | Report reviewer line | `identifier_enumeration_reviewer v1.0 STRICT` |
+| Fleet position line | `#8 — Phase 3 (Access control)` |
 
 ---
 
@@ -140,7 +141,7 @@ Create MANUAL_REVIEW items when:
 
 ## 7. Report Requirements
 
-Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+Every scored finding must include: File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 
 ### 7.1 Verify Row Rules
 

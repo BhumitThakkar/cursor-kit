@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/xss_encoding_reviewer.md` |
 | Cursor invoke name | `xss_encoding_reviewer` |
-| Report path | `AI/xss_encoding_reviewer/xss_encoding_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/xss_encoding_reviewer/xss_encoding_reviewer_report.md` |
 | Report reviewer line | `xss_encoding_reviewer v2.0 STRICT` |
+| Fleet position line | `#11 — Phase 4 (Browser & transport)` |
 
 ---
 
@@ -25,6 +26,8 @@ Every finding must cite one row from Appendix A:
 ## Resolution Requirement
 
 Five Resolution rows per finding. Only Evidence may quote source. See **SKILL.md §9–10**.
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after (prefer **In even simpler terms...** or **Here's a practical example:**).
 
 ---
 

@@ -1,7 +1,11 @@
+---
+alwaysApply: true
+---
+
 # Orchestration Rules — The Constitution
 
-> These rules apply to ALL agents in the cursor-kit orchestration system.
-> Source: cursor-kit v2.0 — THE DEFINITIVE IMPLEMENTATION BLUEPRINT
+> These rules apply to ALL agents in the Zeus orchestration system.
+> Source: Zeus orchestration constitution (v2)
 
 ## The Core Axiom
 
@@ -44,11 +48,12 @@ This is not a live operating system. It is a **commit engine with memory.**
 
 | Layer | Path | Purpose |
 |-------|------|---------|
-| Machine | `.zeus/` | State, journal, DAG, progress, memory, gates |
+| Zeus-managed | `.zeus/` | State, journal, DAG, progress, memory, gates, tools |
+| Human task board | `AI/input/tasks/` | Human-facing todo / lessons pointer / decisions pointer — **always under `AI/input/tasks/`**, never repo-root `tasks/` or `.zeus/tasks/` |
 | Configuration | `.cursor/` | Rules, agent briefs |
-| Human | `tasks/` | Task board, lessons, decisions |
+| Deliverables | `AI/zeus/output/` | Default task output when no explicit path is given |
 
-**Separation principle:** `.zeus/` is the machine. `.cursor/` is the configuration. `tasks/` is the human interface.
+**Separation principle:** `.zeus/` is the machine. `AI/input/tasks/` is the human task board. `.cursor/` is agent configuration. `AI/zeus/output/` is the user-visible deliverable sink for unspecified outputs.
 
 ---
 
@@ -62,6 +67,9 @@ Every task dispatched by Zeus **must** include:
 | `output` | What the task must produce (specific files/methods/deliverables) |
 | `definition_of_done` | Measurable, binary criteria (verifiable by automation or inspection) |
 | `validation` | Exact command or procedure to verify the contract |
+| `pattern_reference` | Optional. Existing sibling path or symbol in the same codebase that the implementation must match for style and structure. Filled at dispatch from the project under review. |
+
+**Default output:** If `output` paths are not specified in the brief, Zeus resolves them to `AI/zeus/output/{session_id}/{task_id}/` before dispatch.
 
 **Good vs. Bad contracts:**
 
@@ -71,6 +79,7 @@ Every task dispatched by Zeus **must** include:
 | "Make sure it's secure" | "No hardcoded secrets. `git secrets --scan` exits 0." |
 | "Write tests" | "JaCoCo XML coverage ≥ 85% on `user-module`." |
 | "Follow best practices" | "No `System.out.println`. `@Slf4j` for logging." |
+| "Add validation the clean way" | "Match `pattern_reference` field annotations/structure; `validation` command exits 0; no new helper that only holds a single constant." |
 
 ---
 
@@ -88,3 +97,24 @@ Every agent writes on completion to `.zeus/progress/{task_id}.json`:
 | `gate_self_check` | Yes | PASS / FAIL / PARTIAL |
 | `notes` | Conditional | Mandatory when flagging items for downstream agents |
 | `updated_at` | Yes | ISO8601 timestamp |
+
+**Artifact truth:** Every path in `artifacts` must exist on disk when the snapshot is written. Remove entries for deleted or renamed files. Do not list planned-but-removed paths.
+
+---
+
+## Acceptance Gate
+
+`gate_self_check` is the implementing agent's **claim**, not acceptance.
+
+The dispatcher (Zeus parent turn, or the human operator) **must** re-run the contract `validation` procedure before treating the task as done. A subagent saying PASS is insufficient.
+
+### Before accepting a code or report task
+
+1. **Re-run `validation`** — execute the exact command/procedure from the contract; require exit success (or documented PASS criteria).
+2. **House style / DRY** — before inventing a new helper, constant class, or wrapper, locate an existing sibling in the same codebase (`pattern_reference` when provided). Prefer that pattern. Add a new abstraction only when it owns real behavior (multi-step logic, shared algorithms), not a single shared literal.
+3. **Artifact truth** — confirm every `artifacts[]` path exists; fix the snapshot if not.
+4. **Report truth** — if a report path is in `output`, evidence and status tables must describe **current** code after the change, not the pre-change defect wording.
+
+### Done means
+
+Contract `validation` succeeded **and** the checks above passed. Only then may the next sequential task start or the session close the task as complete.

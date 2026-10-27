@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Zeus State Store",
-  "description": "Single source of truth for the orchestration system. Derived state is never stored — only ground truth. See Part I §2 of cursor-kit-v2-FINAL.md.",
+  "description": "Single source of truth for the orchestration system. Derived state is never stored — only ground truth.",
   "type": "object",
   "required": ["session", "tasks", "locks", "dag_version"],
   "properties": {

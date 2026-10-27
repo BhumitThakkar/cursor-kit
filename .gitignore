@@ -10,6 +10,10 @@ Thumbs.db
 .zeus/overrides/
 .zeus/pending/
 
+# Zeus default deliverables (session artifacts)
+AI/zeus/output/*
+!AI/zeus/output/.gitkeep
+
 # Keep these tracked in git:
 # .zeus/state.json
 # .zeus/dag.json

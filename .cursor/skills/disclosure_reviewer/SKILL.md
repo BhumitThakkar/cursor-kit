@@ -7,7 +7,8 @@ disable-model-invocation: true
 # Information Disclosure Security Reviewer - Scan Skill v2.0 STRICT
 
 | Report line | `disclosure_reviewer v2.0 STRICT` |
-| Report path | `AI/disclosure_reviewer/disclosure_reviewer_report.md` |
+| Fleet position line | `#20 — Phase 6 (Disclosure)` |
+| Report path | `AI/agents/security_reviewers/disclosure_reviewer/disclosure_reviewer_report.md` |
 
 ---
 
@@ -23,8 +24,8 @@ Out of scope → mandatory wording; no CHECK-IDs scored.
 
 | Signal in project | Run first | Scope Notes must cite |
 |---|---|---|
-| `spring-boot-starter-actuator` | `actuator_reviewer` | `AI/actuator_reviewer/actuator_reviewer_report.md` |
-| Authenticated HTML (Thymeleaf, etc.) | `clickjacking_headers_reviewer` | `AI/clickjacking_headers_reviewer/clickjacking_headers_reviewer_report.md` |
+| `spring-boot-starter-actuator` | `actuator_reviewer` | `AI/agents/security_reviewers/actuator_reviewer/actuator_reviewer_report.md` |
+| Authenticated HTML (Thymeleaf, etc.) | `clickjacking_headers_reviewer` | `AI/agents/security_reviewers/clickjacking_headers_reviewer/clickjacking_headers_reviewer_report.md` |
 
 Do not grep or score `management.endpoints.*`, `show-details`, or `cacheControl()` for this agent.
 
@@ -96,6 +97,8 @@ Fail when passwords, tokens, or PANs are logged in cleartext.
 ---
 
 ## 7. Report Requirements
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after story. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Place after Evidence / Policy Rule / Possible Attack Scenario and before Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Possible Attack Scenario: 1–2 sentences. Five Resolution rows; Verify = action + pass signal.
 

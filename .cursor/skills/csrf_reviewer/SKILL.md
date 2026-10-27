@@ -13,8 +13,9 @@ disable-model-invocation: true
 | Artifact | Canonical value |
 |---|---|
 | Cursor invoke name | `csrf_reviewer` |
-| Report path | `AI/csrf_reviewer/csrf_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/csrf_reviewer/csrf_reviewer_report.md` |
 | Report reviewer line | `csrf_reviewer v2.0 STRICT` |
+| Fleet position line | `#10 — Phase 4 (Browser & transport)` |
 
 ---
 
@@ -149,6 +150,8 @@ As v1.0 — session mutations protected; SameSite not sole control; critical end
 ---
 
 ## 6. Report Requirements
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after story. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Place after Evidence / Policy Rule / Possible Attack Scenario and before Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Possible Attack Scenario: 1–2 sentences, plain English, no code fences.
 

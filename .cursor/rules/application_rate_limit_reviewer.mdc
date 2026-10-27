@@ -1,0 +1,43 @@
+---
+description: >-
+  Cursor rule for application_rate_limit_reviewer v2.0 STRICT. Two scored gates:
+  env-driven per-IP ingress (ARL01) and app-wide per-minute/per-hour throughput
+  (ARL02). Thymeleaf+AJAX server parity, storage-backend rule, OBS01�OBS04
+  advisory. Invoke agent only.
+globs: "**/*.java,**/*.kt,**/*.xml,**/*.html,**/*.js,**/application.properties,**/application.yml,**/application-*.properties,**/application-*.yml,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+alwaysApply: false
+---
+
+# Application Rate Limit Reviewer Rule v2.0 STRICT
+
+**Do not inline-audit.** Invoke **`application_rate_limit_reviewer`** -> `.cursor/agents/application_rate_limit_reviewer.md`.
+
+| Artifact | Path |
+|---|---|
+| Policy | `.cursor/skills/application_rate_limit_reviewer/POLICY.md` |
+| Scan skill | `.cursor/skills/application_rate_limit_reviewer/SKILL.md` |
+| Report path | `AI/agents/security_reviewers/application_rate_limit_reviewer/application_rate_limit_reviewer_report.md` |
+| Report line | `application_rate_limit_reviewer v2.0 STRICT` |
+| Fleet position line | `#18 � Phase 5 (Abuse surfaces)` |
+
+**POLICY.md wins.**
+
+## Invoke when
+
+Use before deploy or when rate-limit filters, `*ratelimit*`/`throttle` properties, ingress surfaces (Thymeleaf, AJAX, REST), forward-headers config, or bulk/async workload loops change.
+
+Skip for generated output, `target/`, `node_modules/`, and docs-only edits unless the docs define rate-limit policy.
+
+## Non-negotiable rules
+
+1. **Build ARL00 surface inventory before scoring ARL01�ARL02.**
+2. **ARL01 and ARL02 are the only scored gates � either missing, hardcoded, or disabled in prod = FAIL.**
+3. **Frontend-only throttle without server enforcement is always FAIL under ARL01.**
+4. **ARL02 requires both per-minute and per-hour app-wide caps � one alone is FAIL.**
+5. **Do not score PWD15, SUA04, MTD02, MTD06, or LOG01 � cross-reference sibling reviewers only.**
+6. **OBS01�OBS04 are advisory only � Advisory Notes (Satisfied/Gap/N/A), never scored; not Manual Review unless static evidence is genuinely insufficient (per `SCORING_REVIEWER_AGENT_MECHANISM.md`).**
+
+Allowed verdicts: **PASS**, **FAIL**, **MANUAL_REVIEW**, **N/A**. `UNCLEAR` is forbidden.
+
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.

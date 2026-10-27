@@ -2,6 +2,7 @@
 
 > **Human interface to the orchestration system.**
 > Machine state lives in `.zeus/state.json`. This file is for human planning and tracking.
+> Canonical path: `AI/input/tasks/` (not repo-root `tasks/`, not `.zeus/tasks/`).
 
 ## Implementation Roadmap
 

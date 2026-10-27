@@ -7,7 +7,8 @@ disable-model-invocation: true
 # Authorization Security Reviewer - Scan Skill v2.0 STRICT
 
 | Report line | `authorization_reviewer v2.0 STRICT` |
-| Report path | `AI/authorization_reviewer/authorization_reviewer_report.md` |
+| Fleet position line | `#7 — Phase 3 (Access control)` |
+| Report path | `AI/agents/security_reviewers/authorization_reviewer/authorization_reviewer_report.md` |
 
 ---
 
@@ -116,6 +117,8 @@ Fail when auth filter catch blocks log and call `chain.doFilter()` or otherwise 
 ---
 
 ## 6. Report Requirements
+
+**Picture in your head (mandatory):** Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head` — concrete mental model / analogy / before-after story. Prefer ending with **In even simpler terms...** or **Here's a practical example:**. Place after Evidence / Policy Rule / Possible Attack Scenario and before Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Possible Attack Scenario: 1–2 sentences. Five Resolution rows; Verify = action + pass signal.
 

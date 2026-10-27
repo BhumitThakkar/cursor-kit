@@ -23,8 +23,9 @@ Read completely before scanning:
 | Agent file | `.cursor/agents/identifier_enumeration_reviewer.md` |
 | Skill directory | `.cursor/skills/identifier_enumeration_reviewer/` |
 | Cursor invoke name | `identifier_enumeration_reviewer` |
-| Report path | `AI/identifier_enumeration_reviewer/identifier_enumeration_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/identifier_enumeration_reviewer/identifier_enumeration_reviewer_report.md` |
 | Report reviewer line | `identifier_enumeration_reviewer v1.0 STRICT` |
+| Fleet position line | `#8 — Phase 3 (Access control)` |
 
 **STRICT mode:** Fixed severity per CHECK-ID. **Frontend-only validation is always Fail.** Every finding gets its own Resolution with five rows: Pattern, Mechanism, Security property, Prohibited, Verify. Only Evidence may quote project source.
 
@@ -84,7 +85,7 @@ Record each result as **PASS**, **FAIL**, **MANUAL_REVIEW**, or **N/A**. `UNCLEA
 
 ## Step 4 - Write Report
 
-**Path:** `AI/identifier_enumeration_reviewer/identifier_enumeration_reviewer_report.md` (create `AI/identifier_enumeration_reviewer/` if missing)
+**Path:** `AI/agents/security_reviewers/identifier_enumeration_reviewer/identifier_enumeration_reviewer_report.md` (create `AI/agents/security_reviewers/identifier_enumeration_reviewer/` if missing)
 
 ### Out-of-scope report
 
@@ -96,6 +97,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 # Identifiers & Enumeration Security Report - {PROJECT_NAME}
 
 **Reviewer:** identifier_enumeration_reviewer v1.0 STRICT
+**Fleet position:** #8 — Phase 3 (Access control)
 **Date:** {date}
 **Mode:** STRICT
 **Stack status:** IN SCOPE
@@ -133,6 +135,10 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 **Policy Rule:** `POLICY.md - {CHECK-ID} - {citation}`
 **Possible Attack Scenario:** One or two sentences.
 
+#### Picture in your head
+
+Concrete mental model, analogy, or before/after story a non-expert can picture (not jargon-only). Prefer ending complex explanations with **In even simpler terms...** or **Here's a practical example:**.
+
 | Resolution row | Content |
 |---|---|
 | Pattern | SKILL.md section 8 - {CHECK-ID} - {pattern name} |
@@ -154,7 +160,7 @@ Use the mandatory wording from Step 2.5. No scored findings. Score: `N/A - out o
 
 Before saving the report, verify:
 
-- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, and five Resolution rows.
+- Every failed CHECK-ID has File, Evidence, Policy Rule, Possible Attack Scenario, `#### Picture in your head`, and five Resolution rows.
 - Every Verify row includes an action and pass signal.
 - Exposing sequential IDs as the sole API identifier for user-owned resources is Critical (ENUM01).
 - Missing ownership checks on resource operations is Critical (ENUM02).

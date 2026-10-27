@@ -11,8 +11,9 @@ Every finding must cite one row from Appendix A:
 | Scan procedure | `SKILL.md` |
 | Workflow + report | `.cursor/agents/open_redirect_reviewer.md` |
 | Cursor invoke name | `open_redirect_reviewer` |
-| Report path | `AI/open_redirect_reviewer/open_redirect_reviewer_report.md` |
+| Report path | `AI/agents/security_reviewers/open_redirect_reviewer/open_redirect_reviewer_report.md` |
 | Report reviewer line | `open_redirect_reviewer v1.0 STRICT` |
+| Fleet position line | `#13 — Phase 4 (Browser & transport)` |
 
 ---
 
@@ -30,6 +31,8 @@ Allowed values only:
 ---
 
 ## Resolution Requirement
+
+Every scored finding and Manual Review CHECK-ID explanation must include `#### Picture in your head`. Keep five Resolution rows. See `SCORING_REVIEWER_AGENT_MECHANISM.md`.
 
 Every finding must include a Resolution with five rows:
 
